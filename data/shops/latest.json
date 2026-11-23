@@ -1,6 +1,6 @@
 {
  "date": "2026-11-23",
- "fetchedAt": "2026-11-23T13:21:07.412Z",
+ "fetchedAt": "2026-11-23T13:27:46.705Z",
  "shops": [
   {
    "id": "card-corner",
@@ -10,7 +10,7 @@
    "raw": 245,
    "displays": 168,
    "matched": 165,
-   "seconds": 18
+   "seconds": 24
   },
   {
    "id": "gate-to-the-games",
@@ -20,7 +20,7 @@
    "raw": 172,
    "displays": 119,
    "matched": 119,
-   "seconds": 28
+   "seconds": 25
   },
   {
    "id": "trader-online",
@@ -56,11 +56,14 @@
    "id": "tcg-24",
    "name": "TCG-24",
    "ok": true,
-   "errors": [],
-   "raw": 26,
-   "displays": 18,
-   "matched": 18,
-   "seconds": 6
+   "errors": [
+    "https://tcg-24.de/wp-json/wc/store/v1/products?search=display&per_page=20&page=1: HTTP 403"
+   ],
+   "raw": 4,
+   "displays": 4,
+   "matched": 4,
+   "warning": "nur 4 Displays (vorher 18)",
+   "seconds": 3
   },
   {
    "id": "loco-tcg",
@@ -1535,7 +1538,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -1549,7 +1552,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -6542,20 +6545,6 @@
   },
   {
    "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Ewige Rivalen 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-ewige-rivalen-36er-display-de/",
-   "price": 279.95,
-   "shipping": 0,
-   "total": 279.95,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 818574,
-   "cmName": "Destined Rivals Booster Box"
-  },
-  {
-   "shop": "tcg-24",
    "title": "Pokemon Display Wachsendes Chaos – Booster Box DE",
    "url": "https://tcg-24.de/produkt/pokemon-display-wachsendes-chaos-booster-box-de/",
    "price": 179.95,
@@ -6609,188 +6598,6 @@
    "boosters": null,
    "cmId": 846746,
    "cmName": "Phantasmal Flames Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Mega Entwicklung 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-mega-entwicklung-display/",
-   "price": 189.95,
-   "shipping": 0,
-   "total": 189.95,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 834832,
-   "cmName": "Mega Evolution Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Destined Rivals 36er Display EN",
-   "url": "https://tcg-24.de/produkt/pokemon-destined-rivals-display/",
-   "price": 249.95,
-   "shipping": 0,
-   "total": 249.95,
-   "stock": "out",
-   "lang": "en",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 818574,
-   "cmName": "Destined Rivals Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Reisegefährten 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-reisegefaehrten/",
-   "price": 149.95,
-   "shipping": 5.99,
-   "total": 155.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 805579,
-   "cmName": "Journey Together Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Stürmische Funken 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-stuermische-funken-display/",
-   "price": 199.95,
-   "shipping": 0,
-   "total": 199.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 784949,
-   "cmName": "Surging Sparks Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Gewalten der Zeit 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-gewalten-der-zeit/",
-   "price": 144.95,
-   "shipping": 5.99,
-   "total": 150.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 750403,
-   "cmName": "Temporal Forces Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur Paradoxrift 36er Display DE",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-paradoxrift/",
-   "price": 149.95,
-   "shipping": 5.99,
-   "total": 155.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 728718,
-   "cmName": "Paradox Rift Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Karmesin & Purpur 36er Display Deutsch",
-   "url": "https://tcg-24.de/produkt/pokemon-karmesin-purpur-36er-display-deutsch/",
-   "price": 134.95,
-   "shipping": 5.99,
-   "total": 140.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 692092,
-   "cmName": "Scarlet & Violet Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Fusion Strike 36er Display Englisch",
-   "url": "https://tcg-24.de/produkt/pokemon-fusion-strike-36er-display-englisch/",
-   "price": 134.95,
-   "shipping": 5.99,
-   "total": 140.94,
-   "stock": "out",
-   "lang": "en",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 574592,
-   "cmName": "Fusion Strike Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Verlorener Ursprung 18er Display Deutsch Sealed",
-   "url": "https://tcg-24.de/produkt/pokemon-verlorener-ursprung-18er-display-deutsch-sealed/",
-   "price": 79.95,
-   "shipping": 5.99,
-   "total": 85.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 18,
-   "cmId": 666147,
-   "cmName": "Lost Origin Booster Box (18 Boosters)"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Silberne Sturmwinde 36er Display Deutsch",
-   "url": "https://tcg-24.de/produkt/pokemon-silberne-sturmwinde-36er-display-deutsch/",
-   "price": 149.95,
-   "shipping": 5.99,
-   "total": 155.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 672333,
-   "cmName": "Silver Tempest Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Verlorener Ursprung 36er Display Deutsch Sealed",
-   "url": "https://tcg-24.de/produkt/pokemon-verlorener-ursprung-36er-display-deutsch-sealed/",
-   "price": 239.95,
-   "shipping": 0,
-   "total": 239.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 665526,
-   "cmName": "Lost Origin Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Astralglanz 36er Display Deutsch Sealed OVP",
-   "url": "https://tcg-24.de/produkt/pokemon-astralglanz-36er-display-deutsch-sealed/",
-   "price": 134.95,
-   "shipping": 5.99,
-   "total": 140.94,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 36,
-   "cmId": 611352,
-   "cmName": "Astral Radiance Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Strahlende Sterne Display Deutsch Sealed OVP",
-   "url": "https://tcg-24.de/produkt/pokemon-strahlende-sterne-display-deutsch/",
-   "price": 159.95,
-   "shipping": 0,
-   "total": 159.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 583512,
-   "cmName": "Brilliant Stars Booster Box"
   },
   {
    "shop": "loco-tcg",

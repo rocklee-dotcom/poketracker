@@ -34,9 +34,9 @@
    ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Perfect%20Order%20Booster%20Box">CM 176,23 € -1 %</a>
 • <b>Fatale Flammen</b>: DE <a href="https://www.card-corner.de/Pokemon-Fatale-Flammen-Display">299,99 €</a> (Card-Corner)
    ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Phantasmal%20Flames%20Booster%20Box">CM 290,96 € -2 %</a>
-• <b>Mega-Entwicklung</b>: DE <a href="https://tcg-24.de/produkt/pokemon-mega-entwicklung-display/">189,95 €</a> (TCG-24)
+• <b>Mega-Entwicklung</b>: DE <a href="https://www.card-corner.de/Pokemon-Mega-Entwicklung-Display">205,48 €</a> (Card-Corner)
    ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Mega%20Evolution%20Booster%20Box">CM 185,63 € +5 %</a>
-• <b>Ewige Rivalen</b>: DE <a href="https://tcg-24.de/produkt/pokemon-karmesin-purpur-ewige-rivalen-36er-display-de/">279,95 €</a> (TCG-24) · EN <a href="https://www.card-corner.de/Pokemon-Destined-Rivals-Display">339,99 €</a> (Card-Corner)
+• <b>Ewige Rivalen</b>: DE <a href="https://www.card-corner.de/Pokemon-Ewige-Rivalen-Display-36-Booster">299,99 €</a> (Card-Corner) · EN <a href="https://www.card-corner.de/Pokemon-Destined-Rivals-Display">339,99 €</a> (Card-Corner)
    ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Destined%20Rivals%20Booster%20Box">CM 285,68 € +2 %</a>
 
 <b>📉📈 Cardmarket: größte Bewegungen (7 Tage)</b>
@@ -54,5 +54,5 @@
 <b>🇯🇵🇨🇳 Japan/China</b>
 Bei 49 von 62 lieferbaren Displays ist Cardmarket günstiger als der beste deutsche Shop (Median-Aufpreis Shop: +25 %).
 
-<i>Daten: Cardmarket 2026-11-23 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf)</i>
+<i>Daten: Cardmarket 2026-11-23 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf) · ⚠️ TCG-24: nur 4 Displays (vorher 18)</i>
 🔗 <a href="https://github.com/rocklee-dotcom/poketracker">Dashboard</a>
