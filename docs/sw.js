@@ -1,4 +1,4 @@
-﻿// Service Worker: App-HÃ¼lle offline verfÃ¼gbar, Daten immer frisch (Netz zuerst, sonst letzter Stand).
+// Service Worker: App-Hülle offline verfügbar, Daten immer frisch (Netz zuerst, sonst letzter Stand).
 const VERSION = 'pt-v4';
 const SHELL = ['./', 'index.html', 'app.js', 'style.css', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/apple-touch-icon.png'];
 
