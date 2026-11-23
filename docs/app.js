@@ -71,6 +71,28 @@ const cmFilterLinks = (p, lang = null) =>
     url: cmProductUrl(p, { lang: l }),
   }));
 const shop = (id) => state.data.shopNames[id] ?? id;
+// Eigene Knopffarbe je Shop (alle mit weißer Schrift gut lesbar, Kontrast ≥ 4,5:1)
+const SHOP_COLOR = {
+  cardmarket: '#1e3a8a',
+  'card-corner': '#c2410c',
+  'gate-to-the-games': '#15803d',
+  'trader-online': '#7e22ce',
+  cardcosmos: '#0369a1',
+  balucards: '#be185d',
+  'tcg-24': '#0f766e',
+  'loco-tcg': '#92400e',
+  ebay: '#b91c1c',
+};
+/** Kauf-Knopf in Shop-Farbe */
+const shopButton = (shopId, url, { label = null, small = false } = {}) =>
+  h('a', {
+    class: `btn shopbtn ${small ? 'sm' : ''}`,
+    href: url,
+    target: '_blank',
+    rel: 'noopener',
+    style: `--shop:${SHOP_COLOR[shopId] ?? '#374151'}`,
+    text: label ?? `${shop(shopId)} →`,
+  });
 const prod = (id) => state.byId.get(id);
 
 /** Preisänderung: ▼ gefallen (rot), ▲ gestiegen (grün). Pfeil + Text, nie nur Farbe. */
@@ -305,7 +327,7 @@ function opCard(o) {
         'div',
         { class: 'tcg-foot' },
         h('span', { class: 'sub', text: o.buy ? 'Deutlicher Preisvorteil' : 'Guter Preis – vergleichen' }),
-        h('a', { class: `btn ${o.buy ? 'go' : 'primary'}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
+        shopButton(o.shop, o.url),
       ),
     ),
   );
@@ -396,7 +418,7 @@ function buildParts() {
             ? h(
                 'div',
                 { class: 'vlinks' },
-                v.url ? h('a', { class: 'btn go sm', href: v.url, target: '_blank', rel: 'noopener', text: 'Kaufen →' }) : '',
+                v.url ? shopButton(v.shop, v.url, { label: `Kaufen bei ${shop(v.shop)} →`, small: true }) : '',
                 v.kind === 'buy' && v.productId ? cmCheckLinks(prod(v.productId), v.lang) : '',
                 v.productId ? h('a', { class: 'btn sm', href: `#/p/${v.productId}`, text: 'Details' }) : '',
               )

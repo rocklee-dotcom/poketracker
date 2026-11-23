@@ -6,9 +6,15 @@ on:
     # 04:30 UTC = 05:30 Uhr MEZ (06:30 Uhr MESZ). GitHub startet geplante Läufe oft etwas später.
     - cron: '30 4 * * *'
   workflow_dispatch: # manuell über "Run workflow" startbar
+    inputs:
+      send_report:
+        description: 'Telegram-Bericht senden?'
+        type: boolean
+        default: true
 
 permissions:
   contents: write
+  pages: write # um die Dashboard-Veröffentlichung nach dem Commit anzustoßen
 
 concurrency:
   group: daily-update
@@ -42,7 +48,14 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
-        run: node src/report.mjs --send
+        # Geplante Läufe senden immer; manuelle Läufe nur, wenn "Telegram-Bericht senden?" angehakt ist
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.send_report }}" != "true" ]; then
+            node src/report.mjs > /dev/null
+            echo "Bericht erstellt, Versand übersprungen (manueller Testlauf)"
+          else
+            node src/report.mjs --send
+          fi
 
       - name: Dashboard-Daten erzeugen
         run: node src/build-dashboard.mjs
@@ -58,6 +71,17 @@ jobs:
           fi
           git commit -m "Preis-Update $(date -u +%F)"
           git push
+
+      - name: Dashboard neu veröffentlichen (GitHub Pages)
+        # Commits der Action selbst lösen die Pages-Veröffentlichung nicht zuverlässig aus – daher ausdrücklich anstoßen.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -sS -f -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" && echo "Pages-Veröffentlichung angestoßen"
 
       - name: Bei Fehler per Telegram warnen
         if: failure()

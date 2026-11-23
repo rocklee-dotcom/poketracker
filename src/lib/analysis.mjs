@@ -343,6 +343,7 @@ export function analyze() {
       label: 'Kaufen',
       text: `${setTitle(o.p, o.lang)} ${fmtName(o.p)} ${FLAG[o.lang]} für ${eur(o.best.total)} bei ${shopName[o.best.shop]} – ${o.reasons[0]}.`,
       url: o.best.url,
+      shop: o.best.shop,
       productId: o.p.id,
       lang: o.lang,
     });

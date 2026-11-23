@@ -275,6 +275,12 @@ main { max-width: 1180px; margin: 0 auto; padding: 18px 16px 48px; }
 }
 .btn:hover { text-decoration: none; border-color: var(--accent); }
 .btn.primary { background: linear-gradient(180deg, #3b8cf0, #1f62c9); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(31, 98, 201, 0.3); }
+/* Kauf-Knopf in Shop-Farbe (--shop wird je Shop gesetzt) */
+.btn.shopbtn {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--shop) 82%, #fff), var(--shop));
+  color: #fff; border-color: transparent; box-shadow: 0 3px 10px color-mix(in srgb, var(--shop) 35%, transparent);
+}
+.btn.shopbtn:hover { filter: brightness(1.08); border-color: transparent; }
 .btn.go { background: linear-gradient(180deg, #ffd93a, #ffbf00); color: #1a1a2e; border-color: transparent; box-shadow: 0 3px 10px rgba(255, 191, 0, 0.35); }
 
 /* Sprach-/Regions-Plaketten */
