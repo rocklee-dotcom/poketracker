@@ -8,8 +8,11 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, sendHtml } from './lib/telegram.mjs';
 import {
-  analyze, eur, eur0, delta, delta1, plural, FLAG, REGION_FLAG, fmtName, setTitle, cmTitle, cmLink,
+  analyze, eur, eur0, delta, delta1, plural, FLAG, REGION_FLAG, fmtName, setTitle, cmTitle, cmLink, cmFilterLinks,
 } from './lib/analysis.mjs';
+
+/** "nur 🇩🇪 · nur 🇬🇧" – Cardmarket-Produktseite mit Sprachfilter */
+const cmLangLinks = (p) => cmFilterLinks(p).map((l) => `<a href="${esc(l.url)}">nur ${FLAG[l.lang]}</a>`).join(' · ');
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DATA = join(ROOT, 'data');
@@ -55,7 +58,7 @@ function opportunitySection() {
     const cm = p.trend ? ` · CM-Trend ${eur0(p.trend)}` : '';
     const where =
       best.shop === 'cardmarket'
-        ? `${a(best.url, 'Cardmarket')} <i>(ab ${eur(best.price)} + ca. ${eur0(best.shipping)} Versand)</i>`
+        ? `${a(best.url, 'Cardmarket')} <i>(ab ${eur(best.price)} + ca. ${eur0(best.shipping)} Versand)</i>${p.region === 'international' ? `\n      🔎 ${cmLangLinks(p)}` : ''}`
         : a(best.url, shopName[best.shop]);
     return (
       `${nums[i]} <b>${a(dash(p.id), setTitle(p, lang === 'mix' ? null : lang))}</b> · ${fmtName(p)} ${FLAG[lang]}\n` +
@@ -78,7 +81,9 @@ function bestPriceSection() {
     const t7 = A.trendAgo(p.id, 7);
     const cmo = A.cmOffers.get(p.id);
     const cmBuy = cmo && !cmo.suspicious ? `🛒 ${a(cmo.url, 'CM ' + eur(cmo.total))} <i>inkl. ca. Versand</i> · ` : '';
-    const cm = p.trend ? `${cmBuy}📊 Trend ${a(cmLink(p), eur(p.trend))}${t7 ? ` ${delta(p.trend / t7 - 1)}` : ''}` : '';
+    const cm = p.trend
+      ? `${cmBuy}📊 Trend ${a(cmLink(p), eur(p.trend))}${t7 ? ` ${delta(p.trend / t7 - 1)}` : ''}\n🔎 Cardmarket ${cmLangLinks(p)}`
+      : '';
     return `<b>${a(dash(p.id), p.setDe ?? p.set)}</b>\n${offers.length ? offers.join('  ') : '<i>derzeit nirgends lieferbar</i>'}${cm ? '\n' + cm : ''}`;
   });
   return `🏷️ <b>BESTPREISE NEUE SETS</b>  <i>36er · inkl. Versand</i>\n<blockquote expandable>${rows.join('\n\n')}</blockquote>`;

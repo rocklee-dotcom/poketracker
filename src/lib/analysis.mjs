@@ -43,6 +43,31 @@ export const setTitle = (p, lang) =>
     .trim();
 export const cmTitle = (p) => setTitle(p, p.region === 'international' ? 'de' : null);
 export const cmLink = (p) => `https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=${encodeURIComponent(p.name)}`;
+
+// Direktlinks auf die Cardmarket-Produktseite mit gesetztem Filter (Sprache, Versand aus Deutschland).
+// Cardmarket-Sprach-IDs: 1 Englisch, 3 Deutsch, 6 Chinesisch (vereinfacht), 7 Japanisch. Land 7 = Deutschland.
+export const CM_LANG_ID = { en: 1, de: 3, cn: 6, jp: 7 };
+export const cmSlug = (name) =>
+  name
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[&:.,'"()!?]/g, ' ')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+export function cmProductUrl(p, { lang = null, germanSellers = false } = {}) {
+  const cat = p.category === 'booster' ? 'Boosters' : 'Booster-Boxes';
+  const q = new URLSearchParams();
+  if (lang && CM_LANG_ID[lang]) q.set('language', CM_LANG_ID[lang]);
+  if (germanSellers) q.set('sellerCountry', '7');
+  const qs = q.toString();
+  return `https://www.cardmarket.com/de/Pokemon/Products/${cat}/${cmSlug(p.name)}${qs ? '?' + qs : ''}`;
+}
+/** Passende Filter-Links: international -> DE und EN, Japan -> JP, China -> CN */
+export function cmFilterLinks(p) {
+  const langs = p.region === 'international' ? ['de', 'en'] : p.region === 'japanese' ? ['jp'] : p.region === 'chinese' ? ['cn'] : [];
+  return langs.map((lang) => ({ lang, url: cmProductUrl(p, { lang }) }));
+}
 export const isDisplay = (p) =>
   p.region !== 'other' && (['booster-box', 'half-box'].includes(p.type) || (p.region !== 'international' && p.type === 'jumbo-box'));
 // ---------- Cardmarket als Kaufquelle ----------
@@ -59,7 +84,7 @@ export function cardmarketOffer(p) {
   return {
     shop: 'cardmarket',
     title: `Cardmarket – günstigstes Angebot (${p.name})`,
-    url: cmLink(p),
+    url: cmProductUrl(p, { lang: LANG_OF_REGION[p.region] ?? null }),
     price: p.low,
     shipping: CM_SHIPPING_EST,
     shippingEstimated: true,

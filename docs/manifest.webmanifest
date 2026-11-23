@@ -1,0 +1,21 @@
+{
+  "name": "PokeTracker – Display-Preise",
+  "short_name": "PokeTracker",
+  "description": "Preise von Pokémon-Displays: Cardmarket, deutsche Shops, Kaufchancen und Verläufe.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0e1a",
+  "theme_color": "#10172e",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Deals", "url": "./#/deals", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Displays", "url": "./#/displays", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

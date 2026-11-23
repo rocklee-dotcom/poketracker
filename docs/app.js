@@ -54,6 +54,18 @@ const setTitle = (p, lang) =>
     .replace(/\s+(S-Ch|T-Ch|JP|Simplified Chinese|Traditional Chinese)\b/g, '')
     .trim();
 const cmLink = (p) => `https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=${encodeURIComponent(p.name)}`;
+// Cardmarket-Produktseite mit Filter (gleiche Logik wie src/lib/analysis.mjs)
+const CM_LANG_ID = { en: 1, de: 3, cn: 6, jp: 7 };
+const cmSlug = (name) => name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[&:.,'"()!?]/g, ' ').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
+function cmProductUrl(p, { lang = null, germanSellers = false } = {}) {
+  const q = new URLSearchParams();
+  if (lang && CM_LANG_ID[lang]) q.set('language', CM_LANG_ID[lang]);
+  if (germanSellers) q.set('sellerCountry', '7');
+  const qs = q.toString();
+  return `https://www.cardmarket.com/de/Pokemon/Products/Booster-Boxes/${cmSlug(p.name)}${qs ? '?' + qs : ''}`;
+}
+const cmFilterLinks = (p) =>
+  (p.region === 'international' ? ['de', 'en'] : p.region === 'japanese' ? ['jp'] : p.region === 'chinese' ? ['cn'] : []).map((lang) => ({ lang, url: cmProductUrl(p, { lang }) }));
 const shop = (id) => state.data.shopNames[id] ?? id;
 const prod = (id) => state.byId.get(id);
 
@@ -254,6 +266,82 @@ function priceCell(p) {
   );
 }
 
+/** Kaufchance als Sammelkarte: Rahmen in Energie-Farbe, Preis oben rechts, Gründe als "Attacken" */
+function opCard(o) {
+  const p = prod(o.id);
+  const type = TYPE_OF[o.lang === 'mix' ? 'mix' : p.region];
+  const isInfo = (r) => /prüfen|über/.test(r);
+  return h(
+    'article',
+    { class: `tcg type-${type} ${o.buy ? 'tip' : ''}`, onclick: (e) => !e.target.closest('a') && go(`#/p/${o.id}`), tabindex: 0, onkeydown: (e) => e.key === 'Enter' && go(`#/p/${o.id}`) },
+    h(
+      'div',
+      { class: 'tcg-in' },
+      o.buy ? h('span', { class: 'ribbon', text: '★ KAUFTIPP' }) : '',
+      h(
+        'div',
+        { class: 'tcg-top' },
+        h('div', { class: 'tcg-name', text: setTitle(p, o.lang === 'mix' ? null : o.lang) }),
+        h('div', { class: 'tcg-hp' }, h('small', { text: isCM(o.shop) ? 'INKL. CA. VERSAND' : 'INKL. VERSAND' }), h('b', { class: 'num', text: eur(o.total) })),
+      ),
+      h(
+        'div',
+        { class: 'tcg-art' },
+        h('div', { class: 'fmt' }, h('span', { class: 'energy' }), `${fmtName(p)} · `, langBadge(o.lang), ` ${LANG[o.lang]}`),
+        h('div', { class: 'where', text: isCM(o.shop) ? `Cardmarket · ab ${eur(o.price)} + ca. ${eur0(o.shipping)} Versand` : `bei ${shop(o.shop)}${p.trend ? ` · CM-Trend ${eur0(p.trend)}` : ''}` }),
+      ),
+      h(
+        'div',
+        { class: 'moves' },
+        o.reasons.map((r) => h('div', { class: `move ${isInfo(r) ? 'info' : ''}` }, h('span', { class: 'energy' }), h('span', { text: r }))),
+      ),
+      // Bei internationalen Cardmarket-Deals: direkt nach Sprache gefiltert öffnen
+      isCM(o.shop) && p.region === 'international'
+        ? h('div', { class: 'chips' }, cmFilterLinks(p).map((l) => h('a', { class: 'chip', href: l.url, target: '_blank', rel: 'noopener' }, '🔎 nur ', langBadge(l.lang))))
+        : '',
+      h(
+        'div',
+        { class: 'tcg-foot' },
+        h('span', { class: 'sub', text: o.buy ? 'Deutlicher Preisvorteil' : 'Guter Preis – vergleichen' }),
+        h('a', { class: `btn ${o.buy ? 'go' : 'primary'}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
+      ),
+    ),
+  );
+}
+
+// ═══════════ Deals (alle Kaufchancen) ═══════════
+function renderDeals() {
+  const D = state.data;
+  let filter = 'all';
+  const grid = h('div', { class: 'ops' });
+  const count = h('p', { class: 'count' });
+  const tests = { all: () => true, tip: (o) => o.buy, cm: (o) => isCM(o.shop), shop: (o) => !isCM(o.shop) };
+  const update = () => {
+    const list = D.opportunities.filter(tests[filter]);
+    count.textContent = `${list.length} von ${D.opportunities.length} Kaufchancen`;
+    grid.replaceChildren(...(list.length ? list.map(opCard) : [h('div', { class: 'card empty', text: 'Keine Kaufchancen für diesen Filter.' })]));
+  };
+  const seg = h(
+    'div',
+    { class: 'seg', role: 'group' },
+    [['all', 'Alle'], ['tip', '★ Kauftipps'], ['shop', 'Shops'], ['cm', 'Cardmarket']].map(([v, label]) =>
+      h('button', {
+        class: v === filter ? 'on' : '',
+        text: label,
+        onclick: (e) => {
+          filter = v;
+          seg.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b === e.currentTarget));
+          update();
+        },
+      }),
+    ),
+  );
+  $app.replaceChildren(
+    section('🎯 Deals', 'alle Kaufchancen · lieferbar · Gesamtpreis inkl. Versand', h('div', { class: 'filters' }, seg), count, grid),
+  );
+  update();
+}
+
 // ═══════════ Übersicht ═══════════
 function renderHome() {
   const D = state.data;
@@ -309,56 +397,11 @@ function renderHome() {
     ),
   );
 
-  /** Kaufchance als Sammelkarte: Rahmen in Energie-Farbe, Preis oben rechts, Gründe als "Attacken" */
-  const opCard = (o) => {
-    const p = prod(o.id);
-    const type = TYPE_OF[o.lang === 'mix' ? 'mix' : p.region];
-    const isInfo = (r) => /prüfen|über/.test(r);
-    return h(
-      'article',
-      { class: `tcg type-${type} ${o.buy ? 'tip' : ''}`, onclick: (e) => !e.target.closest('a') && go(`#/p/${o.id}`), tabindex: 0, onkeydown: (e) => e.key === 'Enter' && go(`#/p/${o.id}`) },
-      h(
-        'div',
-        { class: 'tcg-in' },
-        o.buy ? h('span', { class: 'ribbon', text: '★ KAUFTIPP' }) : '',
-        h(
-          'div',
-          { class: 'tcg-top' },
-          h('div', { class: 'tcg-name', text: setTitle(p, o.lang === 'mix' ? null : o.lang) }),
-          h('div', { class: 'tcg-hp' }, h('small', { text: isCM(o.shop) ? 'INKL. CA. VERSAND' : 'INKL. VERSAND' }), h('b', { class: 'num', text: eur(o.total) })),
-        ),
-        h(
-          'div',
-          { class: 'tcg-art' },
-          h('div', { class: 'fmt' }, h('span', { class: 'energy' }), `${fmtName(p)} · `, langBadge(o.lang), ` ${LANG[o.lang]}`),
-          h('div', { class: 'where', text: isCM(o.shop) ? `Cardmarket · ab ${eur(o.price)} + ca. ${eur0(o.shipping)} Versand` : `bei ${shop(o.shop)}${p.trend ? ` · CM-Trend ${eur0(p.trend)}` : ''}` }),
-        ),
-        h(
-          'div',
-          { class: 'moves' },
-          o.reasons.map((r) => h('div', { class: `move ${isInfo(r) ? 'info' : ''}` }, h('span', { class: 'energy' }), h('span', { text: r }))),
-        ),
-        h(
-          'div',
-          { class: 'tcg-foot' },
-          h('span', { class: 'sub', text: o.buy ? 'Deutlicher Preisvorteil' : 'Guter Preis – vergleichen' }),
-          h('a', { class: `btn ${o.buy ? 'go' : 'primary'}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
-        ),
-      ),
-    );
-  };
-  const OPS_SHOWN = 6;
+  const OPS_SHOWN = matchMedia('(max-width: 760px)').matches ? 3 : 6;
   const opsGrid = h('div', { class: 'ops' }, D.opportunities.slice(0, OPS_SHOWN).map(opCard));
   const moreOps =
     D.opportunities.length > OPS_SHOWN
-      ? h('div', { style: 'margin-top:10px' }, h('button', {
-          class: 'btn',
-          text: `Weitere ${D.opportunities.length - OPS_SHOWN} anzeigen`,
-          onclick: (e) => {
-            opsGrid.append(...D.opportunities.slice(OPS_SHOWN).map(opCard));
-            e.currentTarget.remove();
-          },
-        }))
+      ? h('div', { style: 'margin-top:12px' }, h('a', { class: 'btn primary', href: '#/deals', text: `Alle ${D.opportunities.length} Deals ansehen →` }))
       : '';
   const ops = D.opportunities.length ? [opsGrid, moreOps] : [];
 
@@ -613,7 +656,17 @@ async function renderDetail(id) {
         'div',
         { class: 'row' },
         h('div', { class: 'stack', style: 'flex:1;min-width:0' }, h('h2', { text: `${setTitle(p)} · ${fmtName(p)}` }), h('span', { class: 'meta' }, regionBadge(p.region), ` ${REGION[p.region][1]} · Cardmarket: ${p.name} · seit ${dateDe(p.added)}`)),
-        h('a', { class: 'btn go', href: cmLink(p), target: '_blank', rel: 'noopener', text: 'Auf Cardmarket →' }),
+        h('a', { class: 'btn go', href: cmProductUrl(p), target: '_blank', rel: 'noopener', text: 'Auf Cardmarket →' }),
+      ),
+      // Direkt gefilterte Cardmarket-Angebote: echte Sprache + Versandland sehen
+      h(
+        'div',
+        { class: 'cm-links' },
+        cmFilterLinks(p).flatMap((l) => [
+          h('a', { class: 'btn', href: l.url, target: '_blank', rel: 'noopener' }, '🔎 nur ', langBadge(l.lang), ` ${LANG[l.lang]}`),
+          h('a', { class: 'btn', href: cmProductUrl(p, { lang: l.lang, germanSellers: true }), target: '_blank', rel: 'noopener' }, langBadge(l.lang), ' + Versand aus DE'),
+        ]),
+        h('a', { class: 'btn', href: cmLink(p), target: '_blank', rel: 'noopener', text: 'Suche' }),
       ),
     ),
     h(
@@ -651,15 +704,79 @@ async function renderDetail(id) {
 }
 
 // ═══════════ Routing & Start ═══════════
+// Scroll-Position je Liste merken (zurück aus der Detailansicht landet man an derselben Stelle)
+const scrollMemory = new Map();
+let currentHash = null;
+
 function route() {
+  if (currentHash) scrollMemory.set(currentHash, window.scrollY);
   const hash = location.hash || '#/';
+  currentHash = hash;
   const m = hash.match(/^#\/p\/(\d+)/);
-  document.querySelectorAll('.tabs a').forEach((a) => a.classList.toggle('active', (a.dataset.tab === 'displays') === (hash.startsWith('#/displays') || !!m)));
+  const tab = m || hash.startsWith('#/displays') ? 'displays' : hash.startsWith('#/deals') ? 'deals' : 'home';
+  document.querySelectorAll('[data-tab]').forEach((a) => a.classList.toggle('active', a.dataset.tab === tab));
   if (m) renderDetail(Number(m[1]));
   else if (hash.startsWith('#/displays')) renderDisplays();
+  else if (hash.startsWith('#/deals')) renderDeals();
   else renderHome();
-  if (!m || !state.routed) window.scrollTo(0, 0);
-  state.routed = true;
+  $app.classList.remove('view-in');
+  void $app.offsetWidth; // Animation neu starten
+  $app.classList.add('view-in');
+  const y = m ? 0 : scrollMemory.get(hash) ?? 0;
+  requestAnimationFrame(() => window.scrollTo(0, y));
+}
+
+/** Hinweis "Als App installieren" (Android: Installieren-Knopf, iPhone: Anleitung) */
+function installHint() {
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  let dismissed = false;
+  try {
+    dismissed = localStorage.getItem('pt-install-dismissed') === '1';
+  } catch (e) {}
+  if (standalone || dismissed) return;
+  const box = document.getElementById('install');
+  const show = (text, action) =>
+    box.replaceChildren(
+      h(
+        'div',
+        { class: 'install' },
+        h(
+          'div',
+          { class: 'box' },
+          h('img', { src: 'icons/icon-192.png', alt: '' }),
+          h('div', { class: 't' }, h('b', { text: 'PokeTracker als App' }), text),
+          action ?? '',
+          h('button', {
+            class: 'x',
+            'aria-label': 'Hinweis schließen',
+            text: '×',
+            onclick: () => {
+              box.replaceChildren();
+              try {
+                localStorage.setItem('pt-install-dismissed', '1');
+              } catch (e) {}
+            },
+          }),
+        ),
+      ),
+    );
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (ios) show('Tippe unten auf „Teilen“ ⬆️ und dann auf „Zum Home-Bildschirm“.');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    show(
+      'Mit einem Tipp auf den Home-Bildschirm – startet wie eine App.',
+      h('button', {
+        class: 'btn go',
+        text: 'Installieren',
+        onclick: async () => {
+          e.prompt();
+          await e.userChoice;
+          box.replaceChildren();
+        },
+      }),
+    );
+  });
 }
 
 function renderChrome() {
@@ -671,14 +788,16 @@ function renderChrome() {
   );
 }
 
-document.getElementById('theme').addEventListener('click', () => {
-  const root = document.documentElement;
-  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = dark ? 'light' : 'dark';
-  try {
-    localStorage.setItem('pt-theme', root.dataset.theme);
-  } catch (e) {}
-});
+document.querySelectorAll('.theme-btn').forEach((btn) =>
+  btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try {
+      localStorage.setItem('pt-theme', root.dataset.theme);
+    } catch (e) {}
+  }),
+);
 
 (async function start() {
   try {
@@ -689,6 +808,13 @@ document.getElementById('theme').addEventListener('click', () => {
   }
   state.byId = new Map(state.data.products.map((p) => [p.id, p]));
   renderChrome();
+  const badge = document.getElementById('deal-badge');
+  const tips = state.data.opportunities.filter((o) => o.buy).length;
+  if (tips) {
+    badge.textContent = String(tips);
+    badge.hidden = false;
+  }
+  installHint();
   window.addEventListener('hashchange', route);
   route();
 })();

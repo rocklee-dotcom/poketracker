@@ -30,9 +30,19 @@ const visibleLength = (html) =>
     .replace(/<[^>]+>/g, '')
     .replace(/&(amp|lt|gt|quot);/g, '_').length;
 
-/** Sendet HTML-Text; teilt an Abschnittsgrenzen (Leerzeilen), falls zu lang. */
-export async function sendHtml(text, chatId = process.env.TELEGRAM_CHAT_ID) {
-  if (!chatId) throw new Error('TELEGRAM_CHAT_ID fehlt');
+/**
+ * Sendet HTML-Text; teilt an Abschnittsgrenzen (Leerzeilen), falls zu lang.
+ * TELEGRAM_CHAT_ID darf mehrere IDs enthalten, durch Komma getrennt (z. B. privater Chat + Gruppe).
+ */
+export async function sendHtml(text, chatIds = process.env.TELEGRAM_CHAT_ID) {
+  if (!chatIds) throw new Error('TELEGRAM_CHAT_ID fehlt');
+  const ids = String(chatIds).split(',').map((s) => s.trim()).filter(Boolean);
+  let n = 0;
+  for (const id of ids) n = await sendHtmlTo(text, id);
+  return n;
+}
+
+async function sendHtmlTo(text, chatId) {
   const parts = [];
   let cur = '';
   for (const block of text.split('\n\n')) {
