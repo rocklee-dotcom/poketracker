@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6">
   <script>
     try { const t = localStorage.getItem('pt-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
@@ -57,9 +57,18 @@
     <a href="#/displays" data-tab="displays"><span class="bi">🔍</span><span>Displays</span></a>
   </nav>
 
-  <script src="app.js" type="module"></script>
+  <!-- ?v=… bei jeder Design-/Code-Änderung hochzählen, damit Handys die neue Version sofort laden -->
+  <script src="app.js?v=6" type="module"></script>
   <script>
-    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+    if ('serviceWorker' in navigator) {
+      // Neue App-Version aktiv geworden -> einmal neu laden, damit sie sofort angezeigt wird
+      let reloaded = false;
+      const hadController = !!navigator.serviceWorker.controller;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (hadController && !reloaded) { reloaded = true; location.reload(); }
+      });
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((r) => r.update()).catch(() => {}));
+    }
   </script>
 </body>
 </html>
