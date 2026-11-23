@@ -109,4 +109,4 @@
 🧭 <b>Markt:</b> ruhiger, stabiler Markt – kein Grund zur Eile, auf gezielte Deals warten.</blockquote>
 
 🔗 <a href="https://rocklee-dotcom.github.io/poketracker/">Zum Dashboard</a>
-<i>Stand: Cardmarket 23.11.2026 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf) · ⚠️ TCG-24 unvollständig</i>
+<i>Stand: Cardmarket 23.11.2026 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf)</i>

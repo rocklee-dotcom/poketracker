@@ -1,6 +1,6 @@
 {
  "date": "2026-11-23",
- "fetchedAt": "2026-11-23T13:57:41.033Z",
+ "fetchedAt": "2026-11-23T14:44:12.434Z",
  "shops": [
   {
    "id": "card-corner",
@@ -8,9 +8,9 @@
    "ok": true,
    "errors": [],
    "raw": 245,
-   "displays": 168,
-   "matched": 165,
-   "seconds": 24
+   "displays": 170,
+   "matched": 166,
+   "seconds": 18
   },
   {
    "id": "gate-to-the-games",
@@ -20,7 +20,7 @@
    "raw": 172,
    "displays": 119,
    "matched": 119,
-   "seconds": 25
+   "seconds": 19
   },
   {
    "id": "trader-online",
@@ -38,9 +38,19 @@
    "ok": true,
    "errors": [],
    "raw": 194,
-   "displays": 136,
-   "matched": 133,
+   "displays": 137,
+   "matched": 134,
    "seconds": 1
+  },
+  {
+   "id": "balucards",
+   "name": "Balucards",
+   "ok": true,
+   "errors": [],
+   "raw": 21,
+   "displays": 16,
+   "matched": 16,
+   "seconds": 3
   },
   {
    "id": "tcg-24",
@@ -52,7 +62,6 @@
    "raw": 4,
    "displays": 4,
    "matched": 4,
-   "warning": "nur 4 Displays (vorher 18)",
    "seconds": 3
   },
   {
@@ -64,16 +73,6 @@
    "displays": 6,
    "matched": 6,
    "seconds": 6
-  },
-  {
-   "id": "balucards",
-   "name": "Balucards",
-   "ok": true,
-   "errors": [],
-   "raw": 21,
-   "displays": 16,
-   "matched": 16,
-   "seconds": 2
   }
  ],
  "offers": [
@@ -107,20 +106,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon MEGA Dream EX (M2a) Display",
-   "url": "https://www.card-corner.de/Pokemon-MEGA-Dream-EX-M2a-Display",
-   "price": 82.99,
-   "shipping": 5.49,
-   "total": 88.48,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 858380,
-   "cmName": "MEGA Dream ex Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon Mega Entwicklung 18er Display",
    "url": "https://www.card-corner.de/Pokemon-Mega-Entwicklung-18er-Display",
    "price": 109.99,
@@ -132,6 +117,20 @@
    "boosters": 18,
    "cmId": 834825,
    "cmName": "Mega Evolution Booster Box (18 Boosters)"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon MEGA Dream EX (M2a) Display",
+   "url": "https://www.card-corner.de/Pokemon-MEGA-Dream-EX-M2a-Display",
+   "price": 82.99,
+   "shipping": 5.49,
+   "total": 88.48,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 858380,
+   "cmName": "MEGA Dream ex Booster Box"
   },
   {
    "shop": "card-corner",
@@ -247,20 +246,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon 30th Celebration (M6a) Display",
-   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-M6a-Display",
-   "price": 127.99,
-   "shipping": 5.49,
-   "total": 133.48,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 891464,
-   "cmName": "30th Celebration JP Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon Violet EX Display (sv1V)",
    "url": "https://www.card-corner.de/Pokemon-Violet-EX-Display-sv1V",
    "price": 79.99,
@@ -303,12 +288,26 @@
   },
   {
    "shop": "card-corner",
+   "title": "Pokemon 30th Celebration (M6a) Display",
+   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-M6a-Display",
+   "price": 127.99,
+   "shipping": 5.49,
+   "total": 133.48,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 891464,
+   "cmName": "30th Celebration JP Booster Box"
+  },
+  {
+   "shop": "card-corner",
    "title": "Pokemon Clay Burst Display (sv2D)",
    "url": "https://www.card-corner.de/Pokemon-Clay-Burst-Display-sv2D",
    "price": 81.99,
    "shipping": 5.49,
    "total": 87.48,
-   "stock": "out",
+   "stock": "in",
    "lang": "jp",
    "langSource": "titel",
    "boosters": null,
@@ -401,6 +400,20 @@
   },
   {
    "shop": "card-corner",
+   "title": "Pokemon 25th Anniversary Collection Display (s8a)",
+   "url": "https://www.card-corner.de/Pokemon-25th-Anniversary-Collection-Display-s8a",
+   "price": 299.99,
+   "shipping": 0,
+   "total": 299.99,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 579346,
+   "cmName": "25th Anniversary Collection Booster Box"
+  },
+  {
+   "shop": "card-corner",
    "title": "Pokemon Go Display (s10b)",
    "url": "https://www.card-corner.de/Pokemon-Go-Display-s10b",
    "price": 119.99,
@@ -440,6 +453,20 @@
    "boosters": 36,
    "cmId": 692092,
    "cmName": "Scarlet & Violet Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon 30th Celebration Display (30th C) (Chinesisch)",
+   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-Display-30th-C-Chinesisch",
+   "price": 89.99,
+   "shipping": 5.49,
+   "total": 95.48,
+   "stock": "out",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 908934,
+   "cmName": "30th Celebration Simplified Chinese Booster Box"
   },
   {
    "shop": "card-corner",
@@ -580,6 +607,20 @@
    "boosters": null,
    "cmId": 550396,
    "cmName": "Double Blaze Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Dragon Storm Display (sm6a)",
+   "url": "https://www.card-corner.de/Pokemon-Dragon-Storm-Display-sm6a",
+   "price": 799.99,
+   "shipping": 0,
+   "total": 799.99,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 551776,
+   "cmName": "Dragon Storm Booster Box"
   },
   {
    "shop": "card-corner",
@@ -850,20 +891,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Inferno X (M2) Display",
-   "url": "https://www.card-corner.de/Pokemon-Inferno-X-M2-Display",
-   "price": 109.99,
-   "shipping": 5.49,
-   "total": 115.48,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 845910,
-   "cmName": "Inferno X Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon 151 Display (sv2A)",
    "url": "https://www.card-corner.de/Pokemon-151-Display-sv2A",
    "price": 249.99,
@@ -878,17 +905,18 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon 30th Celebration Display (30th C) (Chinesisch)",
-   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-Display-30th-C-Chinesisch",
-   "price": 89.99,
+   "title": "Pokemon 25th Anniversary Collection Display s8a (Chinesisch)",
+   "url": "https://www.card-corner.de/Pokemon-25th-Anniversary-Collection-Display-s8a-Chinesisch",
+   "price": 69.99,
    "shipping": 5.49,
-   "total": 95.48,
+   "total": 75.48,
    "stock": "out",
    "lang": "cn",
-   "langSource": "titel",
+   "langSource": null,
    "boosters": null,
-   "cmId": 908934,
-   "cmName": "30th Celebration Simplified Chinese Booster Box"
+   "cmId": null,
+   "cmName": null,
+   "reason": "kein passendes Set"
   },
   {
    "shop": "card-corner",
@@ -1128,20 +1156,6 @@
    "boosters": null,
    "cmId": 568765,
    "cmName": "Evolving Skies Booster Box"
-  },
-  {
-   "shop": "card-corner",
-   "title": "Pokemon Dragon Storm Display (sm6a)",
-   "url": "https://www.card-corner.de/Pokemon-Dragon-Storm-Display-sm6a",
-   "price": 799.99,
-   "shipping": 0,
-   "total": 799.99,
-   "stock": "out",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 551776,
-   "cmName": "Dragon Storm Booster Box"
   },
   {
    "shop": "card-corner",
@@ -1495,6 +1509,20 @@
   },
   {
    "shop": "card-corner",
+   "title": "Pokemon Inferno X (M2) Display",
+   "url": "https://www.card-corner.de/Pokemon-Inferno-X-M2-Display",
+   "price": 109.99,
+   "shipping": 5.49,
+   "total": 115.48,
+   "stock": "out",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 845910,
+   "cmName": "Inferno X Booster Box"
+  },
+  {
+   "shop": "card-corner",
    "title": "Pokemon Jet Black Spirit Display (s6K)",
    "url": "https://www.card-corner.de/Pokemon-Jet-Black-Spirit-Display-s6K",
    "price": 169.99,
@@ -1538,7 +1566,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -1552,7 +1580,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -5845,6 +5873,20 @@
   },
   {
    "shop": "cardcosmos",
+   "title": "Pokémon - 25th Anniversary Collection Booster Box - JPN",
+   "url": "https://cardcosmos.de/products/pokemon-25th-anniversary-collection-box-jpn",
+   "price": 399.9,
+   "shipping": 4.99,
+   "total": 404.89,
+   "stock": "out",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 579346,
+   "cmName": "25th Anniversary Collection Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
    "title": "Pokémon - Pokémon GO S10b Booster Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-pokemon-go-s10b-booster-display-japanisch",
    "price": 149.9,
@@ -6320,146 +6362,6 @@
    "cmName": "Temporal Forces Booster Box"
   },
   {
-   "shop": "tcg-24",
-   "title": "Pokemon Display Wachsendes Chaos – Booster Box DE",
-   "url": "https://tcg-24.de/produkt/pokemon-display-wachsendes-chaos-booster-box-de/",
-   "price": 179.95,
-   "shipping": 0,
-   "total": 179.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 877295,
-   "cmName": "Chaos Rising Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Display Dunkelnacht – Booster Box DE",
-   "url": "https://tcg-24.de/produkt/pokemon-display-dunkelnacht-booster-box-de/",
-   "price": 189.95,
-   "shipping": 0,
-   "total": 189.95,
-   "stock": "preorder",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 885545,
-   "cmName": "Pitch Black Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Display Optimale Ordnung – Booster Box DE",
-   "url": "https://tcg-24.de/produkt/pokemon-display-optimale-ordnung-booster-box-de/",
-   "price": 159.95,
-   "shipping": 0,
-   "total": 159.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 865408,
-   "cmName": "Perfect Order Booster Box"
-  },
-  {
-   "shop": "tcg-24",
-   "title": "Pokemon Display Fatale Flammen – Booster Box DE",
-   "url": "https://tcg-24.de/produkt/pokemon-display-fatale-flammen/",
-   "price": 184.95,
-   "shipping": 0,
-   "total": 184.95,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 846746,
-   "cmName": "Phantasmal Flames Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon Storm Emeralda (M6) Display Sealed – Japanisch",
-   "url": "https://loco-tcg.de/produkt/pokemon-storm-emeralda-m6-display-sealed-japanisch/",
-   "price": 82.99,
-   "shipping": 5.99,
-   "total": 88.98,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 895668,
-   "cmName": "Storm Emeralda Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon Mega-Entwicklung Delta Herrschaft Display – Deutsch",
-   "url": "https://loco-tcg.de/produkt/pokemon-mega-entwicklung-delta-herrschaft-display-deutsch/",
-   "price": 174.99,
-   "shipping": 5.99,
-   "total": 180.98,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 903956,
-   "cmName": "Delta Reign Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon 30th Celebration Booster Display – Chinesisch",
-   "url": "https://loco-tcg.de/produkt/pokemon-30th-celebration-booster-display-chinesisch/",
-   "price": 109.99,
-   "shipping": 5.99,
-   "total": 115.98,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 908934,
-   "cmName": "30th Celebration Simplified Chinese Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon Mega Evolution Pitch Black Display – Englisch",
-   "url": "https://loco-tcg.de/produkt/pokemon-mega-evolution-pitch-black-display-englisch/",
-   "price": 199.99,
-   "shipping": 5.99,
-   "total": 205.98,
-   "stock": "in",
-   "lang": "en",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 885545,
-   "cmName": "Pitch Black Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon Scarlet & Violet Journey Together Display – EN",
-   "url": "https://loco-tcg.de/produkt/pokemon-scarlet-violet-journey-together-display-en/",
-   "price": 229.99,
-   "shipping": 5.99,
-   "total": 235.98,
-   "stock": "in",
-   "lang": "en",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 805579,
-   "cmName": "Journey Together Booster Box"
-  },
-  {
-   "shop": "loco-tcg",
-   "title": "Pokémon Gem Pack Vol. 5 Booster Box – CBB5 Chinesisch",
-   "url": "https://loco-tcg.de/produkt/pokemon-gem-pack-vol-5-booster-box-cbb5-chinesisch/",
-   "price": 45.99,
-   "shipping": 5.99,
-   "total": 51.98,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": 5,
-   "cmId": 880331,
-   "cmName": "CBB5C: Gem Pack Vol. 5 Booster Box"
-  },
-  {
    "shop": "balucards",
    "title": "Pokémon: Gem Pack Vol. 6 [CBB6C] – Display 18 Booster (CN)",
    "url": "https://balucards.de/products/pokemon-gem-pack-vol-6-cbb6c-display-18-booster-cn",
@@ -6682,6 +6584,146 @@
    "boosters": 18,
    "cmId": 776326,
    "cmName": "Stellar Crown Booster Box (18 Boosters)"
+  },
+  {
+   "shop": "tcg-24",
+   "title": "Pokemon Display Wachsendes Chaos – Booster Box DE",
+   "url": "https://tcg-24.de/produkt/pokemon-display-wachsendes-chaos-booster-box-de/",
+   "price": 179.95,
+   "shipping": 0,
+   "total": 179.95,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 877295,
+   "cmName": "Chaos Rising Booster Box"
+  },
+  {
+   "shop": "tcg-24",
+   "title": "Pokemon Display Dunkelnacht – Booster Box DE",
+   "url": "https://tcg-24.de/produkt/pokemon-display-dunkelnacht-booster-box-de/",
+   "price": 189.95,
+   "shipping": 0,
+   "total": 189.95,
+   "stock": "preorder",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 885545,
+   "cmName": "Pitch Black Booster Box"
+  },
+  {
+   "shop": "tcg-24",
+   "title": "Pokemon Display Optimale Ordnung – Booster Box DE",
+   "url": "https://tcg-24.de/produkt/pokemon-display-optimale-ordnung-booster-box-de/",
+   "price": 159.95,
+   "shipping": 0,
+   "total": 159.95,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 865408,
+   "cmName": "Perfect Order Booster Box"
+  },
+  {
+   "shop": "tcg-24",
+   "title": "Pokemon Display Fatale Flammen – Booster Box DE",
+   "url": "https://tcg-24.de/produkt/pokemon-display-fatale-flammen/",
+   "price": 184.95,
+   "shipping": 0,
+   "total": 184.95,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 846746,
+   "cmName": "Phantasmal Flames Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon Storm Emeralda (M6) Display Sealed – Japanisch",
+   "url": "https://loco-tcg.de/produkt/pokemon-storm-emeralda-m6-display-sealed-japanisch/",
+   "price": 82.99,
+   "shipping": 5.99,
+   "total": 88.98,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 895668,
+   "cmName": "Storm Emeralda Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon Mega-Entwicklung Delta Herrschaft Display – Deutsch",
+   "url": "https://loco-tcg.de/produkt/pokemon-mega-entwicklung-delta-herrschaft-display-deutsch/",
+   "price": 174.99,
+   "shipping": 5.99,
+   "total": 180.98,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 903956,
+   "cmName": "Delta Reign Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon 30th Celebration Booster Display – Chinesisch",
+   "url": "https://loco-tcg.de/produkt/pokemon-30th-celebration-booster-display-chinesisch/",
+   "price": 109.99,
+   "shipping": 5.99,
+   "total": 115.98,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 908934,
+   "cmName": "30th Celebration Simplified Chinese Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon Mega Evolution Pitch Black Display – Englisch",
+   "url": "https://loco-tcg.de/produkt/pokemon-mega-evolution-pitch-black-display-englisch/",
+   "price": 199.99,
+   "shipping": 5.99,
+   "total": 205.98,
+   "stock": "in",
+   "lang": "en",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 885545,
+   "cmName": "Pitch Black Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon Scarlet & Violet Journey Together Display – EN",
+   "url": "https://loco-tcg.de/produkt/pokemon-scarlet-violet-journey-together-display-en/",
+   "price": 229.99,
+   "shipping": 5.99,
+   "total": 235.98,
+   "stock": "in",
+   "lang": "en",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 805579,
+   "cmName": "Journey Together Booster Box"
+  },
+  {
+   "shop": "loco-tcg",
+   "title": "Pokémon Gem Pack Vol. 5 Booster Box – CBB5 Chinesisch",
+   "url": "https://loco-tcg.de/produkt/pokemon-gem-pack-vol-5-booster-box-cbb5-chinesisch/",
+   "price": 45.99,
+   "shipping": 5.99,
+   "total": 51.98,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": 5,
+   "cmId": 880331,
+   "cmName": "CBB5C: Gem Pack Vol. 5 Booster Box"
   }
  ]
 }
