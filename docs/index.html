@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PokeTracker</title>
+  <meta name="description" content="Preise von Pokémon-Displays: Cardmarket und deutsche Shops, Kaufchancen und Verläufe.">
+  <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23e34948' stroke='%23111' stroke-width='2.5'/><path d='M2 16h28v0a14 14 0 0 1-28 0z' fill='%23fff' stroke='%23111' stroke-width='2.5'/><circle cx='16' cy='16' r='4.5' fill='%23fff' stroke='%23111' stroke-width='2.5'/></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try { const t = localStorage.getItem('pt-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="stack">
+          <h1>PokeTracker</h1>
+          <div class="sub" id="stand">lädt …</div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Ansicht">
+        <a href="#/" data-tab="home">Übersicht</a>
+        <a href="#/displays" data-tab="displays">Displays</a>
+      </nav>
+      <button class="icon-btn" id="theme" title="Hell/Dunkel umschalten" aria-label="Hell/Dunkel umschalten">◐</button>
+    </div>
+  </header>
+  <main id="app" aria-live="polite"></main>
+  <footer class="foot" id="foot"></footer>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
