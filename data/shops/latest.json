@@ -1,6 +1,6 @@
 {
  "date": "2026-11-23",
- "fetchedAt": "2026-11-23T12:59:22.352Z",
+ "fetchedAt": "2026-11-23T13:21:07.412Z",
  "shops": [
   {
    "id": "card-corner",
@@ -10,7 +10,7 @@
    "raw": 245,
    "displays": 168,
    "matched": 165,
-   "seconds": 23
+   "seconds": 18
   },
   {
    "id": "gate-to-the-games",
@@ -20,7 +20,7 @@
    "raw": 172,
    "displays": 119,
    "matched": 119,
-   "seconds": 16
+   "seconds": 28
   },
   {
    "id": "trader-online",
@@ -1535,7 +1535,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -1549,7 +1549,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,

@@ -13,16 +13,22 @@ const INTL_ONLY_CATEGORIES = new Set([
 ]);
 
 // Produktformate, die es nur bei internationalen Sets gibt.
+// (Nicht "Blister": indonesische/thailändische Sets haben "2-Pack Blister".)
 const INTL_ONLY_NAMES =
-  /Sleeved Booster|Booster Bundle|Booster Box \(18 Boosters\)|Elite Trainer Box|Build & Battle|Checklane|Blister/i;
+  /Sleeved Booster|Booster Bundle|Booster Box \(18 Boosters\)|Elite Trainer Box|Build & Battle|Checklane/i;
 
 // Region aus eindeutigen Hinweisen im Produktnamen.
 const NAME_MARKERS = [
   ['chinese', /^[A-Za-z0-9.]+C:|\bS-Ch\b|\bT-Ch\b|Chinese|Taiwan|Family Mart|Gem Pack|Mission Reward/i],
-  ['other', /Korean|Indonesian|Thai\b/i],
+  ['other', /Korean|Indonesian|Thai\b|\bID\/TH\b/i],
   ['japanese', /\bJP\b|Japanese|\bJapan\b|Pokémon Card Gym|Extra Battle Day|GET Campaign|Get Challenge/i],
   ['international', /Prize Pack|General Mills|Trick or Trade|World Championships|First Partner Illustration/i],
 ];
+
+// Formate, die es nur in Indonesien/Thailand gibt.
+// ("Special Set ... 2-Pack Blister" trifft genau die ID/TH-Sets; einfache "2-Pack Blister" gibt es auch international,
+//  "10-Pack Set Plus" auch in japanischen Sets.)
+const ID_TH_FORMATS = /Special Set .*2-Pack Blister|\bID\/TH\b/i;
 
 // Formate, die es nur in Japan gibt.
 const JP_ONLY_NAMES = /Enhanced Expansion Pack|Strength Expansion Pack|High Class Pack|Concept Pack/i;
@@ -78,7 +84,9 @@ export function buildRegionResolver(allProducts, intlSetNames = [], overrides = 
   // Hinweise auf Set-Ebene sammeln
   const intlExpansions = new Set();
   const jpExpansions = new Set();
+  const otherExpansions = new Set(); // indonesische/thailändische Sets (an typischen Formaten erkennbar)
   for (const p of allProducts) {
+    if (ID_TH_FORMATS.test(p.name)) otherExpansions.add(p.idExpansion);
     if (INTL_ONLY_CATEGORIES.has(p.idCategory) || INTL_ONLY_NAMES.test(p.name)) {
       if (!markerRegion(p.name)) intlExpansions.add(p.idExpansion);
     }
@@ -90,12 +98,13 @@ export function buildRegionResolver(allProducts, intlSetNames = [], overrides = 
     if (overrides[p.idProduct]) return { region: overrides[p.idProduct], reason: 'override' };
     const m = markerRegion(p.name);
     if (m) return { region: m, reason: 'name-marker' };
+    if (otherExpansions.has(p.idExpansion)) return { region: 'other', reason: 'other-region-set' };
     if (jpExpansions.has(p.idExpansion)) return { region: 'japanese', reason: 'jp-only-format' };
     if (intlExpansions.has(p.idExpansion)) return { region: 'international', reason: 'intl-only-format' };
     // Abgleich mit internationalen Setnamen: exakt, oder per Wortanfang nur bei
     // mehrteiligen Namen ("Dragon Blade" ist NICHT das internationale Set "Dragon").
     const n = norm(setName(p.name)).replace(/^ex /, '');
-    const match = intlNames.some((s) => n === s || (s.includes(' ') && n.startsWith(s + ' ')));
+    const match = intlNames.some((s) => n === s || n === s + ' set' || (s.includes(' ') && n.startsWith(s + ' ')));
     if (match) return { region: 'international', reason: 'intl-set-name' };
     return { region: 'japanese', reason: 'fallback' };
   };

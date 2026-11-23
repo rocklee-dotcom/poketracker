@@ -33,6 +33,14 @@ jobs:
         continue-on-error: true
         run: node src/update-shops.mjs
 
+      - name: Morgenbericht erstellen und per Telegram senden
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
+        run: node src/report.mjs --send
+
       - name: Änderungen committen
         run: |
           git config user.name "github-actions[bot]"
@@ -44,3 +52,12 @@ jobs:
           fi
           git commit -m "Preis-Update $(date -u +%F)"
           git push
+
+      - name: Bei Fehler per Telegram warnen
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          node -e "import('./src/lib/telegram.mjs').then(m => m.sendHtml('⚠️ <b>PokeTracker:</b> Der Tageslauf ist fehlgeschlagen.\n<a href=\"' + process.env.RUN_URL + '\">Log ansehen</a>')).catch(e => console.log(e.message))"
