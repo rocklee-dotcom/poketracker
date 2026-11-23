@@ -146,9 +146,22 @@ export function analyze() {
   for (const g of groups.values()) {
     const best = g.offers[0];
     const { p } = g;
-    if (p.trend && best.total > p.trend * (p.region === 'international' ? 1.4 : 1.1)) continue; // Cardmarket deutlich billiger
+    // Keine Kaufchance, wenn Cardmarket günstiger ist. 5 % Spielraum ≈ Versand, der auf Cardmarket dazukommt.
+    if (p.trend && best.total > p.trend * 1.05) continue;
     const reasons = [];
     let score = 0;
+    // a) unter dem Cardmarket-Trend – zählt als Kaufgrund nur für EN/JP/CN.
+    //    Der Trend mischt alle Sprachen; deutsche Displays sind meist ohnehin billiger,
+    //    "unter Trend" ist bei DE also kein Schnäppchen-Signal (nur Info).
+    const info = [];
+    if (p.trend && best.total <= p.trend * 0.97) {
+      const txt = `${eur0(p.trend - best.total)} unter Cardmarket-Trend`;
+      if (g.lang === 'de') info.push(txt);
+      else {
+        reasons.push(txt);
+        score = Math.max(score, 1 - best.total / p.trend);
+      }
+    }
     const second = g.offers.find((o) => o.shop !== best.shop);
     if (second) {
       const s = 1 - best.total / second.total;
@@ -169,13 +182,11 @@ export function analyze() {
       reasons.push('unter Cardmarket-Tiefstpreis');
       score = Math.max(score, 1 - best.total / p.low + 0.05);
     }
-    if (p.region !== 'international' && p.trend && best.total < p.trend) {
-      reasons.push('unter Cardmarket-Trend');
-      score = Math.max(score, 1 - best.total / p.trend);
-    }
-    // Echter Kauftipp: deutlicher Vorteil und nicht teurer als Cardmarket (+5 %)
-    const buy = score >= 0.08 && (!p.trend || best.total <= p.trend * 1.05);
-    if (reasons.length) opportunities.push({ p, lang: g.lang, best, second, reasons, score, buy });
+    // Knapp über Cardmarket (bis +5 %): offen dazuschreiben
+    if (p.trend && best.total > p.trend) info.push(`${eur0(best.total - p.trend)} über Cardmarket-Trend (dort kommt Versand dazu)`);
+    // Kauftipp: deutlicher Vorteil (≥ 8 %) UND inkl. Versand nicht teurer als der Cardmarket-Trend
+    const buy = score >= 0.08 && (!p.trend || best.total <= p.trend);
+    if (reasons.length) opportunities.push({ p, lang: g.lang, best, second, reasons: [...reasons, ...info], score, buy });
   }
   opportunities.sort((x, y) => y.score - x.score);
 
