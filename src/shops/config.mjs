@@ -62,6 +62,36 @@ export const SHOPS = [
   },
 ];
 
+// eBay: offizielle Browse API. Läuft nur, wenn EBAY_CLIENT_ID und EBAY_CLIENT_SECRET gesetzt sind.
+// Suchbegriffe werden täglich aus den neuesten Sets gebaut (siehe ebaySources).
+SHOPS.push({
+  id: 'ebay',
+  name: 'eBay',
+  adapter: 'ebay',
+  requiresEnv: ['EBAY_CLIENT_ID', 'EBAY_CLIENT_SECRET'],
+  maxPerProduct: 3, // nur die 3 günstigsten passenden Angebote je Display und Sprache behalten
+  shipping: { cost: 6.99, freeFrom: null, estimated: true, source: 'Angebot (falls nicht angegeben: Schätzung)' },
+  dynamicSources: ebaySources,
+});
+
+/** eBay-Suchen: neueste internationale Sets (DE- und EN-Suche) und neueste japanische Sets */
+export function ebaySources(products) {
+  const newest = (filter, n) =>
+    products
+      .filter(filter)
+      .sort((a, b) => b.added.localeCompare(a.added))
+      .slice(0, n);
+  const intl = newest((p) => p.region === 'international' && p.type === 'booster-box' && !/Enhanced/.test(p.name) && p.trend, 12);
+  const jp = newest((p) => p.region === 'japanese' && p.type === 'booster-box' && p.trend, 10);
+  return [
+    ...intl.flatMap((p) => [
+      ...(p.setDe ? [{ q: `pokemon ${p.setDe} display` }] : []),
+      { q: `pokemon ${p.set} booster box` },
+    ]),
+    ...jp.map((p) => ({ q: `pokemon ${p.set} booster box japanese`, langHint: 'jp' })),
+  ];
+}
+
 export function shippingFor(shop, price) {
   const { cost, freeFrom } = shop.shipping;
   return freeFrom !== null && price >= freeFrom ? 0 : cost;

@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { SHOPS, shippingFor } from './shops/config.mjs';
 import { ADAPTERS } from './shops/adapters.mjs';
 import { buildIndex, matchOffer } from './shops/match.mjs';
+import './lib/env.mjs'; // lokale .env (eBay-Schlüssel) laden
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DATA = join(ROOT, 'data');
@@ -26,10 +27,17 @@ const shopResults = [];
 const offers = [];
 
 for (const shop of SHOPS.filter((s) => !only.length || only.includes(s.id))) {
+  const missing = (shop.requiresEnv ?? []).filter((k) => !process.env[k]);
+  if (missing.length) {
+    console.log(`${shop.name.padEnd(18)} übersprungen (fehlt: ${missing.join(', ')})`);
+    continue;
+  }
   const t0 = Date.now();
   const result = { id: shop.id, name: shop.name, ok: true, errors: [], raw: 0, displays: 0, matched: 0 };
   const seen = new Set();
-  for (const source of shop.sources) {
+  const shopOffers = [];
+  const sources = shop.sources ?? shop.dynamicSources(products);
+  for (const source of sources) {
     let raw = [];
     try {
       raw = await ADAPTERS[shop.adapter](shop, source);
@@ -43,15 +51,19 @@ for (const shop of SHOPS.filter((s) => !only.length || only.includes(s.id))) {
       result.raw++;
       const m = matchOffer(o, index);
       if (m.skip) continue;
+      if (shop.maxPerProduct && !m.product) continue; // Marktplätze: nur zuordenbare Angebote behalten
       result.displays++;
       if (m.product) result.matched++;
-      const shipping = o.price ? shippingFor(shop, o.price) : null;
-      offers.push({
+      const ownShipping = o.shipping != null;
+      const shipping = !o.price ? null : ownShipping ? o.shipping : shippingFor(shop, o.price);
+      shopOffers.push({
         shop: shop.id,
         title: o.title,
         url: o.url,
         price: o.price,
         shipping,
+        shippingEstimated: (!ownShipping && shop.shipping.estimated) || undefined,
+        seller: o.seller,
         total: o.price ? Math.round((o.price + shipping) * 100) / 100 : null,
         stock: o.stock,
         lang: m.lang ?? null,
@@ -64,7 +76,17 @@ for (const shop of SHOPS.filter((s) => !only.length || only.includes(s.id))) {
       });
     }
   }
-  if (result.errors.length === shop.sources.length) result.ok = false;
+  // Marktplätze: je Display und Sprache nur die günstigsten N Angebote behalten
+  if (shop.maxPerProduct) {
+    const byKey = new Map();
+    for (const o of shopOffers.sort((a, b) => a.total - b.total)) {
+      const k = `${o.cmId}|${o.lang}`;
+      byKey.set(k, (byKey.get(k) ?? 0) + 1);
+      if (byKey.get(k) <= shop.maxPerProduct) offers.push(o);
+    }
+    result.matched = Math.min(result.matched, offers.filter((o) => o.shop === shop.id).length);
+  } else offers.push(...shopOffers);
+  if (result.errors.length === sources.length) result.ok = false;
   // Warnung, wenn ein Shop plötzlich viel weniger liefert (Seitenumbau?)
   const prev = previous.shops.find((s) => s.id === shop.id);
   if (prev?.displays && result.displays < prev.displays * 0.5) result.warning = `nur ${result.displays} Displays (vorher ${prev.displays})`;

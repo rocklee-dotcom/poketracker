@@ -16,7 +16,11 @@ const REGION_OF_LANG = { de: 'international', en: 'international', jp: 'japanese
 const LANG_OF_REGION = { japanese: 'jp', chinese: 'cn' };
 
 // Keine Booster-Displays (oder Zubehör)
-const NOT_A_DISPLAY = w('mini[- ]?tin|tin|acryl|acrylic|case|sleeved|sleeves?|blister|elite trainer|etb|top trainer|kollektion|collection|special set|plüsch|plush|deck|binder|ordner|album|spielmatte|playmat|einzelbooster|poster');
+const NOT_A_DISPLAY = w(
+  'mini[- ]?tin|tin|acryl|acrylic|case|sleeved|sleeves?|blister|elite trainer|etb|top trainer|special set|plüsch|plush|deck|binder|ordner|album|spielmatte|playmat|einzelbooster|poster' +
+    // Marktplatz-Fallen: leere Displays, Karton, Deko, Fälschungen, einzelne Packs
+    '|leer|leeres|empty|ohne booster|karton|aufbewahrung|deko|replica|fake|proxy|custom|lose booster|single booster|1x booster|einzeln',
+);
 const IS_DISPLAY = /display|booster ?box/i;
 const DAMAGED = /schäden|beschädigt|eindrücke|eingedrückt|damaged|dent/i;
 
@@ -62,6 +66,8 @@ export function detectLang(offer) {
 
 export function detectFormat(title) {
   if (!IS_DISPLAY.test(title) || test(NOT_A_DISPLAY, title)) return null;
+  // "Kollektion/Collection" ist meist eine Box – außer z.B. "25th Anniversary Collection Display"
+  if (/\b(kollektion|collection)\b/i.test(title) && !/\b(kollektion|collection)\s+(display|booster)/i.test(title)) return null;
   // Zahl darf nicht an Buchstaben hängen ("ME06 Booster" ist ein Set-Code, keine Anzahl)
   const count = Number(title.match(/(?<![A-Za-z\d.])(\d+)\s*(?:er\b|x\s*booster|\s*booster|\s*packs?\b)/i)?.[1] ?? NaN);
   return {

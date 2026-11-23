@@ -31,6 +31,9 @@ jobs:
       - name: Deutsche Shops abfragen
         # Fällt ein einzelner Shop aus, läuft der Rest weiter; Cardmarket-Daten werden trotzdem gespeichert.
         continue-on-error: true
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
         run: node src/update-shops.mjs
 
       - name: Morgenbericht erstellen und per Telegram senden

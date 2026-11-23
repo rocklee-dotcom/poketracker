@@ -70,6 +70,25 @@ Jedes Angebot wird einem Cardmarket-Display zugeordnet (`src/shops/match.mjs`):
 | `data/shops/latest.json` | alle Display-Angebote von heute, auch nicht zugeordnete mit Grund |
 | `data/shop-history/YYYY-MM.csv` | `date,shop,cmId,lang,price,total,stock,damaged,key` |
 
+## Cardmarket als Kaufquelle
+
+Neben den Shops gilt das günstigste Cardmarket-Angebot („ab“) plus **geschätzt 8 € Versand** (`CM_SHIPPING_EST` in `src/lib/analysis.mjs`) als Kaufmöglichkeit.
+
+- **Sprache:** Bei internationalen Displays ist sie unbekannt („Sprache gemischt“).
+- **Unplausible Preise:** „ab“-Preise unter 70 % oder über 150 % des Trends zählen nicht als Bestpreis, sondern nur als Hinweis.
+- **Wann es eine Kaufchance ist:** Ein Cardmarket-Angebot ist eine Kaufchance, wenn es deutlich unter dem üblichen „ab“-Preis der letzten 14 Tage liegt.
+
+## eBay (optional)
+
+Die Anbindung über die offizielle eBay Browse API ist eingebaut und läuft, sobald Schlüssel vorhanden sind. Sie sucht täglich die 12 neuesten internationalen Sets (Suche auf DE und EN) und die 10 neuesten japanischen Sets. Es zählen nur Angebote, die neu sind, einen Festpreis haben, nach Deutschland liefern und von Verkäufern mit mindestens 98 % positiven Bewertungen und mindestens 50 Bewertungen stammen. Pro Display und Sprache werden die 3 günstigsten Angebote übernommen.
+
+Einrichtung:
+
+1. Auf https://developer.ebay.com ein kostenloses Entwicklerkonto anlegen.
+2. Unter „Application Keys“ ein **Production**-Keyset erzeugen.
+3. `EBAY_CLIENT_ID` (App ID) und `EBAY_CLIENT_SECRET` (Cert ID) in `.env` eintragen.
+4. Dieselben Werte als GitHub-Secrets hinterlegen.
+
 ## Lokal ausführen
 
 Benötigt Node.js ≥ 22, keine weiteren Abhängigkeiten.

@@ -138,4 +138,60 @@ async function oxid(shop, source) {
   return out;
 }
 
-export const ADAPTERS = { shopify, woocommerce, jtl, oxid };
+// ---------- eBay (offizielle Browse API, braucht EBAY_CLIENT_ID + EBAY_CLIENT_SECRET) ----------
+let ebayToken = null;
+async function ebayAuth() {
+  if (ebayToken && ebayToken.exp > Date.now()) return ebayToken.value;
+  const basic = Buffer.from(`${process.env.EBAY_CLIENT_ID}:${process.env.EBAY_CLIENT_SECRET}`).toString('base64');
+  const res = await fetch('https://api.ebay.com/identity/v1/oauth2/token', {
+    method: 'POST',
+    headers: { Authorization: `Basic ${basic}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'grant_type=client_credentials&scope=' + encodeURIComponent('https://api.ebay.com/oauth/api_scope'),
+    signal: AbortSignal.timeout(30_000),
+  });
+  const j = await res.json();
+  if (!j.access_token) throw new Error(`eBay-Anmeldung fehlgeschlagen: ${j.error_description ?? j.error ?? res.status}`);
+  ebayToken = { value: j.access_token, exp: Date.now() + (j.expires_in - 60) * 1000 };
+  return ebayToken.value;
+}
+
+/**
+ * Sucht Sofort-Kaufen-Angebote auf ebay.de. source: { q, langHint? }
+ * Filter: neu, Festpreis, Versand nach DE, Verkäufer mit ≥ 98 % positiv und ≥ 50 Bewertungen.
+ */
+async function ebay(shop, source) {
+  const token = await ebayAuth();
+  const params = new URLSearchParams({
+    q: source.q,
+    limit: '50',
+    sort: 'price',
+    filter: 'buyingOptions:{FIXED_PRICE},conditionIds:{1000},deliveryCountry:DE,priceCurrency:EUR,price:[25..20000]',
+  });
+  const res = await fetch(`https://api.ebay.com/buy/browse/v1/item_summary/search?${params}`, {
+    headers: { Authorization: `Bearer ${token}`, 'X-EBAY-C-MARKETPLACE-ID': 'EBAY_DE', 'Accept-Language': 'de-DE' },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (res.status === 429) throw new Error('eBay: Abruflimit erreicht');
+  const j = await res.json();
+  if (!res.ok) throw new Error(`eBay ${res.status}: ${j.errors?.[0]?.message ?? ''}`);
+  const out = [];
+  for (const it of j.itemSummaries ?? []) {
+    const seller = it.seller ?? {};
+    if (Number(seller.feedbackPercentage ?? 0) < 98 || Number(seller.feedbackScore ?? 0) < 50) continue;
+    const price = Number(it.price?.value);
+    if (!price || it.price?.currency !== 'EUR') continue;
+    const ship = it.shippingOptions?.[0]?.shippingCost;
+    out.push({
+      title: it.title,
+      url: it.itemWebUrl,
+      price,
+      shipping: ship && ship.currency === 'EUR' ? Number(ship.value) : null, // null = unbekannt
+      stock: 'in',
+      langHint: source.langHint,
+      seller: `${seller.username ?? ''} (${seller.feedbackPercentage ?? '?'} %)`,
+    });
+  }
+  return out;
+}
+
+export const ADAPTERS = { shopify, woocommerce, jtl, oxid, ebay };

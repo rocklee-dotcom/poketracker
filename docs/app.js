@@ -225,8 +225,19 @@ function sparkline(values, color) {
 
 // ═══════════ Bausteine ═══════════
 function section(title, hint, ...content) {
-  return h('section', { class: 'section' }, h('div', { class: 'section-head' }, h('h2', { text: title }), hint ? h('span', { class: 'hint', text: hint }) : ''), ...content);
+  // führendes Emoji als Symbol-Plakette
+  const m = title.match(/^(\S+)\s+(.*)$/u);
+  const hasIcon = m && !/[A-Za-zÄÖÜäöü]/.test(m[1]);
+  return h(
+    'section',
+    { class: 'section' },
+    h('div', { class: 'section-head' }, hasIcon ? h('span', { class: 'ico', text: m[1] }) : '', h('h2', { text: hasIcon ? m[2] : title }), hint ? h('span', { class: 'hint', text: hint }) : ''),
+    ...content,
+  );
 }
+// Energie-Typ je Region (Kartenrahmen-Farbe)
+const TYPE_OF = { international: 'water', japanese: 'fire', chinese: 'grass', mix: 'psychic' };
+const SPARK_ON_DARK = { international: '#7cc8ff', japanese: '#ff9a5c', chinese: '#6be28a' };
 
 /** Günstigste Kaufmöglichkeiten: Cardmarket (inkl. ca. Versand) und beste Shops je Sprache, billigste zuerst */
 function priceCell(p) {
@@ -247,24 +258,33 @@ function priceCell(p) {
 function renderHome() {
   const D = state.data;
   const buyCount = D.opportunities.filter((o) => o.buy).length;
+  const hour = new Date().getHours();
+  const hello = hour < 11 ? 'Guten Morgen' : hour < 18 ? 'Hallo' : 'Guten Abend';
+  const bestDeal = D.opportunities.find((o) => o.buy);
   const tiles = h(
     'div',
-    { class: 'tiles' },
+    { class: 'hero' },
+    h('h2', { class: 'hello' }, `${hello}, `, h('span', { text: 'Trainer!' })),
+    h('div', { class: 'date', text: `Marktbericht vom ${new Date(D.shopsDate + 'T12:00:00').toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}` }),
     h(
       'div',
-      { class: 'card tile' },
-      h('span', { class: 'label', text: '🎯 Kaufchancen heute' }),
-      h('span', { class: 'value', text: String(D.opportunities.length) }),
-      h('span', { class: 'foot', text: buyCount ? `davon ${buyCount} mit Kaufempfehlung` : 'keine klare Kaufempfehlung' }),
-    ),
-    D.market.map((m) =>
+      { class: 'hero-stats' },
       h(
         'div',
-        { class: 'card tile' },
-        h('span', { class: 'label' }, regionBadge(m.region), ` ${m.name} · 7 Tage`),
-        h('span', { class: 'value' }, delta(m.m7, 1)),
-        h('span', { class: 'foot', text: `30 T ${m.m30 == null ? '–' : (m.m30 < 0 ? '▼ ' : '▲ ') + pct(m.m30, 1)} · ${m.down}↓ ${m.up}↑` }),
-        sparkline(m.index.map((x) => x[1]), REGION_COLOR[m.region]),
+        { class: 'hstat' },
+        h('span', { class: 'l', text: '🎯 Kaufchancen' }),
+        h('span', { class: 'v', text: String(D.opportunities.length) }),
+        h('span', { class: 'f', text: buyCount ? `★ ${buyCount} Kauftipps${bestDeal ? ` · Top: ${setTitle(prod(bestDeal.id), bestDeal.lang === 'mix' ? null : bestDeal.lang)}` : ''}` : 'heute kein klarer Deal' }),
+      ),
+      D.market.map((m) =>
+        h(
+          'div',
+          { class: 'hstat' },
+          h('span', { class: 'l' }, regionBadge(m.region), ` ${m.name} · 7 T`),
+          h('span', { class: 'v' }, delta(m.m7, 1)),
+          h('span', { class: 'f', text: `30 T ${m.m30 == null ? '–' : (m.m30 < 0 ? '▼ ' : '▲ ') + pct(m.m30, 1)} · ${m.down}↓ ${m.up}↑` }),
+          sparkline(m.index.map((x) => x[1]), SPARK_ON_DARK[m.region]),
+        ),
       ),
     ),
   );
@@ -289,30 +309,41 @@ function renderHome() {
     ),
   );
 
+  /** Kaufchance als Sammelkarte: Rahmen in Energie-Farbe, Preis oben rechts, Gründe als "Attacken" */
   const opCard = (o) => {
     const p = prod(o.id);
+    const type = TYPE_OF[o.lang === 'mix' ? 'mix' : p.region];
+    const isInfo = (r) => /prüfen|über/.test(r);
     return h(
       'article',
-      { class: 'card op', onclick: (e) => !e.target.closest('a') && go(`#/p/${o.id}`) },
-      o.buy ? h('span', { class: 'badge-buy', text: 'KAUFTIPP' }) : '',
-      h('div', { class: 'title' }, h('span', { text: setTitle(p, o.lang === 'mix' ? null : o.lang) })),
-      h('div', { class: 'meta' }, `${fmtName(p)} · `, langBadge(o.lang), ` ${LANG[o.lang]}`),
+      { class: `tcg type-${type} ${o.buy ? 'tip' : ''}`, onclick: (e) => !e.target.closest('a') && go(`#/p/${o.id}`), tabindex: 0, onkeydown: (e) => e.key === 'Enter' && go(`#/p/${o.id}`) },
       h(
         'div',
-        { class: 'chips' },
-        o.reasons.map((r) => h('span', { class: /prüfen|über/.test(r) ? 'chip' : 'chip good', text: /prüfen|über/.test(r) ? `ⓘ ${r}` : `✓ ${r}` })),
-        p.trend ? h('span', { class: 'chip', text: `CM-Trend ${eur0(p.trend)}` }) : '',
-      ),
-      h(
-        'div',
-        { class: 'op-foot' },
+        { class: 'tcg-in' },
+        o.buy ? h('span', { class: 'ribbon', text: '★ KAUFTIPP' }) : '',
         h(
           'div',
-          { class: 'stack' },
-          h('div', { class: 'price num' }, eur(o.total), h('small', { text: isCM(o.shop) ? 'inkl. ca. Versand' : 'inkl. Versand' })),
-          isCM(o.shop) ? h('span', { class: 'muted small', text: `ab ${eur(o.price)} + ca. ${eur0(o.shipping)} Versand (geschätzt)` }) : '',
+          { class: 'tcg-top' },
+          h('div', { class: 'tcg-name', text: setTitle(p, o.lang === 'mix' ? null : o.lang) }),
+          h('div', { class: 'tcg-hp' }, h('small', { text: isCM(o.shop) ? 'INKL. CA. VERSAND' : 'INKL. VERSAND' }), h('b', { class: 'num', text: eur(o.total) })),
         ),
-        h('a', { class: `btn primary ${isCM(o.shop) ? 'cm-btn' : ''}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
+        h(
+          'div',
+          { class: 'tcg-art' },
+          h('div', { class: 'fmt' }, h('span', { class: 'energy' }), `${fmtName(p)} · `, langBadge(o.lang), ` ${LANG[o.lang]}`),
+          h('div', { class: 'where', text: isCM(o.shop) ? `Cardmarket · ab ${eur(o.price)} + ca. ${eur0(o.shipping)} Versand` : `bei ${shop(o.shop)}${p.trend ? ` · CM-Trend ${eur0(p.trend)}` : ''}` }),
+        ),
+        h(
+          'div',
+          { class: 'moves' },
+          o.reasons.map((r) => h('div', { class: `move ${isInfo(r) ? 'info' : ''}` }, h('span', { class: 'energy' }), h('span', { text: r }))),
+        ),
+        h(
+          'div',
+          { class: 'tcg-foot' },
+          h('span', { class: 'sub', text: o.buy ? 'Deutlicher Preisvorteil' : 'Guter Preis – vergleichen' }),
+          h('a', { class: `btn ${o.buy ? 'go' : 'primary'}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
+        ),
       ),
     );
   };
@@ -387,7 +418,7 @@ function renderHome() {
     h(
       'div',
       { class: 'card' },
-      h('h3', { text: title }),
+      h('h3', {}, h('span', { text: title.startsWith('Gef') ? '🔻' : '🔺' }), title),
       list.length
         ? list.slice(0, 8).map((m) => {
             const p = prod(m.id);
@@ -537,7 +568,8 @@ async function renderDetail(id) {
   rows.sort((a, b) => (b.stock === 'in') - (a.stock === 'in') || a.total - b.total);
   const chartBox = h('div', { class: 'card pad' }, h('div', { class: 'empty', text: 'Verlauf lädt …' }));
 
-  const stat = (label, value, foot) => h('div', { class: 'card tile' }, h('span', { class: 'label', text: label }), h('span', { class: 'value num' }, value), foot ? h('span', { class: 'foot' }, foot) : '');
+  const stat = (label, value, foot, color) =>
+    h('div', { class: 'card tile', style: color ? `--tile-c:${color}` : null }, h('span', { class: 'label', text: label }), h('span', { class: 'value num' }, value), foot ? h('span', { class: 'foot' }, foot) : '');
   const offersTable = rows.length
     ? h(
         'div',
@@ -576,17 +608,21 @@ async function renderDetail(id) {
     h('div', { class: 'back' }, h('a', { href: '#/displays', class: 'btn', text: '← Alle Displays', onclick: (e) => (history.length > 1 ? (e.preventDefault(), history.back()) : null) })),
     h(
       'div',
-      { class: 'detail-head' },
-      h('div', { class: 'stack', style: 'flex:1;min-width:0' }, h('h2', { text: `${setTitle(p)} · ${fmtName(p)}` }), h('span', { class: 'meta' }, regionBadge(p.region), ` ${REGION[p.region][1]} · Cardmarket: ${p.name} · seit ${dateDe(p.added)}`)),
-      h('a', { class: 'btn', href: cmLink(p), target: '_blank', rel: 'noopener', text: 'Auf Cardmarket →' }),
+      { class: 'hero detail-hero' },
+      h(
+        'div',
+        { class: 'row' },
+        h('div', { class: 'stack', style: 'flex:1;min-width:0' }, h('h2', { text: `${setTitle(p)} · ${fmtName(p)}` }), h('span', { class: 'meta' }, regionBadge(p.region), ` ${REGION[p.region][1]} · Cardmarket: ${p.name} · seit ${dateDe(p.added)}`)),
+        h('a', { class: 'btn go', href: cmLink(p), target: '_blank', rel: 'noopener', text: 'Auf Cardmarket →' }),
+      ),
     ),
     h(
       'div',
       { class: 'stats' },
-      stat('Cardmarket-Trend', eur(p.trend), h('span', {}, '7 T ', delta(p.d7), ' · 30 T ', delta(p.d30))),
-      stat('Günstigster Kaufpreis', cheapest ? eur(cheapest.total) : '–', cheapest ? h('span', {}, langBadge(cheapest.lang), ` ${shop(cheapest.shop)} · inkl. ${isCM(cheapest.shop) ? 'ca. ' : ''}Versand`) : 'nirgends lieferbar'),
-      stat('Cardmarket ab', eur(p.low), p.cm?.suspicious ? '⚠ auffällig günstig – prüfen' : `+ ca. ${eur0(state.data.cmShippingEst)} Versand (geschätzt)`),
-      stat('Lieferbar in Shops', String(p.inStock), `von ${p.offers.length} Angeboten in ${new Set(p.offers.map((o) => o.shop)).size} Shops`),
+      stat('Günstigster Kaufpreis', cheapest ? eur(cheapest.total) : '–', cheapest ? h('span', {}, langBadge(cheapest.lang), ` ${shop(cheapest.shop)} · inkl. ${isCM(cheapest.shop) ? 'ca. ' : ''}Versand`) : 'nirgends lieferbar', 'linear-gradient(90deg,#ffe066,#ffbf00)'),
+      stat('Cardmarket-Trend', eur(p.trend), h('span', {}, '7 T ', delta(p.d7), ' · 30 T ', delta(p.d30)), 'linear-gradient(90deg,#3fa9f5,#1b5fd1)'),
+      stat('Cardmarket ab', eur(p.low), p.cm?.suspicious ? '⚠ auffällig günstig – prüfen' : `+ ca. ${eur0(state.data.cmShippingEst)} Versand (geschätzt)`, 'linear-gradient(90deg,#5fd37a,#179b54)'),
+      stat('Lieferbar in Shops', String(p.inStock), `von ${p.offers.length} Angeboten in ${new Set(p.offers.map((o) => o.shop)).size} Shops`, 'linear-gradient(90deg,#c07cf2,#7b3fd6)'),
     ),
     section('📈 Preisverlauf', 'Cardmarket täglich · Shops: günstigster lieferbarer Gesamtpreis', chartBox),
     section('🛒 Kaufmöglichkeiten', 'Shops + Cardmarket · günstigste zuerst', offersTable),
