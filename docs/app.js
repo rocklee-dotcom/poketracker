@@ -472,9 +472,13 @@ function renderHome() {
   const D = state.data;
   const { tiles, verdict } = buildParts();
   const okShops = D.shops.filter((x) => x.ok && !x.warning).length;
+  const nextReleases = (D.calendar?.upcoming ?? []).slice(0, 3);
   $app.replaceChildren(
     tiles,
     section('💡 Heute in 30 Sekunden', null, verdict),
+    nextReleases.length
+      ? section('📅 Nächste Releases', null, h('div', { class: 'card plist' }, nextReleases.map(releaseRow)), h('a', { class: 'btn primary morebtn', href: '#/kalender', text: 'Kompletter Release-Kalender →' }))
+      : '',
     h(
       'div',
       { class: 'quick' },
@@ -492,10 +496,99 @@ function renderHome() {
   );
 }
 
+// ═══════════ Release-Kalender ═══════════
+const MONTHS = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+const whenText = (d) => (d === 0 ? 'heute' : d === 1 ? 'morgen' : d > 0 ? `in ${d} Tagen` : d === -1 ? 'gestern' : `vor ${-d} Tagen`);
+/** Datumsblock wie ein Kalenderblatt */
+const dateBlock = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return h('div', { class: 'dblock' }, h('span', { class: 'dm', text: MONTHS[m - 1] }), h('b', { text: String(d) }), h('span', { class: 'dy', text: String(y) }));
+};
+const statusChip = (s) => h('span', { class: `schip s-${s}`, text: s === 'offiziell' ? '✓ offiziell' : s === 'gemeldet' ? '? gemeldet' : 'erschienen' });
+const relRegion = (r) => (r.region === 'international' ? [langBadge('de'), langBadge('en')] : [regionBadge(r.region)]);
+const relPills = (offers) =>
+  Object.entries(offers ?? {})
+    .sort((a, b) => a[1].total - b[1].total)
+    .map(([lang, o]) =>
+      h('a', { class: 'ppill', href: o.url, target: '_blank', rel: 'noopener', onclick: (e) => e.stopPropagation() }, langBadge(lang), h('b', { class: 'num', text: eur(o.total) }), h('small', { text: `${shop(o.shop)}${o.stock === 'preorder' ? ' · Vorbest.' : ''}` })),
+    );
+
+/** Kompakte Zeile für die Übersicht */
+function releaseRow(u) {
+  return h(
+    'a',
+    { class: 'relrow', href: '#/kalender' },
+    dateBlock(u.date),
+    h('div', { class: 'relmain' }, h('b', {}, ...relRegion(u), ` ${u.nameDe ?? u.name}`), h('small', {}, statusChip(u.status), ` ${u.kind ?? ''}`)),
+    h('span', { class: `countdown ${u.days <= 7 ? 'soon' : ''}`, text: whenText(u.days) }),
+  );
+}
+
+function renderCalendar() {
+  const cal = state.data.calendar ?? { upcoming: [], recent: [], newListings: [] };
+  const upcomingCard = (u) =>
+    h(
+      'div',
+      { class: `card relcard ${u.days <= 7 ? 'soon' : ''}` },
+      dateBlock(u.date),
+      h(
+        'div',
+        { class: 'relmain' },
+        h('div', { class: 'reltitle' }, ...relRegion(u), h('b', { text: ` ${u.nameDe ?? u.name}` }), u.nameDe ? h('small', { class: 'muted', text: ` (${u.name})` }) : ''),
+        h('div', { class: 'relmeta' }, statusChip(u.status), h('span', { class: `countdown ${u.days <= 7 ? 'soon' : ''}`, text: whenText(u.days) }), u.kind ? h('span', { class: 'muted small', text: u.kind }) : ''),
+        Object.keys(u.offers ?? {}).length
+          ? h('div', { class: 'pr-pills' }, h('span', { class: 'muted small', text: 'Vorbestellen ab:' }), relPills(u.offers))
+          : u.cmTrend
+            ? h('div', { class: 'muted small', text: `Display auf Cardmarket bereits gelistet: Trend ${eur(u.cmTrend)}` })
+            : h('div', { class: 'muted small', text: 'Noch keine Vorbestellpreise in den beobachteten Shops.' }),
+        h(
+          'div',
+          { class: 'relfoot' },
+          u.productId ? h('a', { class: 'btn sm', href: `#/p/${u.productId}`, text: 'Display-Details' }) : '',
+          u.source ? h('a', { class: 'muted small', href: u.source.url, target: '_blank', rel: 'noopener', text: `Quelle: ${u.source.title}` }) : '',
+        ),
+      ),
+    );
+  const recentRow = (r) =>
+    h(
+      'div',
+      { class: 'prow', role: 'link', tabindex: 0, onclick: (e) => !e.target.closest('a') && r.productId && go(`#/p/${r.productId}`) },
+      h(
+        'div',
+        { class: 'pr-top' },
+        h('div', { class: 'pr-name' }, ...relRegion(r), h('b', { text: ` ${r.nameDe ?? r.name}` }), h('small', { text: `erschienen ${dateDe(r.date)} · ${whenText(r.days)}` })),
+        h('div', { class: 'pr-price' }, h('b', { class: 'num', text: eur(r.cmTrend) }), h('small', {}, 'CM-Trend · 30 T ', delta(r.cm30))),
+      ),
+      Object.keys(r.offers ?? {}).length ? h('div', { class: 'pr-pills' }, relPills(r.offers)) : '',
+    );
+  // Lern-Hinweis aus den Daten: wie haben sich frische Sets entwickelt?
+  const fresh = cal.recent.filter((r) => r.days >= -60 && r.cm30 != null);
+  const insight = fresh.length
+    ? h(
+        'div',
+        { class: 'card pad insight' },
+        h('b', { text: '💡 Muster nach Release' }),
+        h('div', {}, ...fresh.map((r) => h('div', {}, `${r.nameDe ?? r.name}: `, delta(r.cm30), ` in 30 Tagen (erschienen ${whenText(r.days)})`))),
+        h('small', { class: 'muted', text: 'Frisch erschienene Displays werden oft in den ersten Wochen günstiger – bei neuen Sets lohnt sich meist etwas Geduld.' }),
+      )
+    : '';
+  $app.replaceChildren(
+    h('div', { class: 'back' }, h('a', { href: '#/markt', class: 'btn', text: '← Markt' })),
+    section('📅 Kommende Releases', 'Termine ohne Gewähr · „gemeldet“ = noch nicht offiziell bestätigt', h('div', { class: 'rellist' }, cal.upcoming.length ? cal.upcoming.map(upcomingCard) : h('div', { class: 'card empty', text: 'Keine bekannten Termine.' }))),
+    insight ? section('📈 Preise nach Release', null, insight) : '',
+    section('🗓️ Kürzlich erschienen', 'Display-Preis heute · Veränderung der letzten 30 Tage', h('div', { class: 'card plist' }, cal.recent.map(recentRow))),
+    cal.newListings.length
+      ? section('🆕 Neu bei Cardmarket gelistet', 'noch ohne Preis und ohne bekannten Termin', h('div', { class: 'card plist' }, cal.newListings.map((n) => productRow(prod(n.productId)))))
+      : '',
+  );
+}
+
 // ═══════════ Markt ═══════════
 function renderMarket() {
   const { marketChart, recent, movers } = buildParts();
+  const next = (state.data.calendar?.upcoming ?? []).slice(0, 2);
   $app.replaceChildren(
+    next.length ? section('📅 Release-Kalender', null, h('div', { class: 'card plist' }, next.map(releaseRow)), h('a', { class: 'btn primary morebtn', href: '#/kalender', text: 'Alle Termine & Preise nach Release →' })) : '',
     section('📊 Preisentwicklung', 'Cardmarket-Trend aller Displays je Region · seit Beginn der Aufzeichnung', marketChart),
     section('🏷️ Neueste Sets', '36er · günstigster lieferbarer Preis je Sprache · Cardmarket direkt prüfen', recent),
     section('📉 Größte Bewegungen', 'Cardmarket · letzte 7 Tage · antippen für Details', movers),
@@ -1224,7 +1317,7 @@ function route() {
     m || hash.startsWith('#/displays') ? 'displays'
     : km || hash.startsWith('#/karten') ? 'karten'
     : hash.startsWith('#/deals') ? 'deals'
-    : hash.startsWith('#/markt') ? 'markt'
+    : hash.startsWith('#/markt') || hash.startsWith('#/kalender') ? 'markt'
     : 'home';
   document.querySelectorAll('[data-tab]').forEach((a) => a.classList.toggle('active', a.dataset.tab === tab));
   if (m) renderDetail(Number(m[1]));
@@ -1233,6 +1326,7 @@ function route() {
   else if (hash.startsWith('#/displays')) renderDisplays();
   else if (hash.startsWith('#/deals')) renderDeals();
   else if (hash.startsWith('#/markt')) renderMarket();
+  else if (hash.startsWith('#/kalender')) renderCalendar();
   else renderHome();
   $app.classList.remove('view-in');
   void $app.offsetWidth; // Animation neu starten

@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, sendHtml } from './lib/telegram.mjs';
 import {
-  analyze, eur, eur0, delta, delta1, plural, FLAG, REGION_FLAG, fmtName, setTitle, cmTitle, cmLink, cmFilterLinks,
+  analyze, eur, eur0, delta, delta1, plural, FLAG, REGION_FLAG, fmtName, setTitle, cmTitle, cmLink, cmFilterLinks, releaseCalendar,
 } from './lib/analysis.mjs';
 
 /** "nur 🇩🇪 · nur 🇬🇧" – Cardmarket-Produktseite mit Sprachfilter (mit lang: nur diese Sprache) */
@@ -71,7 +71,7 @@ function opportunitySection() {
 }
 
 function bestPriceSection() {
-  const rows = recentSets.map((p) => {
+  const rows = recentSets.slice(0, 6).map((p) => {
     const offers = ['de', 'en']
       .map((lang) => groups.get(`${p.id}|${lang}`))
       .filter((g) => g && A.shopOnly(g).length)
@@ -117,6 +117,24 @@ function restockSection() {
   return `📦 <b>WIEDER LIEFERBAR</b>\n${rows.join('\n')}`;
 }
 
+/** Nächste Releases (max. 3) mit Countdown */
+function calendarSection() {
+  const cal = releaseCalendar(A);
+  const next = cal.upcoming.slice(0, 3);
+  if (!next.length) return null;
+  const when = (d) => (d === 0 ? 'heute' : d === 1 ? 'morgen' : `in ${d} Tagen`);
+  const lines = next.map((u) => {
+    const flag = u.region === 'international' ? '🇩🇪🇬🇧' : u.region === 'japanese' ? '🇯🇵' : '🇨🇳';
+    const date = u.date.split('-').reverse().join('.');
+    const pre = Object.values(u.offers ?? {}).sort((x, y) => x.total - y.total)[0];
+    return (
+      `${flag} <b>${esc(u.nameDe ?? u.name)}</b> · ${date} (${when(u.days)})${u.status !== 'offiziell' ? ' <i>– gemeldet</i>' : ''}` +
+      (pre ? `\n      🛒 ab ${a(pre.url, eur(pre.total))} bei ${esc(shopName[pre.shop])}` : u.cmTrend ? `\n      📊 Cardmarket ${eur(u.cmTrend)}` : '')
+    );
+  });
+  return `📅 <b>DEMNÄCHST</b>\n${lines.join('\n')}\n🔗 ${a(`${DASHBOARD_URL}#/kalender`, 'Kompletter Release-Kalender')}`;
+}
+
 function verdictSection() {
   const lines = verdict.map((v) => {
     const p = v.productId ? byId.get(v.productId) : null;
@@ -147,6 +165,7 @@ const html = [
   marketSection(),
   moversSection(),
   restockSection(),
+  calendarSection(),
   SEP,
   verdictSection(),
   footer(),

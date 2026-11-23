@@ -5,7 +5,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { analyze, isDisplay, CM_SHIPPING_EST } from './lib/analysis.mjs';
+import { analyze, isDisplay, releaseCalendar, CM_SHIPPING_EST } from './lib/analysis.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const OUT = join(ROOT, 'docs', 'data');
@@ -87,6 +87,10 @@ const dashboard = {
   restocks: A.restocks.map((o) => ({ id: o.cmId, lang: o.lang, shop: o.shop, total: o.total, url: o.url })),
   shopNames: A.shopName,
   cmShippingEst: CM_SHIPPING_EST,
+  calendar: (() => {
+    const c = releaseCalendar(A);
+    return { ...c, recent: c.recent.map((r) => ({ ...r, cm30: r.cm30 == null ? null : r2(r.cm30) })) };
+  })(),
   products,
 };
 

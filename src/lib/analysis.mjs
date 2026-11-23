@@ -103,6 +103,103 @@ export function cardmarketOffer(p) {
 
 export const offerKey = (url) => new URL(url).pathname.replace(/\/$/, '').split('/').pop().replace(/[^\w.-]/g, '').slice(0, 100);
 
+/**
+ * Release-Kalender: kommende Termine (von Hand gepflegt, mit Vorbestellpreisen), vergangene Releases
+ * (automatisch aus TCGdex + Cardmarket) und neu gelistete Displays ohne bekannten Termin.
+ */
+export function releaseCalendar(A) {
+  const cal = readJson(join(DATA, 'release-calendar.json'), { entries: [], jpSetMap: {} });
+  const setIndex = readJson(join(ROOT, 'docs', 'data', 'card-sets.json'), { langs: {} });
+  const today = A.shopsLatest.date || A.priceDate;
+  const daysBetween = (a, b) => Math.round((Date.parse(b + 'T12:00:00Z') - Date.parse(a + 'T12:00:00Z')) / 864e5);
+  const DISPLAY_TYPES = new Set(['booster-box', 'half-box', 'jumbo-box']);
+
+  const displaysOf = (setName, region) =>
+    setName ? A.products.filter((p) => p.set === setName && (!region || p.region === region) && DISPLAY_TYPES.has(p.type)) : [];
+  const mainBox = (list) => list.find((p) => p.type === 'booster-box') ?? list[0] ?? null;
+  /** Günstigste Shop-Angebote (lieferbar oder vorbestellbar) je Sprache für eine Produktliste */
+  const offersFor = (ids, stocks) => {
+    const best = {};
+    for (const o of A.shopsLatest.offers) {
+      if (!ids.has(o.cmId) || !stocks.includes(o.stock) || !o.total || !o.lang) continue;
+      const p = A.byId.get(o.cmId);
+      if (p.type !== 'booster-box') continue; // nur das normale Display vergleichen
+      if (!best[o.lang] || best[o.lang].total > o.total) best[o.lang] = { total: o.total, shop: o.shop, url: o.url, stock: o.stock };
+    }
+    return best;
+  };
+
+  const usedSets = new Set();
+  const upcoming = [];
+  const recent = [];
+  for (const e of cal.entries ?? []) {
+    const products = displaysOf(e.cmSet, e.region);
+    const ids = new Set(products.map((p) => p.id));
+    const box = mainBox(products);
+    if (e.cmSet) usedSets.add(e.cmSet);
+    const item = {
+      id: e.id,
+      name: e.name,
+      nameDe: e.nameDe ?? null,
+      region: e.region,
+      date: e.date,
+      status: e.status,
+      kind: e.kind ?? null,
+      source: e.source ?? null,
+      days: daysBetween(today, e.date),
+      productId: box?.id ?? null,
+      cmTrend: box?.trend ?? null,
+      cmLow: box?.low ?? null,
+      offers: offersFor(ids, ['preorder', 'in']),
+    };
+    (e.date >= today ? upcoming : recent).push(item);
+  }
+
+  // Vergangene Releases automatisch: internationale Sets (TCGdex, englische Namen = Cardmarket-Namen)
+  // und japanische Sets über die Code-Zuordnung im Kalender – letzte 12 Monate
+  const yearAgo = new Date(Date.parse(today) - 365 * 864e5).toISOString().slice(0, 10);
+  const auto = [];
+  for (const s of setIndex.langs.en?.sets ?? []) if (s.release && s.release <= today && s.release >= yearAgo) auto.push({ name: s.name, region: 'international', date: s.release });
+  for (const s of setIndex.langs.jp?.sets ?? []) {
+    const cmName = cal.jpSetMap?.[s.id];
+    if (cmName && s.release && s.release <= today && s.release >= yearAgo) auto.push({ name: cmName, region: 'japanese', date: s.release, code: s.id });
+  }
+  for (const a of auto) {
+    if (usedSets.has(a.name)) continue;
+    const products = displaysOf(a.name, a.region);
+    const box = mainBox(products);
+    if (!box) continue; // ohne Display auf Cardmarket uninteressant (z. B. Promo-Sets)
+    usedSets.add(a.name);
+    const t30 = A.trendAgo(box.id, 30);
+    recent.push({
+      id: `auto-${a.region}-${a.name}`,
+      name: a.name,
+      nameDe: a.region === 'international' ? box.setDe : null,
+      region: a.region,
+      date: a.date,
+      status: 'erschienen',
+      kind: a.code ? `Erweiterung (${a.code})` : 'Erweiterung',
+      source: { title: 'TCGdex', url: 'https://tcgdex.dev' },
+      days: daysBetween(today, a.date),
+      productId: box.id,
+      cmTrend: box.trend,
+      cmLow: box.low,
+      cm30: box.trend && t30 ? box.trend / t30 - 1 : null,
+      offers: offersFor(new Set(products.map((p) => p.id)), ['in']),
+    });
+  }
+  upcoming.sort((x, y) => x.date.localeCompare(y.date));
+  recent.sort((x, y) => y.date.localeCompare(x.date));
+
+  // Neu bei Cardmarket gelistet, aber noch ohne Preis und ohne bekannten Termin
+  const fortyFive = new Date(Date.parse(today) - 45 * 864e5).toISOString().slice(0, 10);
+  const newListings = A.products
+    .filter((p) => p.type === 'booster-box' && p.region !== 'other' && !p.trend && p.added >= fortyFive && !usedSets.has(p.set))
+    .map((p) => ({ productId: p.id, name: p.set, nameDe: p.setDe, region: p.region, added: p.added }));
+
+  return { today, upcoming, recent: recent.slice(0, 12), newListings, updatedAt: cal.updatedAt ?? null };
+}
+
 export function analyze() {
   // ---------- Daten laden ----------
   const { products, priceDate } = readJson(join(DATA, 'products.json'));

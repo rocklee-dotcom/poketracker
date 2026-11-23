@@ -1,0 +1,66 @@
+{
+  "_info": "Release-Kalender (von Hand gepflegt). status: 'offiziell' = von Pokémon/Händlern bestätigt, 'gemeldet' = Insider-/Presseberichte, noch nicht bestätigt. cmSet = Setname wie bei Cardmarket (für Preise/Vorbestellungen). Vergangene internationale Releases kommen automatisch aus TCGdex.",
+  "updatedAt": "2026-11-23",
+  "entries": [
+    {
+      "id": "aura-seeker-jp",
+      "name": "Aura Seeker",
+      "nameDe": null,
+      "region": "japanese",
+      "date": "2026-11-27",
+      "status": "offiziell",
+      "kind": "Erweiterung (M7)",
+      "cmSet": "Aura Seeker",
+      "source": { "title": "Tokyo Card Report", "url": "https://tokyocardreport.com/articles/upcoming-japanese-pokemon-tcg-sets/" }
+    },
+    {
+      "id": "flowing-fists",
+      "name": "Flowing Fists",
+      "nameDe": "Flinke Fäuste",
+      "region": "international",
+      "date": "2027-02-06",
+      "status": "offiziell",
+      "kind": "Erweiterung Mega-Entwicklung (ME07) · Prerelease ab Ende Januar",
+      "cmSet": "Flowing Fists",
+      "source": { "title": "pokemon.com (DE)", "url": "https://www.pokemon.com/de/news/die-pokemon-sammelkartenspiel-erweiterung-mega-entwicklung-flinke-faeuste-erscheint-am-6-februar-2027" }
+    },
+    {
+      "id": "mega-x-mega-parade-jp",
+      "name": "MEGA x MEGA Parade",
+      "nameDe": null,
+      "region": "japanese",
+      "date": "2027-02-19",
+      "status": "gemeldet",
+      "kind": "Erweiterung",
+      "cmSet": "MEGA x MEGA Parade",
+      "source": { "title": "Samurai Sword Tokyo (Bericht von PokéBeach)", "url": "https://samuraiswordtokyo.com/blogs/news/pokemon-card-japan-release-schedule-2027" }
+    },
+    {
+      "id": "ex-star-jp",
+      "name": "Magma Heartbeat · Lightning Impact · Aurora Ripples",
+      "nameDe": null,
+      "region": "japanese",
+      "date": "2027-05-21",
+      "status": "gemeldet",
+      "kind": "Start der neuen Serie „ex Star“",
+      "cmSet": null,
+      "source": { "title": "pokezentrum.de", "url": "https://pokezentrum.de/pokemon-karten-news/neue-pokemon-sets-magma-heartbeat-lightning-impact-und-aurora-ripples-erscheinen-im-mai-2027/" }
+    }
+  ],
+  "jpSetMap": {
+    "_info": "Japanische Set-Codes (TCGdex) -> Cardmarket-Setname, damit vergangene japanische Releases automatisch mit Datum erscheinen.",
+    "M1L": "Mega Brave",
+    "M1S": "Mega Symphonia",
+    "M2": "Inferno X",
+    "M2a": "MEGA Dream ex",
+    "M3": "Nihil Zero",
+    "M4": "Ninja Spinner",
+    "M5": "Abyss Eye",
+    "M6": "Storm Emeralda",
+    "SV11B": "Black Bolt JP",
+    "SV11W": "White Flare JP",
+    "SV10": "The Glory of Team Rocket",
+    "SV9a": "Heat Wave Arena",
+    "SV9": "Battle Partners"
+  }
+}
