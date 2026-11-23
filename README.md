@@ -3,7 +3,7 @@
 Tägliche Preisanalyse für Pokémon-Displays und -Booster mit Telegram-Morgenbericht und Dashboard.
 Quellen (geplant): Cardmarket, deutsche TCG-Shops, eBay, CardTrader.
 
-**Status:** Phase 1 – Datenbasis (Cardmarket) ✅
+**Status:** Phase 1 – Datenbasis (Cardmarket) ✅ · Phase 2 – Deutsche Shops ✅
 
 ## Wie es funktioniert
 
@@ -43,12 +43,40 @@ Für versiegelte Produkte liefert Cardmarket keine 1-, 7- oder 30-Tage-Durchschn
 - **Sprache:** Cardmarket unterscheidet bei internationalen Produkten nicht zwischen Englisch und Deutsch. Die Preise sind ein Mischpreis über alle Sprachen.
 - **Region:** Sie wird heuristisch bestimmt und stimmt zu etwa 97 % mit [binder-tcg-data](https://github.com/Donnygr-code/binder-tcg-data) überein. Fehler korrigiert man über `data/region-overrides.json`.
 
+## Deutsche Shops (Phase 2)
+
+`src/update-shops.mjs` fragt täglich die Display-Kategorien von sieben Shops ab, einmal pro Tag und mit Pausen zwischen den Abrufen:
+
+| Shop | System | Quelle |
+|---|---|---|
+| Card-Corner | JTL | Kategorieseite (schema.org-Microdata) |
+| Gate to the Games | JTL | Kategorieseiten Displays + japanische Displays |
+| Trader-Online | OXID | Kategorieseite Booster-Displays |
+| Cardcosmos | Shopify | Kollektion `pokemon-booster-displays` (JSON) |
+| Balucards | Shopify | Kollektionen `booster-displays`, `japanische-produkte` (JSON) |
+| TCG-24 | WooCommerce | Store-API-Suche (JSON) |
+| Loco TCG | WooCommerce | Store-API-Suche (JSON) |
+
+Jedes Angebot wird einem Cardmarket-Display zugeordnet (`src/shops/match.mjs`):
+
+- **Sprache:** aus dem Titel („deutsch“, „JPN“, „(CN)“ …), sonst aus japanischen Set-Codes wie „(sv11B)“, sonst aus dem Setnamen („Obsidianflammen“ → de, „Obsidian Flames“ → en).
+- **Format:** 36er → `booster-box`, 18er → `half-box`, Jumbo → `jumbo-box`.
+- **Set:** über englische und deutsche Setnamen, Shop-Schreibweisen (`data/shop-aliases.json`) und chinesische Set-Codes („CBB5C“).
+- **Aussortiert:** Mini-Tins, Sleeved-Displays, Zubehör und koreanische Ware (dafür gibt es kein Cardmarket-Gegenstück).
+- **Gesamtpreis:** Preis plus Versand nach Deutschland gemäß `src/shops/config.mjs`.
+
+| Datei | Inhalt |
+|---|---|
+| `data/shops/latest.json` | alle Display-Angebote von heute, auch nicht zugeordnete mit Grund |
+| `data/shop-history/YYYY-MM.csv` | `date,shop,cmId,lang,price,total,stock,damaged,key` |
+
 ## Lokal ausführen
 
 Benötigt Node.js ≥ 22, keine weiteren Abhängigkeiten.
 
 ```
-node src/update.mjs
+node src/update.mjs          # Cardmarket
+node src/update-shops.mjs    # Shops (optional: nur einzelne, z.B. "node src/update-shops.mjs cardcosmos")
 ```
 
 Die Historie ab dem 22.10.2026 wurde einmalig aus der Git-Historie von binder-tcg-data nachgeladen (`src/backfill.mjs`).

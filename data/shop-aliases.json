@@ -1,0 +1,14 @@
+{
+  "_info": "Schreibweisen der Shops -> Cardmarket-Setname (wie 'set' in data/products.json, ohne Code-Präfix/Regionszusatz). Gilt zusätzlich zu den deutschen Namen aus set-names.json.",
+  "Obsidian Flammen": "Obsidian Flames",
+  "Fusions Angriff": "Fusion Strike",
+  "Triple Beat": "Triplet Beat",
+  "Storm Emerald": "Storm Emeralda",
+  "Pokemon Card 151": "Pokémon Card 151",
+  "151": "Pokémon Card 151",
+  "Pokemon GO": "Pokémon GO Enhanced Expansion Pack",
+  "Matchless Fighter": "Matchless Fighters",
+  "Miracle Twins": "Miracle Twin",
+  "Tag Team GX": "Tag Team GX: Tag All Stars",
+  "Ultra Shiny GX": "GX Ultra Shiny"
+}

@@ -28,6 +28,11 @@ jobs:
       - name: Cardmarket-Daten laden und Historie fortschreiben
         run: node src/update.mjs
 
+      - name: Deutsche Shops abfragen
+        # Fällt ein einzelner Shop aus, läuft der Rest weiter; Cardmarket-Daten werden trotzdem gespeichert.
+        continue-on-error: true
+        run: node src/update-shops.mjs
+
       - name: Änderungen committen
         run: |
           git config user.name "github-actions[bot]"
