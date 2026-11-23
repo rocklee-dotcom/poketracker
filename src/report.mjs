@@ -52,10 +52,14 @@ function opportunitySection() {
   if (!topOps.length) return `🎯 <b>KAUFCHANCEN</b>\nHeute nichts Auffälliges – kein Grund, etwas zu überstürzen.`;
   const nums = ['①', '②', '③', '④', '⑤'];
   const cards = topOps.map(({ p, lang, best, reasons }, i) => {
-    const cm = p.trend ? ` · CM ${eur0(p.trend)}` : '';
+    const cm = p.trend ? ` · CM-Trend ${eur0(p.trend)}` : '';
+    const where =
+      best.shop === 'cardmarket'
+        ? `${a(best.url, 'Cardmarket')} <i>(ab ${eur(best.price)} + ca. ${eur0(best.shipping)} Versand)</i>`
+        : a(best.url, shopName[best.shop]);
     return (
-      `${nums[i]} <b>${a(dash(p.id), setTitle(p, lang))}</b> · ${fmtName(p)} ${FLAG[lang]}\n` +
-      `      💶 <b>${eur(best.total)}</b> bei ${a(best.url, shopName[best.shop])}\n` +
+      `${nums[i]} <b>${a(dash(p.id), setTitle(p, lang === 'mix' ? null : lang))}</b> · ${fmtName(p)} ${FLAG[lang]}\n` +
+      `      💶 <b>${eur(best.total)}</b> bei ${where}\n` +
       `      ✅ ${esc(reasons.join(' · '))}${cm}`
     );
   });
@@ -66,10 +70,15 @@ function bestPriceSection() {
   const rows = recentSets.map((p) => {
     const offers = ['de', 'en']
       .map((lang) => groups.get(`${p.id}|${lang}`))
-      .filter(Boolean)
-      .map((g) => `${FLAG[g.lang]} ${a(g.offers[0].url, eur(g.offers[0].total))} <i>${esc(shopName[g.offers[0].shop])}</i>`);
+      .filter((g) => g && A.shopOnly(g).length)
+      .map((g) => {
+        const o = A.shopOnly(g)[0];
+        return `${FLAG[g.lang]} ${a(o.url, eur(o.total))} <i>${esc(shopName[o.shop])}</i>`;
+      });
     const t7 = A.trendAgo(p.id, 7);
-    const cm = p.trend ? `📊 ${a(cmLink(p), 'CM ' + eur(p.trend))}${t7 ? ` ${delta(p.trend / t7 - 1)}` : ''}` : '';
+    const cmo = A.cmOffers.get(p.id);
+    const cmBuy = cmo && !cmo.suspicious ? `🛒 ${a(cmo.url, 'CM ' + eur(cmo.total))} <i>inkl. ca. Versand</i> · ` : '';
+    const cm = p.trend ? `${cmBuy}📊 Trend ${a(cmLink(p), eur(p.trend))}${t7 ? ` ${delta(p.trend / t7 - 1)}` : ''}` : '';
     return `<b>${a(dash(p.id), p.setDe ?? p.set)}</b>\n${offers.length ? offers.join('  ') : '<i>derzeit nirgends lieferbar</i>'}${cm ? '\n' + cm : ''}`;
   });
   return `🏷️ <b>BESTPREISE NEUE SETS</b>  <i>36er · inkl. Versand</i>\n<blockquote expandable>${rows.join('\n\n')}</blockquote>`;

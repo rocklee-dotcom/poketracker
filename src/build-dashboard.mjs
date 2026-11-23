@@ -5,7 +5,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { analyze, isDisplay } from './lib/analysis.mjs';
+import { analyze, isDisplay, CM_SHIPPING_EST } from './lib/analysis.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const OUT = join(ROOT, 'docs', 'data');
@@ -20,11 +20,22 @@ const products = displays.map((p) => {
     .map((o) => ({ shop: o.shop, lang: o.lang, price: o.price, total: o.total, stock: o.stock, url: o.url, title: o.title, damaged: !!o.damaged }))
     .sort((a, b) => (a.stock === 'in') - (b.stock === 'in') || a.total - b.total)
     .sort((a, b) => (b.stock === 'in') - (a.stock === 'in'));
+  // Bester Shop je Sprache (ohne Cardmarket) …
   const best = {};
   for (const lang of ['de', 'en', 'jp', 'cn']) {
     const g = A.groups.get(`${p.id}|${lang}`);
-    if (g) best[lang] = { total: g.offers[0].total, shop: g.offers[0].shop, url: g.offers[0].url };
+    const o = g && A.shopOnly(g)[0];
+    if (o) best[lang] = { total: o.total, shop: o.shop, url: o.url };
   }
+  // … und Cardmarket als eigene Kaufmöglichkeit
+  const cmo = A.cmOffers.get(p.id);
+  const cm = cmo ? { price: cmo.price, shipping: cmo.shipping, total: cmo.total, url: cmo.url, suspicious: cmo.suspicious, lang: cmo.lang } : null;
+  // Günstigste Kaufmöglichkeit insgesamt (Shop oder Cardmarket, auffällige Cardmarket-Preise ausgenommen)
+  const cands = [
+    ...Object.entries(best).map(([lang, b]) => ({ ...b, lang })),
+    ...(cm && !cm.suspicious ? [{ total: cm.total, shop: 'cardmarket', url: cm.url, lang: cm.lang ?? 'mix' }] : []),
+  ].sort((a, b) => a.total - b.total);
+  const cheapest = cands[0] ?? null;
   const t7 = A.trendAgo(p.id, 7);
   const t30 = A.trendAgo(p.id, 30);
   return {
@@ -41,6 +52,8 @@ const products = displays.map((p) => {
     d7: p.trend && t7 ? r2(p.trend / t7 - 1) : null,
     d30: p.trend && t30 ? r2(p.trend / t30 - 1) : null,
     best,
+    cm,
+    cheapest,
     inStock: offers.filter((o) => o.stock === 'in' && !o.damaged).length,
     offers,
   };
@@ -61,6 +74,8 @@ const dashboard = {
     total: o.best.total,
     shop: o.best.shop,
     url: o.best.url,
+    price: o.best.price,
+    shipping: o.best.shipping,
     second: o.second ? { shop: o.second.shop, total: o.second.total } : null,
     reasons: o.reasons,
     score: r2(o.score),
@@ -71,6 +86,7 @@ const dashboard = {
   risers: A.risers.slice(0, 12).map((m) => ({ id: m.p.id, c: r2(m.c), isLow: m.isLow, isHigh: m.isHigh, days: m.days })),
   restocks: A.restocks.map((o) => ({ id: o.cmId, lang: o.lang, shop: o.shop, total: o.total, url: o.url })),
   shopNames: A.shopName,
+  cmShippingEst: CM_SHIPPING_EST,
   products,
 };
 

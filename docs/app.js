@@ -33,9 +33,10 @@ const shortDate = (d) => {
   return `${Number(day)}.${Number(m)}.`;
 };
 // Keine Flaggen-Emojis (Windows zeigt sie nicht an) – stattdessen Sprach-Plaketten.
-const CODE = { de: 'DE', en: 'EN', jp: 'JP', cn: 'CN' };
+const CODE = { de: 'DE', en: 'EN', jp: 'JP', cn: 'CN', mix: 'MIX' };
 const FLAG = CODE; // für reine Textstellen (Optionen, Tooltips)
-const LANG = { de: 'Deutsch', en: 'Englisch', jp: 'Japanisch', cn: 'Chinesisch' };
+const LANG = { de: 'Deutsch', en: 'Englisch', jp: 'Japanisch', cn: 'Chinesisch', mix: 'Sprache gemischt' };
+const isCM = (shopId) => shopId === 'cardmarket';
 const REGION = { international: ['🌍', 'International'], japanese: ['JP', 'Japan'], chinese: ['CN', 'China'] };
 const langBadge = (lang) => h('span', { class: `lang lang-${lang}`, title: LANG[lang], text: CODE[lang] ?? '?' });
 const regionBadge = (region) => (region === 'international' ? h('span', { class: 'rg', title: 'International', text: '🌍' }) : h('span', { class: `lang lang-${region === 'japanese' ? 'jp' : 'cn'}`, title: REGION[region][1], text: REGION[region][0] }));
@@ -56,12 +57,12 @@ const cmLink = (p) => `https://www.cardmarket.com/de/Pokemon/Products/Search?sea
 const shop = (id) => state.data.shopNames[id] ?? id;
 const prod = (id) => state.byId.get(id);
 
-/** Preisänderung aus Käufersicht: ▼ günstiger (grün), ▲ teurer (rot). Pfeil + Text, nie nur Farbe. */
+/** Preisänderung: ▼ gefallen (rot), ▲ gestiegen (grün). Pfeil + Text, nie nur Farbe. */
 function delta(v, d = 0) {
   if (v == null) return h('span', { class: 'delta flat', text: '–' });
-  const cls = v < -0.0005 ? 'up' : v > 0.0005 ? 'down' : 'flat';
+  const cls = v < -0.0005 ? 'down' : v > 0.0005 ? 'up' : 'flat';
   const arrow = v < -0.0005 ? '▼' : v > 0.0005 ? '▲' : '●';
-  return h('span', { class: `delta ${cls}`, title: v < 0 ? 'günstiger geworden' : v > 0 ? 'teurer geworden' : 'unverändert', text: `${arrow} ${pct(v, d)}` });
+  return h('span', { class: `delta ${cls}`, title: v < 0 ? 'gefallen' : v > 0 ? 'gestiegen' : 'unverändert', text: `${arrow} ${pct(v, d)}` });
 }
 const go = (hash) => (location.hash = hash);
 
@@ -227,10 +228,19 @@ function section(title, hint, ...content) {
   return h('section', { class: 'section' }, h('div', { class: 'section-head' }, h('h2', { text: title }), hint ? h('span', { class: 'hint', text: hint }) : ''), ...content);
 }
 
+/** Günstigste Kaufmöglichkeiten: Cardmarket (inkl. ca. Versand) und beste Shops je Sprache, billigste zuerst */
 function priceCell(p) {
-  const langs = Object.entries(p.best).sort((a, b) => a[1].total - b[1].total);
-  if (!langs.length) return h('span', { class: 'muted', text: 'nirgends lieferbar' });
-  return h('div', { class: 'stack' }, langs.slice(0, 2).map(([lang, b]) => h('span', { class: 'num nowrap' }, langBadge(lang), ' ', h('b', { text: eur(b.total) }), h('span', { class: 'muted small', text: ` ${shop(b.shop)}` }))));
+  const rows = Object.entries(p.best).map(([lang, b]) => ({ lang, ...b }));
+  if (p.cm && !p.cm.suspicious) rows.push({ lang: p.cm.lang ?? 'mix', shop: 'cardmarket', total: p.cm.total, url: p.cm.url });
+  rows.sort((a, b) => a.total - b.total);
+  if (!rows.length) return h('span', { class: 'muted', text: 'nirgends lieferbar' });
+  return h(
+    'div',
+    { class: 'stack' },
+    rows.slice(0, 3).map((r, i) =>
+      h('span', { class: 'num nowrap' }, langBadge(r.lang), ' ', i === 0 ? h('b', { text: eur(r.total) }) : eur(r.total), h('span', { class: `small ${isCM(r.shop) ? 'cm' : 'muted'}`, text: ` ${shop(r.shop)}` })),
+    ),
+  );
 }
 
 // ═══════════ Übersicht ═══════════
@@ -285,14 +295,24 @@ function renderHome() {
       'article',
       { class: 'card op', onclick: (e) => !e.target.closest('a') && go(`#/p/${o.id}`) },
       o.buy ? h('span', { class: 'badge-buy', text: 'KAUFTIPP' }) : '',
-      h('div', { class: 'title' }, h('span', { text: setTitle(p, o.lang) })),
+      h('div', { class: 'title' }, h('span', { text: setTitle(p, o.lang === 'mix' ? null : o.lang) })),
       h('div', { class: 'meta' }, `${fmtName(p)} · `, langBadge(o.lang), ` ${LANG[o.lang]}`),
-      h('div', { class: 'chips' }, o.reasons.map((r) => h('span', { class: 'chip good', text: `✓ ${r}` })), p.trend ? h('span', { class: 'chip', text: `Cardmarket ${eur0(p.trend)}` }) : ''),
+      h(
+        'div',
+        { class: 'chips' },
+        o.reasons.map((r) => h('span', { class: /prüfen|über/.test(r) ? 'chip' : 'chip good', text: /prüfen|über/.test(r) ? `ⓘ ${r}` : `✓ ${r}` })),
+        p.trend ? h('span', { class: 'chip', text: `CM-Trend ${eur0(p.trend)}` }) : '',
+      ),
       h(
         'div',
         { class: 'op-foot' },
-        h('div', { class: 'price num' }, eur(o.total), h('small', { text: 'inkl. Versand' })),
-        h('a', { class: 'btn primary', href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
+        h(
+          'div',
+          { class: 'stack' },
+          h('div', { class: 'price num' }, eur(o.total), h('small', { text: isCM(o.shop) ? 'inkl. ca. Versand' : 'inkl. Versand' })),
+          isCM(o.shop) ? h('span', { class: 'muted small', text: `ab ${eur(o.price)} + ca. ${eur0(o.shipping)} Versand (geschätzt)` }) : '',
+        ),
+        h('a', { class: `btn primary ${isCM(o.shop) ? 'cm-btn' : ''}`, href: o.url, target: '_blank', rel: 'noopener', text: `${shop(o.shop)} →` }),
       ),
     );
   };
@@ -331,7 +351,7 @@ function renderHome() {
     h(
       'table',
       { class: 'table responsive' },
-      h('thead', {}, h('tr', {}, h('th', { text: 'Set (36er)' }), h('th', {}, langBadge('de'), ' Bester Shop'), h('th', {}, langBadge('en'), ' Bester Shop'), h('th', { class: 'r', text: 'Cardmarket' }), h('th', { class: 'r', text: '7 Tage' }))),
+      h('thead', {}, h('tr', {}, h('th', { text: 'Set (36er)' }), h('th', {}, langBadge('de'), ' Bester Shop'), h('th', {}, langBadge('en'), ' Bester Shop'), h('th', { class: 'r', text: 'Cardmarket inkl. ca. Versand' }), h('th', { class: 'r', text: 'Trend 7 T' }))),
       h(
         'tbody',
         {},
@@ -349,8 +369,14 @@ function renderHome() {
             h('td', {}, h('b', { text: p.setDe ?? p.set }), p.setDe ? h('div', { class: 'muted small', text: p.set }) : ''),
             cell('de'),
             cell('en'),
-            h('td', { class: 'r num inl', 'data-l': 'Cardmarket', text: eur(p.trend) }),
-            h('td', { class: 'r inl', 'data-l': '7 Tage' }, delta(p.d7)),
+            h(
+              'td',
+              { class: 'r num', 'data-l': 'Cardmarket' },
+              p.cm ? h('a', { href: p.cm.url, target: '_blank', rel: 'noopener', onclick: (e) => e.stopPropagation() }, h('b', { text: eur(p.cm.total) })) : '–',
+              p.cm?.suspicious ? h('span', { class: 'muted small', text: ' ⚠ prüfen' }) : '',
+              h('div', { class: 'muted small', text: `Trend ${eur(p.trend)}` }),
+            ),
+            h('td', { class: 'r inl', 'data-l': 'Trend 7 T' }, delta(p.d7)),
           );
         }),
       ),
@@ -381,7 +407,7 @@ function renderHome() {
     tiles,
     section('💡 Fazit', 'regelbasiert, keine Anlageberatung', verdict),
     section('🎯 Kaufchancen', 'lieferbar · Gesamtpreis inkl. Versand', ops.length ? ops : h('div', { class: 'card empty', text: 'Heute nichts Auffälliges.' })),
-    section('📊 Markt', 'Cardmarket-Trend der Displays, Veränderung seit Beginn · ▼ grün = günstiger', marketChart),
+    section('📊 Markt', 'Cardmarket-Trend der Displays, Veränderung seit Beginn', marketChart),
     section('🏷️ Neueste Sets', 'günstigstes lieferbares Angebot je Sprache', recent),
     section('📉 Bewegungen', 'Cardmarket · 7 Tage', h('div', { class: 'movers' }, mvList('Gefallen', D.fallers), mvList('Gestiegen', D.risers))),
   );
@@ -422,7 +448,7 @@ function renderDisplays() {
   const typeSel = h('select', { 'aria-label': 'Format', onchange: (e) => ((F.type = e.target.value), update()) },
     [['all', 'Alle Formate'], ['booster-box', '36er / Display'], ['half-box', '18er'], ['jumbo-box', 'Jumbo']].map(([v, l]) => h('option', { value: v, selected: F.type === v, text: l })));
   const sortSel = h('select', { 'aria-label': 'Sortierung', onchange: (e) => ((F.sort = e.target.value), update()) },
-    [['new', 'Neueste zuerst'], ['d7', 'Stärkster Rückgang (7 T)'], ['d7up', 'Stärkster Anstieg (7 T)'], ['cheap', 'Günstigster Shop-Preis'], ['cm', 'Cardmarket-Preis ↑'], ['cmdesc', 'Cardmarket-Preis ↓']].map(([v, l]) => h('option', { value: v, selected: F.sort === v, text: l })));
+    [['new', 'Neueste zuerst'], ['d7', 'Stärkster Rückgang (7 T)'], ['d7up', 'Stärkster Anstieg (7 T)'], ['cheap', 'Günstigster Kaufpreis'], ['cm', 'Cardmarket-Preis ↑'], ['cmdesc', 'Cardmarket-Preis ↓']].map(([v, l]) => h('option', { value: v, selected: F.sort === v, text: l })));
   const stock = h('input', { type: 'checkbox', checked: F.stock });
   stock.addEventListener('change', () => ((F.stock = stock.checked), update()));
 
@@ -435,7 +461,7 @@ function renderDisplays() {
         (!F.stock || p.inStock > 0) &&
         (!q || `${p.name} ${p.setDe ?? ''}`.toLowerCase().includes(q)),
     );
-    const bestOf = (p) => Math.min(...Object.values(p.best).map((b) => b.total), Infinity);
+    const bestOf = (p) => p.cheapest?.total ?? Infinity;
     const by = {
       new: (a, b) => b.added.localeCompare(a.added),
       d7: (a, b) => (a.d7 ?? 9) - (b.d7 ?? 9),
@@ -451,7 +477,7 @@ function renderDisplays() {
       h(
         'table',
         { class: 'table responsive' },
-        h('thead', {}, h('tr', {}, h('th', { text: 'Display' }), h('th', { class: 'r', text: 'Cardmarket' }), h('th', { class: 'r', text: '7 Tage' }), h('th', { text: 'Bester Shop (lieferbar)' }))),
+        h('thead', {}, h('tr', {}, h('th', { text: 'Display' }), h('th', { class: 'r', text: 'CM-Trend' }), h('th', { class: 'r', text: '7 Tage' }), h('th', { text: 'Günstigste Kaufmöglichkeiten' }))),
         h(
           'tbody',
           {},
@@ -503,11 +529,16 @@ async function renderDetail(id) {
     return;
   }
   const langs = p.region === 'international' ? ['de', 'en'] : p.region === 'japanese' ? ['jp'] : ['cn'];
-  const bestAll = Object.entries(p.best).sort((a, b) => a[1].total - b[1].total)[0];
+  const cheapest = p.cheapest;
+  // Angebote inkl. Cardmarket als eigene Zeile, nach Gesamtpreis sortiert (lieferbare zuerst)
+  const rows = [...p.offers];
+  if (p.cm)
+    rows.push({ shop: 'cardmarket', lang: p.cm.lang ?? 'mix', price: p.cm.price, total: p.cm.total, stock: 'in', url: p.cm.url, title: 'Günstigstes Angebot auf Cardmarket · Versand geschätzt', suspicious: p.cm.suspicious });
+  rows.sort((a, b) => (b.stock === 'in') - (a.stock === 'in') || a.total - b.total);
   const chartBox = h('div', { class: 'card pad' }, h('div', { class: 'empty', text: 'Verlauf lädt …' }));
 
   const stat = (label, value, foot) => h('div', { class: 'card tile' }, h('span', { class: 'label', text: label }), h('span', { class: 'value num' }, value), foot ? h('span', { class: 'foot' }, foot) : '');
-  const offersTable = p.offers.length
+  const offersTable = rows.length
     ? h(
         'div',
         { class: 'card' },
@@ -518,15 +549,21 @@ async function renderDetail(id) {
           h(
             'tbody',
             {},
-            p.offers.map((o) =>
+            rows.map((o) =>
               h(
                 'tr',
-                {},
+                { class: isCM(o.shop) ? 'cm-row' : '' },
                 h('td', {}, h('b', { text: shop(o.shop) }), h('div', { class: 'muted small', text: o.title })),
                 h('td', { 'data-l': 'Sprache' }, o.lang ? [langBadge(o.lang), ` ${LANG[o.lang]}`] : 'unbekannt'),
                 h('td', { class: 'r num', 'data-l': 'Preis', text: eur(o.price) }),
-                h('td', { class: 'r num', 'data-l': 'Gesamt' }, h('b', { text: eur(o.total) })),
-                h('td', { 'data-l': 'Status' }, h('span', { class: o.stock === 'in' ? 'status-ok' : 'status-warn', text: STOCK[o.stock] + (o.damaged ? ' (Verpackung beschädigt)' : '') })),
+                h('td', { class: 'r num', 'data-l': 'Gesamt' }, h('b', { text: eur(o.total) }), isCM(o.shop) ? h('div', { class: 'muted small', text: `inkl. ca. ${eur0(state.data.cmShippingEst)} Versand` }) : ''),
+                h(
+                  'td',
+                  { 'data-l': 'Status' },
+                  o.suspicious
+                    ? h('span', { class: 'status-warn', text: 'auffällig günstig – Sprache/Zustand prüfen' })
+                    : h('span', { class: o.stock === 'in' ? 'status-ok' : 'status-warn', text: STOCK[o.stock] + (o.damaged ? ' (Verpackung beschädigt)' : '') }),
+                ),
                 h('td', {}, h('a', { href: o.url, target: '_blank', rel: 'noopener', text: 'Zum Shop →' })),
               ),
             ),
@@ -547,12 +584,12 @@ async function renderDetail(id) {
       'div',
       { class: 'stats' },
       stat('Cardmarket-Trend', eur(p.trend), h('span', {}, '7 T ', delta(p.d7), ' · 30 T ', delta(p.d30))),
-      stat('Cardmarket ab', eur(p.low), 'günstigstes Angebot, ohne Versand'),
-      stat('Bester Shop', bestAll ? eur(bestAll[1].total) : '–', bestAll ? h('span', {}, langBadge(bestAll[0]), ` ${shop(bestAll[1].shop)} · inkl. Versand`) : 'nirgends lieferbar'),
-      stat('Lieferbar', String(p.inStock), `von ${p.offers.length} Angeboten in ${new Set(p.offers.map((o) => o.shop)).size} Shops`),
+      stat('Günstigster Kaufpreis', cheapest ? eur(cheapest.total) : '–', cheapest ? h('span', {}, langBadge(cheapest.lang), ` ${shop(cheapest.shop)} · inkl. ${isCM(cheapest.shop) ? 'ca. ' : ''}Versand`) : 'nirgends lieferbar'),
+      stat('Cardmarket ab', eur(p.low), p.cm?.suspicious ? '⚠ auffällig günstig – prüfen' : `+ ca. ${eur0(state.data.cmShippingEst)} Versand (geschätzt)`),
+      stat('Lieferbar in Shops', String(p.inStock), `von ${p.offers.length} Angeboten in ${new Set(p.offers.map((o) => o.shop)).size} Shops`),
     ),
     section('📈 Preisverlauf', 'Cardmarket täglich · Shops: günstigster lieferbarer Gesamtpreis', chartBox),
-    section('🛒 Angebote in Shops', 'heute', offersTable),
+    section('🛒 Kaufmöglichkeiten', 'Shops + Cardmarket · günstigste zuerst', offersTable),
   );
 
   try {

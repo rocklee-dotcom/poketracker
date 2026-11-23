@@ -32,7 +32,7 @@ export const trimmedMean = (a) => {
   const t = s.slice(k, s.length - k);
   return t.length ? t.reduce((x, y) => x + y, 0) / t.length : null;
 };
-export const FLAG = { de: '🇩🇪', en: '🇬🇧', jp: '🇯🇵', cn: '🇨🇳' };
+export const FLAG = { de: '🇩🇪', en: '🇬🇧', jp: '🇯🇵', cn: '🇨🇳', mix: '🌐' };
 export const REGION_FLAG = { international: '🌍', japanese: '🇯🇵', chinese: '🇨🇳' };
 export const fmtName = (p) =>
   p.region === 'international' ? (p.type === 'half-box' ? '18er' : '36er') : p.type === 'jumbo-box' ? 'Jumbo' : 'Display';
@@ -45,6 +45,32 @@ export const cmTitle = (p) => setTitle(p, p.region === 'international' ? 'de' : 
 export const cmLink = (p) => `https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=${encodeURIComponent(p.name)}`;
 export const isDisplay = (p) =>
   p.region !== 'other' && (['booster-box', 'half-box'].includes(p.type) || (p.region !== 'international' && p.type === 'jumbo-box'));
+// ---------- Cardmarket als Kaufquelle ----------
+// Geschätzter Versand für ein Display von einem Cardmarket-Verkäufer (versichertes Paket innerhalb DE).
+// Der echte Wert hängt vom Verkäufer/Land ab – hier anpassen, falls deine Erfahrung anders ist.
+export const CM_SHIPPING_EST = 8;
+// Liegt das günstigste Angebot mehr als 30 % unter dem Trend, ist es oft ein Lockangebot/Fehler/beschädigt.
+const CM_SUSPICIOUS_RATIO = 0.7;
+export const LANG_OF_REGION = { japanese: 'jp', chinese: 'cn' };
+
+/** Günstigstes Cardmarket-Angebot eines Produkts als Kaufmöglichkeit (oder null) */
+export function cardmarketOffer(p) {
+  if (!p.low) return null;
+  return {
+    shop: 'cardmarket',
+    title: `Cardmarket – günstigstes Angebot (${p.name})`,
+    url: cmLink(p),
+    price: p.low,
+    shipping: CM_SHIPPING_EST,
+    shippingEstimated: true,
+    total: Math.round((p.low + CM_SHIPPING_EST) * 100) / 100,
+    stock: 'in',
+    lang: LANG_OF_REGION[p.region] ?? null, // international: Sprache unbekannt
+    // auffällig niedrig (Lockangebot/Fehler) oder unplausibel hoch (Fantasie-Preis über dem Trend)
+    suspicious: !!(p.trend && (p.low < p.trend * CM_SUSPICIOUS_RATIO || p.low > p.trend * 1.5)),
+  };
+}
+
 export const offerKey = (url) => new URL(url).pathname.replace(/\/$/, '').split('/').pop().replace(/[^\w.-]/g, '').slice(0, 100);
 
 export function analyze() {
@@ -73,7 +99,7 @@ export function analyze() {
       }
     }
   }
-  const shopName = Object.fromEntries(SHOPS.map((s) => [s.id, s.name]));
+  const shopName = { ...Object.fromEntries(SHOPS.map((s) => [s.id, s.name])), cardmarket: 'Cardmarket' };
   const shopDates = [...new Set(shopHist.map((r) => r.date))].sort();
 
   const trendAt = (id, date) => {
@@ -119,17 +145,37 @@ export function analyze() {
     };
   }).filter((m) => m.n);
 
-  // ---------- Shop-Angebote je (Produkt, Sprache), nur lieferbar ----------
+  // ---------- Kaufmöglichkeiten je (Produkt, Sprache): lieferbare Shop-Angebote + Cardmarket ----------
   const groups = new Map();
+  const addTo = (p, lang, o) => {
+    const k = `${p.id}|${lang}`;
+    if (!groups.has(k)) groups.set(k, { p, lang, offers: [] });
+    groups.get(k).offers.push(o);
+  };
   for (const o of shopsLatest.offers) {
     if (!o.cmId || !o.total || o.stock !== 'in' || o.damaged || !o.lang) continue;
     const p = byId.get(o.cmId);
-    if (!p) continue;
-    const k = `${o.cmId}|${o.lang}`;
-    if (!groups.has(k)) groups.set(k, { p, lang: o.lang, offers: [] });
-    groups.get(k).offers.push(o);
+    if (p) addTo(p, o.lang, o);
+  }
+  // Cardmarket als Kaufquelle: günstigstes Angebot ("ab") + geschätzter Versand.
+  const cmOffers = new Map(); // id -> Cardmarket-Angebot (auch auffällige, zur Anzeige)
+  for (const p of products) {
+    if (!isDisplay(p)) continue;
+    const o = cardmarketOffer(p);
+    if (!o) continue;
+    cmOffers.set(p.id, o);
+    if (o.suspicious) continue; // auffällig niedrig -> nicht als Bestpreis werten
+    const regionLang = LANG_OF_REGION[p.region];
+    if (regionLang) addTo(p, regionLang, o);
+    else {
+      // international: Sprache des Cardmarket-Angebots unbekannt -> in jede Sprachgruppe, sonst eigene Gruppe
+      const langs = ['de', 'en'].filter((l) => groups.has(`${p.id}|${l}`));
+      if (langs.length) for (const l of langs) addTo(p, l, o);
+      else addTo(p, 'mix', o);
+    }
   }
   for (const g of groups.values()) g.offers.sort((x, y) => x.total - y.total);
+  const shopOnly = (g) => g.offers.filter((o) => o.shop !== 'cardmarket');
 
   const shopBestHistory = (cmId, lang, days) => {
     const from = addDays(shopsLatest.date, -days);
@@ -141,13 +187,47 @@ export function analyze() {
     return [...perDay.values()];
   };
 
-  // ---------- Kaufchancen ----------
+  /** Cardmarket-"ab"-Preise der letzten n Tage (ohne heute) */
+  const lowHistory = (id, days) => {
+    const from = addDays(priceDate, -days);
+    return (cmHist.get(id) ?? []).filter((r) => r.date < priceDate && r.date >= from && r.low).map((r) => r.low);
+  };
+
+  // ---------- Kaufchancen: immer die günstigste Kaufmöglichkeit (Shop ODER Cardmarket) ----------
   const opportunities = [];
+  const seenCm = new Set();
   for (const g of groups.values()) {
     const best = g.offers[0];
     const { p } = g;
-    // Keine Kaufchance, wenn Cardmarket günstiger ist. 5 % Spielraum ≈ Versand, der auf Cardmarket dazukommt.
+    const second = g.offers.find((o) => o.shop !== best.shop);
+    // Nie eine Kaufchance, die (inkl. Versand) mehr als 5 % über dem Cardmarket-Trend liegt
     if (p.trend && best.total > p.trend * 1.05) continue;
+
+    if (best.shop === 'cardmarket') {
+      // Cardmarket ist am günstigsten. Das günstigste Angebot liegt fast immer unter dem Trend –
+      // ein Deal ist es erst, wenn es deutlich unter dem ÜBLICHEN "ab"-Preis der letzten 14 Tage liegt.
+      const intlKey = `${p.id}|cm`;
+      if (p.region === 'international') {
+        if (seenCm.has(intlKey)) continue; // nicht doppelt (DE- und EN-Gruppe)
+        seenCm.add(intlKey);
+      }
+      const lows = lowHistory(p.id, 14);
+      if (lows.length >= 5) {
+        const usual = median(lows);
+        const s = 1 - p.low / usual;
+        if (s >= 0.07 && usual - p.low >= 5) {
+          const reasons = [`${pctAbs(s)} unter dem üblichen Cardmarket-Preis (${eur0(usual)}, 14 T)`];
+          const shopAlt = shopOnly(g)[0];
+          if (shopAlt) reasons.push(`${eur0(shopAlt.total - best.total)} unter ${shopName[shopAlt.shop]}`);
+          if (p.region === 'international') reasons.push('Sprache auf Cardmarket prüfen');
+          const lang = p.region === 'international' ? 'mix' : g.lang;
+          opportunities.push({ p, lang, best, second: shopAlt, reasons, score: s, buy: s >= 0.08 && (!p.trend || best.total <= p.trend) });
+        }
+      }
+      continue;
+    }
+
+    // Ein Shop ist am günstigsten (also auch günstiger als Cardmarket inkl. Versand, sofern dort ein Angebot existiert)
     const reasons = [];
     let score = 0;
     // a) unter dem Cardmarket-Trend – zählt als Kaufgrund nur für EN/JP/CN.
@@ -162,11 +242,10 @@ export function analyze() {
         score = Math.max(score, 1 - best.total / p.trend);
       }
     }
-    const second = g.offers.find((o) => o.shop !== best.shop);
     if (second) {
       const s = 1 - best.total / second.total;
       if (s >= 0.08 && second.total - best.total >= 10) {
-        reasons.push(`${eur0(second.total - best.total)} unter ${shopName[second.shop]}`);
+        reasons.push(`${eur0(second.total - best.total)} unter ${second.shop === 'cardmarket' ? 'Cardmarket (inkl. ca. Versand)' : shopName[second.shop]}`);
         score = Math.max(score, s);
       }
     }
@@ -179,9 +258,12 @@ export function analyze() {
       }
     }
     if (p.low && best.total <= p.low) {
-      reasons.push('unter Cardmarket-Tiefstpreis');
+      reasons.push('günstiger als jedes Cardmarket-Angebot');
       score = Math.max(score, 1 - best.total / p.low + 0.05);
     }
+    // Auffällig billiges Cardmarket-Angebot (nicht als Bestpreis gewertet) als Hinweis zeigen
+    const cmo = cmOffers.get(p.id);
+    if (cmo?.suspicious && cmo.total < best.total) info.push(`Cardmarket ab ${eur0(cmo.price)} (Sprache/Zustand prüfen)`);
     // Knapp über Cardmarket (bis +5 %): offen dazuschreiben
     if (p.trend && best.total > p.trend) info.push(`${eur0(best.total - p.trend)} über Cardmarket-Trend (dort kommt Versand dazu)`);
     // Kauftipp: deutlicher Vorteil (≥ 8 %) UND inkl. Versand nicht teurer als der Cardmarket-Trend
@@ -209,7 +291,9 @@ export function analyze() {
   const risers = movers.filter((m) => m.c >= 0.05).sort((x, y) => y.c - x.c);
 
   // ---------- Japan/China-Aufpreis ----------
-  const asiaPrem = [...groups.values()].filter((g) => g.p.region !== 'international' && g.p.trend).map((g) => g.offers[0].total / g.p.trend - 1);
+  const asiaPrem = [...groups.values()]
+    .filter((g) => g.p.region !== 'international' && g.p.trend && shopOnly(g).length)
+    .map((g) => shopOnly(g)[0].total / g.p.trend - 1);
 
   // ---------- Wieder lieferbar ----------
   const yesterday = addDays(shopsLatest.date, -1);
@@ -284,6 +368,8 @@ export function analyze() {
     trendAgo,
     market,
     groups,
+    shopOnly,
+    cmOffers,
     opportunities,
     topOps: opportunities.slice(0, 5),
     fallers,
