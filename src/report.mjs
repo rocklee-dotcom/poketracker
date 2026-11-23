@@ -11,8 +11,8 @@ import {
   analyze, eur, eur0, delta, delta1, plural, FLAG, REGION_FLAG, fmtName, setTitle, cmTitle, cmLink, cmFilterLinks,
 } from './lib/analysis.mjs';
 
-/** "nur 🇩🇪 · nur 🇬🇧" – Cardmarket-Produktseite mit Sprachfilter */
-const cmLangLinks = (p) => cmFilterLinks(p).map((l) => `<a href="${esc(l.url)}">nur ${FLAG[l.lang]}</a>`).join(' · ');
+/** "nur 🇩🇪 · nur 🇬🇧" – Cardmarket-Produktseite mit Sprachfilter (mit lang: nur diese Sprache) */
+const cmLangLinks = (p, lang = null) => cmFilterLinks(p, lang).map((l) => `<a href="${esc(l.url)}">nur ${FLAG[l.lang]}</a>`).join(' · ');
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DATA = join(ROOT, 'data');
@@ -58,12 +58,13 @@ function opportunitySection() {
     const cm = p.trend ? ` · CM-Trend ${eur0(p.trend)}` : '';
     const where =
       best.shop === 'cardmarket'
-        ? `${a(best.url, 'Cardmarket')} <i>(ab ${eur(best.price)} + ca. ${eur0(best.shipping)} Versand)</i>${p.region === 'international' ? `\n      🔎 ${cmLangLinks(p)}` : ''}`
+        ? `${a(best.url, 'Cardmarket')} <i>(ab ${eur(best.price)} + ca. ${eur0(best.shipping)} Versand)</i>`
         : a(best.url, shopName[best.shop]);
     return (
       `${nums[i]} <b>${a(dash(p.id), setTitle(p, lang === 'mix' ? null : lang))}</b> · ${fmtName(p)} ${FLAG[lang]}\n` +
       `      💶 <b>${eur(best.total)}</b> bei ${where}\n` +
-      `      ✅ ${esc(reasons.join(' · '))}${cm}`
+      `      ✅ ${esc(reasons.join(' · '))}${cm}\n` +
+      `      🔎 Auf Cardmarket prüfen: ${cmLangLinks(p, lang)}`
     );
   });
   return `🎯 <b>KAUFCHANCEN</b>  <i>lieferbar · inkl. Versand</i>\n\n${cards.join('\n\n')}`;
@@ -117,7 +118,11 @@ function restockSection() {
 }
 
 function verdictSection() {
-  const lines = verdict.map((v) => `${v.icon} <b>${esc(v.label)}:</b> ${v.url ? `${esc(v.text)} ${a(v.url, '→ Shop')}` : esc(v.text)}`);
+  const lines = verdict.map((v) => {
+    const p = v.productId ? byId.get(v.productId) : null;
+    const cmCheck = v.kind === 'buy' && p ? ` · 🔎 CM ${cmLangLinks(p, v.lang)}` : '';
+    return `${v.icon} <b>${esc(v.label)}:</b> ${v.url ? `${esc(v.text)} ${a(v.url, '→ Kaufen')}${cmCheck}` : esc(v.text)}`;
+  });
   return `💡 <b>FAZIT</b>\n<blockquote>${lines.join('\n')}</blockquote>`;
 }
 

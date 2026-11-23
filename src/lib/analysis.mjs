@@ -63,10 +63,15 @@ export function cmProductUrl(p, { lang = null, germanSellers = false } = {}) {
   const qs = q.toString();
   return `https://www.cardmarket.com/de/Pokemon/Products/${cat}/${cmSlug(p.name)}${qs ? '?' + qs : ''}`;
 }
-/** Passende Filter-Links: international -> DE und EN, Japan -> JP, China -> CN */
-export function cmFilterLinks(p) {
-  const langs = p.region === 'international' ? ['de', 'en'] : p.region === 'japanese' ? ['jp'] : p.region === 'chinese' ? ['cn'] : [];
-  return langs.map((lang) => ({ lang, url: cmProductUrl(p, { lang }) }));
+/**
+ * Passende Filter-Links. Mit lang (de/en/jp/cn) nur diese Sprache – so prüft man direkt den Preis
+ * in der Sprache des Deals. Ohne lang bzw. bei 'mix': international -> DE und EN, Japan -> JP, China -> CN.
+ */
+export function cmFilterLinks(p, lang = null) {
+  const langs = CM_LANG_ID[lang]
+    ? [lang]
+    : p.region === 'international' ? ['de', 'en'] : p.region === 'japanese' ? ['jp'] : p.region === 'chinese' ? ['cn'] : [];
+  return langs.map((l) => ({ lang: l, url: cmProductUrl(p, { lang: l }) }));
 }
 export const isDisplay = (p) =>
   p.region !== 'other' && (['booster-box', 'half-box'].includes(p.type) || (p.region !== 'international' && p.type === 'jumbo-box'));
@@ -339,6 +344,7 @@ export function analyze() {
       text: `${setTitle(o.p, o.lang)} ${fmtName(o.p)} ${FLAG[o.lang]} für ${eur(o.best.total)} bei ${shopName[o.best.shop]} – ${o.reasons[0]}.`,
       url: o.best.url,
       productId: o.p.id,
+      lang: o.lang,
     });
   }
   if (!buys.length) verdict.push({ kind: 'buy', icon: '🛒', label: 'Kaufen', text: 'heute kein klarer Deal – Geduld zahlt sich aus.' });

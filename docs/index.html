@@ -35,21 +35,26 @@
       <nav class="tabs" aria-label="Ansicht">
         <a href="#/" data-tab="home">Übersicht</a>
         <a href="#/deals" data-tab="deals">Deals</a>
+        <a href="#/markt" data-tab="markt">Markt</a>
         <a href="#/displays" data-tab="displays">Displays</a>
       </nav>
       <button class="icon-btn theme-btn" title="Hell/Dunkel umschalten" aria-label="Hell/Dunkel umschalten">◐</button>
     </div>
   </header>
-  <div id="install"></div>
-  <main id="app" aria-live="polite"></main>
-  <footer class="foot" id="foot"></footer>
+
+  <!-- Nur dieser Bereich scrollt; Kopf und Navigation bleiben fest -->
+  <div id="scroller">
+    <div id="install"></div>
+    <main id="app" aria-live="polite"></main>
+    <footer class="foot" id="foot"></footer>
+  </div>
 
   <!-- Untere App-Navigation (nur auf dem Handy sichtbar) -->
   <nav class="bottom-nav" aria-label="App-Navigation">
     <a href="#/" data-tab="home"><span class="bi">🏠</span><span>Übersicht</span></a>
     <a href="#/deals" data-tab="deals"><span class="bi">🎯</span><span>Deals</span><span class="badge" id="deal-badge" hidden></span></a>
+    <a href="#/markt" data-tab="markt"><span class="bi">📊</span><span>Markt</span></a>
     <a href="#/displays" data-tab="displays"><span class="bi">🔍</span><span>Displays</span></a>
-    <button class="theme-btn" type="button" aria-label="Hell/Dunkel umschalten"><span class="bi">🌗</span><span>Design</span></button>
   </nav>
 
   <script src="app.js" type="module"></script>
