@@ -1,58 +1,100 @@
-<b>☀️ PokeTracker – Montag, 23. November</b>
+☀️ <b>POKETRACKER</b> · Montag, 23. November
+<i>Dein Display-Markt am Morgen</i>
 
-<b>📊 Marktlage Displays (Cardmarket-Trend, Ø)</b>
-🌍 International: ➡️ 7 T +0,1 % · 30 T +0,7 %
-   <i>5 gefallen, 8 gestiegen, 93 stabil (±3 %)</i>
-🇯🇵 Japan: ➡️ 7 T -0,4 % · 30 T +0,4 %
-   <i>21 gefallen, 4 gestiegen, 117 stabil (±3 %)</i>
-🇨🇳 China: ➡️ 7 T -0,3 % · 30 T +0,6 %
-   <i>7 gefallen, 3 gestiegen, 39 stabil (±3 %)</i>
+🟢 5 Kaufchancen  ·  🌍 Markt ➡️ stabil  ·  🔻 29 Displays im Minus
 
-<b>🎯 Kaufchancen</b> <i>(lieferbar, inkl. Versand)</i>
-• <b>Entwicklungen in Paldea 36er DE</b>: <a href="https://www.card-corner.de/Pokemon-Entwicklungen-in-Paldea-Display-36-Boostern">239,99 €</a> bei Card-Corner
-   ↳ 116,40 € günstiger als Gate to the Games
-• <b>CBB6C: Gem Pack Vol. 6 Display CN</b>: <a href="https://cardcosmos.de/products/pokemon-gem-pack-vol-6-booster-box-chinesisch">27,89 €</a> bei Cardcosmos
-   ↳ 11,81 € günstiger als Balucards
-• <b>CSV9C: Stellar Crystal Display CN</b>: <a href="https://cardcosmos.de/products/pokemon-stellar-crystal-slim-booster-display-chinesisch">29,89 €</a> bei Cardcosmos
-   ↳ 12,09 € günstiger als Trader-Online
-• <b>Journey Together Enhanced 36er EN</b>: <a href="https://www.card-corner.de/Pokemon-Journey-Together-Enhanced-Display">289,99 €</a> bei Card-Corner
-   ↳ 116,40 € günstiger als Gate to the Games
-• <b>CSV9.5C: Terastal Gathering Display CN</b>: <a href="https://cardcosmos.de/products/pokemon-terastal-gathering-booster-box-chinesisch">54,89 €</a> bei Cardcosmos
-   ↳ 20,59 € günstiger als Card-Corner
-• <b>Storm Emeralda Display JP</b>: <a href="https://www.card-corner.de/Pokemon-Storm-Emeralda-M6-Display">65,48 €</a> bei Card-Corner
-   ↳ 23,50 € günstiger als Loco TCG
+━━━━━━━━━━━━━━━━━━
 
-<b>🏷️ Bestpreise 36er-Displays (neueste Sets)</b>
-• <b>Flinke Fäuste</b>: <i>in keinem Shop lieferbar</i>
-• <b>Delta-Herrschaft</b>: DE <a href="https://trader-online.de/pokemon/displays-boxen/booster-displays/mega-entwicklung-delta-herrschaft-booster-display-36-booster-deutsch.html">181,98 €</a> (Trader-Online) · EN <a href="https://www.card-corner.de/Pokemon-Delta-Reign-Display">209,99 €</a> (Card-Corner)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Delta%20Reign%20Booster%20Box">CM 169,08 € -8 %</a>
-• <b>Dunkelnacht</b>: DE <a href="https://balucards.de/products/pokemon-dunkelnacht-display-36-booster-deutsch">204,95 €</a> (Balucards) · EN <a href="https://loco-tcg.de/produkt/pokemon-mega-evolution-pitch-black-display-englisch/">205,98 €</a> (Loco TCG)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Pitch%20Black%20Booster%20Box">CM 170,86 € -2 %</a>
-• <b>Wachsendes Chaos</b>: DE <a href="https://balucards.de/products/pokemon-wachsendes-chaos-display-36-booster-deutsch">204,90 €</a> (Balucards) · EN <a href="https://www.gate-to-the-games.de/Pokemon-Karten-Mega-Evolution-Chaos-Rising-Display-36-Booster-englisch">256,39 €</a> (Gate to the Games)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Chaos%20Rising%20Booster%20Box">CM 176,06 € -2 %</a>
-• <b>Optimale Ordnung</b>: DE <a href="https://www.gate-to-the-games.de/Pokemon-Karten-Mega-Entwicklung-Optimale-Ordnung-Display-36-Booster-deutsch">236,39 €</a> (Gate to the Games)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Perfect%20Order%20Booster%20Box">CM 176,23 € -1 %</a>
-• <b>Fatale Flammen</b>: DE <a href="https://www.card-corner.de/Pokemon-Fatale-Flammen-Display">299,99 €</a> (Card-Corner)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Phantasmal%20Flames%20Booster%20Box">CM 290,96 € -2 %</a>
-• <b>Mega-Entwicklung</b>: DE <a href="https://www.card-corner.de/Pokemon-Mega-Entwicklung-Display">205,48 €</a> (Card-Corner)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Mega%20Evolution%20Booster%20Box">CM 185,63 € +5 %</a>
-• <b>Ewige Rivalen</b>: DE <a href="https://www.card-corner.de/Pokemon-Ewige-Rivalen-Display-36-Booster">299,99 €</a> (Card-Corner) · EN <a href="https://www.card-corner.de/Pokemon-Destined-Rivals-Display">339,99 €</a> (Card-Corner)
-   ↳ <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Destined%20Rivals%20Booster%20Box">CM 285,68 € +2 %</a>
+🎯 <b>KAUFCHANCEN</b>  <i>lieferbar · inkl. Versand</i>
 
-<b>📉📈 Cardmarket: größte Bewegungen (7 Tage)</b>
-<i>Gefallen</i>
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Blue%20Sky%20Stream%20Booster%20Box">Blue Sky Stream Display</a> 🇯🇵 -24 % → 287,20 €
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=CSV10.5C%3A%20Black%20Bolt%20S-Ch%20Jumbo%20Booster%20Box">CSV10.5C: Black Bolt S-Ch Jumbo-Display</a> 🇨🇳 -23 % → 61,66 €
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=CSV10.6C%3A%20White%20Flare%20S-Ch%20Jumbo%20Booster%20Box">CSV10.6C: White Flare S-Ch Jumbo-Display</a> 🇨🇳 -19 % → 65,00 €
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Delta%20Reign%20Booster%20Box%20(18%20Boosters)">Delta Reign 18er</a> -14 % → 78,00 € <i>(Tiefstand seit 27 T)</i>
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Paradise%20Dragona%20Booster%20Box">Paradise Dragona Display</a> 🇯🇵 -13 % → 63,95 €
-<i>Gestiegen</i>
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Eevee%20Heroes%20Booster%20Box">Eevee Heroes Display</a> 🇯🇵 +67 % → 669,99 €
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Lost%20Thunder%20Booster%20Box">Lost Thunder 36er</a> +20 % → 2.146,09 €
-• <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Darkness%20Ablaze%20Booster%20Box%20(18%20Boosters)">Darkness Ablaze 18er</a> +8 % → 160,44 €
+① <b>Entwicklungen in Paldea</b> · 36er 🇩🇪
+      💶 <b>239,99 €</b> bei <a href="https://www.card-corner.de/Pokemon-Entwicklungen-in-Paldea-Display-36-Boostern">Card-Corner</a>
+      ✅ 116 € unter Gate to the Games · CM 270 €
 
-<b>🇯🇵🇨🇳 Japan/China</b>
-Bei 49 von 62 lieferbaren Displays ist Cardmarket günstiger als der beste deutsche Shop (Median-Aufpreis Shop: +25 %).
+② <b>Gem Pack Vol. 6</b> · Display 🇨🇳
+      💶 <b>27,89 €</b> bei <a href="https://cardcosmos.de/products/pokemon-gem-pack-vol-6-booster-box-chinesisch">Cardcosmos</a>
+      ✅ 12 € unter Balucards · CM 26 €
 
-<i>Daten: Cardmarket 2026-11-23 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf) · ⚠️ TCG-24: nur 4 Displays (vorher 18)</i>
-🔗 <a href="https://github.com/rocklee-dotcom/poketracker">Dashboard</a>
+③ <b>Stellar Crystal</b> · Display 🇨🇳
+      💶 <b>29,89 €</b> bei <a href="https://cardcosmos.de/products/pokemon-stellar-crystal-slim-booster-display-chinesisch">Cardcosmos</a>
+      ✅ 12 € unter Trader-Online · CM 27 €
+
+④ <b>Journey Together Enhanced</b> · 36er 🇬🇧
+      💶 <b>289,99 €</b> bei <a href="https://www.card-corner.de/Pokemon-Journey-Together-Enhanced-Display">Card-Corner</a>
+      ✅ 116 € unter Gate to the Games · CM 272 €
+
+⑤ <b>Terastal Gathering</b> · Display 🇨🇳
+      💶 <b>54,89 €</b> bei <a href="https://cardcosmos.de/products/pokemon-terastal-gathering-booster-box-chinesisch">Cardcosmos</a>
+      ✅ 21 € unter Card-Corner · CM 53 €
+
+━━━━━━━━━━━━━━━━━━
+
+🏷️ <b>BESTPREISE NEUE SETS</b>  <i>36er · inkl. Versand</i>
+<blockquote expandable><b>Flinke Fäuste</b>
+<i>derzeit nirgends lieferbar</i>
+
+<b>Delta-Herrschaft</b>
+🇩🇪 <a href="https://trader-online.de/pokemon/displays-boxen/booster-displays/mega-entwicklung-delta-herrschaft-booster-display-36-booster-deutsch.html">181,98 €</a> <i>Trader-Online</i>  🇬🇧 <a href="https://www.card-corner.de/Pokemon-Delta-Reign-Display">209,99 €</a> <i>Card-Corner</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Delta%20Reign%20Booster%20Box">CM 169,08 €</a> ▼ 8 %
+
+<b>Dunkelnacht</b>
+🇩🇪 <a href="https://balucards.de/products/pokemon-dunkelnacht-display-36-booster-deutsch">204,95 €</a> <i>Balucards</i>  🇬🇧 <a href="https://loco-tcg.de/produkt/pokemon-mega-evolution-pitch-black-display-englisch/">205,98 €</a> <i>Loco TCG</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Pitch%20Black%20Booster%20Box">CM 170,86 €</a> ▼ 2 %
+
+<b>Wachsendes Chaos</b>
+🇩🇪 <a href="https://balucards.de/products/pokemon-wachsendes-chaos-display-36-booster-deutsch">204,90 €</a> <i>Balucards</i>  🇬🇧 <a href="https://www.gate-to-the-games.de/Pokemon-Karten-Mega-Evolution-Chaos-Rising-Display-36-Booster-englisch">256,39 €</a> <i>Gate to the Games</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Chaos%20Rising%20Booster%20Box">CM 176,06 €</a> ▼ 2 %
+
+<b>Optimale Ordnung</b>
+🇩🇪 <a href="https://www.gate-to-the-games.de/Pokemon-Karten-Mega-Entwicklung-Optimale-Ordnung-Display-36-Booster-deutsch">236,39 €</a> <i>Gate to the Games</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Perfect%20Order%20Booster%20Box">CM 176,23 €</a> ▼ 1 %
+
+<b>Fatale Flammen</b>
+🇩🇪 <a href="https://www.card-corner.de/Pokemon-Fatale-Flammen-Display">299,99 €</a> <i>Card-Corner</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Phantasmal%20Flames%20Booster%20Box">CM 290,96 €</a> ▼ 2 %
+
+<b>Mega-Entwicklung</b>
+🇩🇪 <a href="https://www.card-corner.de/Pokemon-Mega-Entwicklung-Display">205,48 €</a> <i>Card-Corner</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Mega%20Evolution%20Booster%20Box">CM 185,63 €</a> ▲ 5 %
+
+<b>Ewige Rivalen</b>
+🇩🇪 <a href="https://www.card-corner.de/Pokemon-Ewige-Rivalen-Display-36-Booster">299,99 €</a> <i>Card-Corner</i>  🇬🇧 <a href="https://www.card-corner.de/Pokemon-Destined-Rivals-Display">339,99 €</a> <i>Card-Corner</i>
+📊 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Destined%20Rivals%20Booster%20Box">CM 285,68 €</a> ▲ 2 %</blockquote>
+
+📊 <b>MARKT</b>  <i>Cardmarket-Trend Displays · Verlauf 14 T</i>
+🌍 <b>International</b>  <code>▁▁▁▂▂▃▄▄▄▅▆▆██</code>
+      7 T ▲ 0,1 % · 30 T ▲ 0,7 %  <i>(5↓ 8↑)</i>
+🇯🇵 <b>Japan</b>  <code>▇▇▅▆▅▆▆▆█▇▅▄▂▁</code>
+      7 T ▼ 0,4 % · 30 T ▲ 0,4 %  <i>(21↓ 4↑)</i>
+🇨🇳 <b>China</b>  <code>▅▆▇█▇▇▇▄▄▃▄▂▂▁</code>
+      7 T ▼ 0,3 % · 30 T ▲ 0,6 %  <i>(7↓ 3↑)</i>
+
+📉 <b>BEWEGUNGEN</b>  <i>Cardmarket · 7 Tage</i>
+<blockquote expandable>🔻 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Blue%20Sky%20Stream%20Booster%20Box">Blue Sky Stream Display</a> 🇯🇵
+      ▼ 24 % → <b>287,20 €</b>
+🔻 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=CSV10.5C%3A%20Black%20Bolt%20S-Ch%20Jumbo%20Booster%20Box">Black Bolt S-Ch Jumbo</a> 🇨🇳
+      ▼ 23 % → <b>61,66 €</b>
+🔻 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=CSV10.6C%3A%20White%20Flare%20S-Ch%20Jumbo%20Booster%20Box">White Flare S-Ch Jumbo</a> 🇨🇳
+      ▼ 19 % → <b>65,00 €</b>
+🔻 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Delta%20Reign%20Booster%20Box%20(18%20Boosters)">Delta-Herrschaft 18er</a>
+      ▼ 14 % → <b>78,00 €</b> · <i>Tief seit 27 T</i>
+🔻 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Paradise%20Dragona%20Booster%20Box">Paradise Dragona Display</a> 🇯🇵
+      ▼ 13 % → <b>63,95 €</b>
+🔺 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Eevee%20Heroes%20Booster%20Box">Eevee Heroes Display</a> 🇯🇵
+      ▲ 67 % → <b>669,99 €</b> · <i>Hoch seit 27 T</i>
+🔺 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Lost%20Thunder%20Booster%20Box">Echo des Donners 36er</a>
+      ▲ 20 % → <b>2.146,09 €</b> · <i>Hoch seit 27 T</i>
+🔺 <a href="https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=Darkness%20Ablaze%20Booster%20Box%20(18%20Boosters)">Flammende Finsternis 18er</a>
+      ▲ 8 % → <b>160,44 €</b> · <i>Hoch seit 27 T</i></blockquote>
+
+━━━━━━━━━━━━━━━━━━
+
+💡 <b>FAZIT</b>
+<blockquote>🛒 <b>Kaufen:</b> Entwicklungen in Paldea 36er 🇩🇪 für <b>239,99 €</b> bei <a href="https://www.card-corner.de/Pokemon-Entwicklungen-in-Paldea-Display-36-Boostern">Card-Corner</a> – 116 € unter Gate to the Games.
+🛒 <b>Kaufen:</b> Terastal Gathering Display 🇨🇳 für <b>54,89 €</b> bei <a href="https://cardcosmos.de/products/pokemon-terastal-gathering-booster-box-chinesisch">Cardcosmos</a> – 21 € unter Card-Corner.
+👀 <b>Beobachten:</b> Delta-Herrschaft 36er fällt (▼ 8 % in 7 T, Tiefstand) – Boden abwarten, dann zuschlagen.
+⏳ <b>Japan/China:</b> lieber auf Cardmarket kaufen – deutsche Shops liegen im Schnitt 25 % darüber.
+🧭 <b>Markt:</b> ruhiger, stabiler Markt – kein Grund zur Eile, auf gezielte Deals warten.</blockquote>
+
+🔗 <a href="https://github.com/rocklee-dotcom/poketracker">Zum Dashboard</a>
+<i>Stand: Cardmarket 23.11.2026 (27 Tage Verlauf) · 7/7 Shops (1 Tag Verlauf) · ⚠️ TCG-24 unvollständig</i>

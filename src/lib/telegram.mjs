@@ -24,13 +24,19 @@ async function call(method, body) {
 export const getMe = () => call('getMe');
 export const getUpdates = () => call('getUpdates');
 
+// Telegram zählt nur den sichtbaren Text (ohne HTML-Tags/Link-Ziele) gegen das 4096-Zeichen-Limit.
+const visibleLength = (html) =>
+  html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&(amp|lt|gt|quot);/g, '_').length;
+
 /** Sendet HTML-Text; teilt an Abschnittsgrenzen (Leerzeilen), falls zu lang. */
 export async function sendHtml(text, chatId = process.env.TELEGRAM_CHAT_ID) {
   if (!chatId) throw new Error('TELEGRAM_CHAT_ID fehlt');
   const parts = [];
   let cur = '';
   for (const block of text.split('\n\n')) {
-    if ((cur + '\n\n' + block).length > MAX && cur) {
+    if (visibleLength(cur + '\n\n' + block) > MAX && cur) {
       parts.push(cur);
       cur = block;
     } else cur = cur ? cur + '\n\n' + block : block;
