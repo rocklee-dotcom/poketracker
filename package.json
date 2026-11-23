@@ -1,0 +1,14 @@
+{
+  "name": "poketracker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tägliche Preisanalyse für Pokémon-Displays und -Booster",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "update": "node src/update.mjs",
+    "backfill": "node src/backfill.mjs"
+  }
+}
