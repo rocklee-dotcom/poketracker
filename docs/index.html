@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <script>
     try { const t = localStorage.getItem('pt-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
@@ -37,6 +37,7 @@
         <a href="#/deals" data-tab="deals">Deals</a>
         <a href="#/markt" data-tab="markt">Markt</a>
         <a href="#/displays" data-tab="displays">Displays</a>
+        <a href="#/karten" data-tab="karten">Karten</a>
       </nav>
       <button class="icon-btn theme-btn" title="Hell/Dunkel umschalten" aria-label="Hell/Dunkel umschalten">◐</button>
     </div>
@@ -55,10 +56,11 @@
     <a href="#/deals" data-tab="deals"><span class="bi">🎯</span><span>Deals</span><span class="badge" id="deal-badge" hidden></span></a>
     <a href="#/markt" data-tab="markt"><span class="bi">📊</span><span>Markt</span></a>
     <a href="#/displays" data-tab="displays"><span class="bi">🔍</span><span>Displays</span></a>
+    <a href="#/karten" data-tab="karten"><span class="bi">🃏</span><span>Karten</span></a>
   </nav>
 
   <!-- ?v=… bei jeder Design-/Code-Änderung hochzählen, damit Handys die neue Version sofort laden -->
-  <script src="app.js?v=6" type="module"></script>
+  <script src="app.js?v=7" type="module"></script>
   <script>
     if ('serviceWorker' in navigator) {
       // Neue App-Version aktiv geworden -> einmal neu laden, damit sie sofort angezeigt wird

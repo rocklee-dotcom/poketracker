@@ -481,6 +481,7 @@ function renderHome() {
       h('a', { class: 'qbtn', href: '#/deals' }, h('span', { class: 'qi', text: '🎯' }), h('b', { text: 'Alle Deals' }), h('small', { text: `${D.opportunities.length} Kaufchancen` })),
       h('a', { class: 'qbtn', href: '#/markt' }, h('span', { class: 'qi', text: '📊' }), h('b', { text: 'Markt' }), h('small', { text: 'Trends & neue Sets' })),
       h('a', { class: 'qbtn', href: '#/displays' }, h('span', { class: 'qi', text: '🔍' }), h('b', { text: 'Display suchen' }), h('small', { text: `${D.products.length} Displays` })),
+      h('a', { class: 'qbtn', href: '#/karten' }, h('span', { class: 'qi', text: '🃏' }), h('b', { text: 'Karte prüfen' }), h('small', { text: 'scannen oder eingeben' })),
     ),
     h(
       'p',
@@ -753,6 +754,459 @@ async function renderDetail(id) {
   }
 }
 
+// ═══════════ Karten: Preis einer Einzelkarte (TCGdex, Cardmarket-Preise) ═══════════
+const TCG_LANG = { de: 'de', en: 'en', jp: 'ja', cn: 'zh-tw' };
+const CARD_LANGS = [['de', 'Deutsch'], ['en', 'Englisch'], ['jp', 'Japanisch'], ['cn', 'Chinesisch']];
+const tcgUrl = (lang, path) => `https://api.tcgdex.net/v2/${TCG_LANG[lang]}${path}`;
+const cardImg = (c, size = 'low') => (c?.image ? `${c.image}/${size}.webp` : null);
+state.cards = { lang: (() => { try { return localStorage.getItem('pt-card-lang') || 'de'; } catch (e) { return 'de'; } })(), q: '', results: null, sets: null };
+
+async function tcg(lang, path) {
+  const res = await fetch(tcgUrl(lang, path));
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`TCGdex ${res.status}`);
+  return res.json();
+}
+async function loadCardSets() {
+  if (!state.cards.sets) state.cards.sets = await fetch('data/card-sets.json', { cache: 'no-cache' }).then((r) => r.json());
+  return state.cards.sets;
+}
+
+/**
+ * Eingabe verstehen: "MEW 006/165", "SV2a 006/165", "006/165", "TG05/TG30" oder ein Name.
+ * Typische Lesefehler der Texterkennung (O→0, I/l→1, S→5, B→8) werden im Zahlenteil korrigiert.
+ */
+function parseCardQuery(raw) {
+  const q = raw.trim().replace(/\s+/g, ' ');
+  const fixDigits = (s) => s.replace(/[Oo]/g, '0').replace(/[Il|]/g, '1').replace(/S/g, '5').replace(/B/g, '8');
+  const m = q.match(/(?:^|\s)([A-Za-z]{0,2}[0-9OoIlSB]{1,3}[a-z]?)\s*\/\s*([A-Za-z]{0,2}[0-9OoIlSB]{1,3})(?:\s|$)/);
+  if (!m) return { name: q };
+  let [, num, total] = m;
+  const prefix = (num.match(/^[A-Za-z]{2}(?=\d)/) || [''])[0].toUpperCase(); // z. B. "TG", "GG"
+  num = prefix ? prefix + fixDigits(num.slice(2)) : fixDigits(num);
+  total = total.match(/^[A-Za-z]{2}/) ? total.slice(0, 2).toUpperCase() + fixDigits(total.slice(2)) : fixDigits(total);
+  // Alle Wörter vor der Nummer kommen als Set-Code infrage (z. B. "G MEW EN 006/165" -> MEW).
+  // Sprach-Kästchen ("MEWEN") abschneiden; Codes haben mindestens 3 Zeichen.
+  const before = q.slice(0, m.index).split(/[\s|]+/).map((w) => w.replace(/[^A-Za-z0-9.]/g, ''));
+  const codes = [];
+  for (let w of before) {
+    if (w.length > 3 && /(EN|DE|FR|IT|ES|PT)$/i.test(w)) w = w.slice(0, -2);
+    if (w.length >= 3 && /[A-Za-z]/.test(w)) codes.push(w);
+  }
+  return { codes, code: codes[codes.length - 1] ?? null, num, total };
+}
+
+// Typische Verwechslungen der Texterkennung bei kleinen Ziffern
+const DIGIT_CONFUSION = { 0: '869', 1: '7', 2: '7', 3: '5896', 5: '3698', 6: '5809', 7: '12', 8: '3605', 9: '836' };
+/** Alle Zahlen, die durch genau eine verwechselte Ziffer entstehen könnten */
+function confusableNumbers(n) {
+  const s = String(n);
+  const out = new Set();
+  [...s].forEach((d, i) => {
+    for (const alt of DIGIT_CONFUSION[d] ?? '') out.add(Number(s.slice(0, i) + alt + s.slice(i + 1)));
+  });
+  return [...out];
+}
+
+/**
+ * Sets passend zu Code und/oder Kartenanzahl (beste zuerst).
+ * fuzzy (bei gescanntem Text): Kartenanzahlen mit einer verwechselten Ziffer zusätzlich anbieten.
+ */
+function candidateSets(index, lang, { codes = [], total }, { fuzzy = false } = {}) {
+  const sets = index.langs[lang]?.sets ?? [];
+  const byRelease = (a, b) => (b.release ?? '').localeCompare(a.release ?? '');
+  const t = Number(String(total).replace(/\D/g, ''));
+  const near = new Set([t, ...confusableNumbers(t)]);
+  // 1) Gedruckter Set-Code – nur wenn die Kartenanzahl dazu passt (schützt vor Zufallstreffern)
+  for (const code of [...codes].reverse()) {
+    const c = code.toLowerCase();
+    const hit = sets.filter((s) => (s.code?.toLowerCase() === c || s.id.toLowerCase() === c) && (!t || near.has(s.official) || near.has(s.total)));
+    if (hit.length) return hit.sort(byRelease);
+  }
+  if (!t) return [];
+  // 2) Kartenanzahl exakt, 3) ggf. Gesamtzahl, 4) bei Scans: ähnliche Zahlen (eine Ziffer verwechselt)
+  const exact = sets.filter((s) => s.official === t).sort(byRelease);
+  const byTotal = exact.length ? [] : sets.filter((s) => s.total === t).sort(byRelease);
+  const alts = fuzzy || (!exact.length && !byTotal.length) ? sets.filter((s) => s.official !== t && near.has(s.official)).sort(byRelease) : [];
+  return [...exact, ...byTotal, ...alts].slice(0, 10);
+}
+
+async function searchCards(rawQuery, { fuzzy = false } = {}) {
+  const C = state.cards;
+  const lang = C.lang;
+  const p = parseCardQuery(rawQuery);
+  if (p.name !== undefined) {
+    if (p.name.length < 2) return { error: 'Bitte mindestens 2 Zeichen oder eine Nummer wie 006/165 eingeben.' };
+    const list = (await tcg(lang, `/cards?name=${encodeURIComponent(p.name)}&pagination:itemsPerPage=40`)) ?? [];
+    return { kind: 'name', cards: list.map((c) => ({ ...c, lang })) };
+  }
+  const index = await loadCardSets();
+  const sets = candidateSets(index, lang, p, { fuzzy });
+  if (!sets.length) return { error: `Kein ${CARD_LANGS.find((l) => l[0] === lang)[1].toLowerCase()}es Set mit ${p.code ? `Code „${p.code}“ oder ` : ''}${p.total} Karten gefunden.` };
+  const localId = /^\d+$/.test(p.num) ? String(Number(p.num)) : p.num;
+  const cards = (
+    await Promise.all(
+      sets.map(async (s) => {
+        try {
+          const c = await tcg(lang, `/sets/${encodeURIComponent(s.id)}/${encodeURIComponent(localId)}`);
+          return c ? { ...c, lang, setInfo: s } : null;
+        } catch (e) {
+          return null;
+        }
+      }),
+    )
+  ).filter(Boolean);
+  return { kind: 'number', parsed: p, cards };
+}
+
+function rememberCard(c) {
+  try {
+    const list = JSON.parse(localStorage.getItem('pt-recent-cards') || '[]').filter((x) => !(x.id === c.id && x.lang === c.lang));
+    list.unshift({ id: c.id, lang: c.lang, name: c.name, set: c.set?.name ?? '', localId: c.localId, image: c.image ?? null });
+    localStorage.setItem('pt-recent-cards', JSON.stringify(list.slice(0, 8)));
+  } catch (e) {}
+}
+function recentCards() {
+  try {
+    return JSON.parse(localStorage.getItem('pt-recent-cards') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+/** Karten-Kachel für Suchergebnisse (mit Preis, falls schon geladen) */
+function cardTile(c) {
+  const price = c.pricing?.cardmarket;
+  const img = cardImg(c);
+  return h(
+    'a',
+    { class: 'ctile', href: `#/karte/${c.lang}/${encodeURIComponent(c.id)}` },
+    h('div', { class: 'cimg' }, img ? h('img', { src: img, alt: c.name ?? '', loading: 'lazy' }) : h('span', { text: '🃏' })),
+    h(
+      'div',
+      { class: 'cinfo' },
+      h('b', { text: c.name ?? '–' }),
+      h('small', { text: `${c.setInfo?.name ?? c.set?.name ?? ''}${c.localId ? ` · ${c.localId}${c.setInfo?.official ? '/' + c.setInfo.official : ''}` : ''}` }),
+      price?.trend != null ? h('span', { class: 'cprice num', text: eur(price.trend) }) : h('span', { class: 'muted small', text: 'Preis ansehen →' }),
+    ),
+  );
+}
+
+function renderCards() {
+  const C = state.cards;
+  const results = h('div', { class: 'cresults' });
+  const input = h('input', { type: 'search', class: 'cinput', value: C.q, placeholder: 'z. B. MEW 006/165 · 006/165 · Glurak', 'aria-label': 'Kartennummer oder Name', enterkeyhint: 'search' });
+  const status = h('p', { class: 'count' });
+
+  async function run(q, { fuzzy = false } = {}) {
+    C.q = q;
+    if (!q.trim()) return;
+    status.textContent = 'Suche läuft …';
+    results.style.opacity = '0.5';
+    try {
+      const r = await searchCards(q, { fuzzy });
+      results.style.opacity = '';
+      if (r.error) {
+        status.textContent = r.error;
+        results.replaceChildren();
+        return;
+      }
+      C.results = r;
+      if (r.kind === 'number' && r.cards.length === 1) {
+        status.textContent = '';
+        go(`#/karte/${r.cards[0].lang}/${encodeURIComponent(r.cards[0].id)}`);
+        return;
+      }
+      status.textContent = r.cards.length
+        ? r.kind === 'number'
+          ? `${r.cards.length} mögliche Karten – bitte die richtige antippen`
+          : `${r.cards.length} Treffer`
+        : 'Keine Karte gefunden. Sprache richtig gewählt? Nummer prüfen.';
+      results.replaceChildren(...r.cards.map(cardTile));
+    } catch (e) {
+      results.style.opacity = '';
+      status.textContent = 'Kartendatenbank gerade nicht erreichbar – bitte gleich nochmal versuchen.';
+    }
+  }
+
+  const seg = h(
+    'div',
+    { class: 'seg langseg', role: 'group', 'aria-label': 'Sprache der Karte' },
+    CARD_LANGS.map(([l, label]) =>
+      h(
+        'button',
+        {
+          class: C.lang === l ? 'on' : '',
+          onclick: (e) => {
+            C.lang = l;
+            try {
+              localStorage.setItem('pt-card-lang', l);
+            } catch (err) {}
+            seg.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b === e.currentTarget));
+            if (input.value.trim()) run(input.value);
+          },
+        },
+        langBadge(l),
+        ` ${label}`,
+      ),
+    ),
+  );
+  input.addEventListener('keydown', (e) => e.key === 'Enter' && (input.blur(), run(input.value)));
+
+  const recent = recentCards();
+  $app.replaceChildren(
+    section(
+      '🃏 Karten-Preis',
+      'Einzelkarte per Scan, Nummer oder Name · Cardmarket-Preise',
+      h(
+        'div',
+        { class: 'card pad csearch' },
+        h('div', { class: 'clabel', text: '1. Sprache der Karte' }),
+        seg,
+        h('div', { class: 'clabel', text: '2. Karte scannen oder eingeben' }),
+        h(
+          'button',
+          { class: 'btn go scanbtn', onclick: () => openScanner((text) => ((input.value = text), run(text, { fuzzy: true }))) },
+          h('span', { class: 'scanic', text: '📷' }),
+          h('span', {}, h('b', { text: 'Karte scannen' }), h('small', { text: 'untere linke Ecke fotografieren' })),
+        ),
+        h('div', { class: 'cor', text: 'oder' }),
+        h('div', { class: 'crow' }, input, h('button', { class: 'btn primary', text: 'Suchen', onclick: () => run(input.value) })),
+        h('p', { class: 'chint' }, 'Die Nummer steht unten links auf der Karte, z. B. ', h('b', { text: 'MEW 006/165' }), ' oder bei japanischen Karten ', h('b', { text: 'SV2a 006/165' }), '.'),
+      ),
+    ),
+    status,
+    results,
+    recent.length
+      ? section(
+          '🕘 Zuletzt angesehen',
+          null,
+          h('div', { class: 'cresults' }, recent.map((c) => cardTile({ ...c, set: { name: c.set } }))),
+        )
+      : '',
+    h('p', { class: 'datastand', text: 'Kartendaten & Bilder: TCGdex · Preise: Cardmarket (alle Sprachen einer Karte zusammen) · ohne Gewähr' }),
+  );
+  // Suche per Link: #/karten?q=MEW%20006/165&lang=de
+  const params = new URLSearchParams(location.hash.split('?')[1] ?? '');
+  if (params.get('lang') && TCG_LANG[params.get('lang')]) C.lang = params.get('lang');
+  if (params.get('q')) {
+    input.value = params.get('q');
+    seg.querySelectorAll('button').forEach((b, i) => b.classList.toggle('on', CARD_LANGS[i][0] === C.lang));
+    run(params.get('q'));
+  } else if (C.results && C.q) {
+    // Rückkehr aus der Detailansicht: letzte Ergebnisse wieder zeigen
+    results.replaceChildren(...C.results.cards.map(cardTile));
+  }
+}
+
+async function renderCardDetail(lang, id) {
+  $app.replaceChildren(h('div', { class: 'card empty', text: 'Karte wird geladen …' }));
+  let c;
+  try {
+    c = await tcg(lang, `/cards/${encodeURIComponent(id)}`);
+  } catch (e) {
+    c = null;
+  }
+  if (!c) {
+    $app.replaceChildren(h('div', { class: 'card empty', text: 'Karte nicht gefunden oder Datenbank nicht erreichbar.' }));
+    return;
+  }
+  c.lang = lang;
+  rememberCard(c);
+  // Englischer Name für die Cardmarket-Suche (Cardmarket sucht mit englischen Namen; bei DE/EN gleiche Karten-ID)
+  let enName = c.name;
+  if (lang === 'de') {
+    try {
+      enName = (await tcg('en', `/cards/${encodeURIComponent(id)}`))?.name ?? c.name;
+    } catch (e) {}
+  }
+  const pr = c.pricing?.cardmarket ?? null;
+  const official = c.set?.cardCount?.official;
+  const trendTxt = (a, b) => (a != null && b ? delta(a / b - 1) : h('span', { class: 'muted', text: '–' }));
+  const stat = (label, value, foot, color) =>
+    h('div', { class: 'card tile', style: `--tile-c:${color}` }, h('span', { class: 'label', text: label }), h('span', { class: 'value num' }, value), foot ? h('span', { class: 'foot' }, foot) : '');
+  const hasHolo = pr && (pr['trend-holo'] || pr['avg30-holo']);
+  const cmSearch = `https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=${encodeURIComponent(enName)}${CM_LANG_ID[lang] ? `&language=${CM_LANG_ID[lang]}` : ''}`;
+  const img = cardImg(c, 'high');
+
+  $app.replaceChildren(
+    h('div', { class: 'back' }, h('a', { href: '#/karten', class: 'btn', text: '← Kartensuche' })),
+    h(
+      'div',
+      { class: 'hero detail-hero cardhero' },
+      h('div', { class: 'bigcard' }, img ? h('img', { src: img, alt: c.name }) : h('span', { text: '🃏' })),
+      h(
+        'div',
+        { class: 'stack', style: 'flex:1;min-width:0' },
+        h('h2', { text: c.name }),
+        h('span', { class: 'meta' }, langBadge(lang), ` ${c.set?.name ?? ''} · Nr. ${c.localId}${official ? '/' + official : ''}`),
+        c.rarity ? h('span', { class: 'meta small', text: `Seltenheit: ${c.rarity}` }) : '',
+        h('div', { class: 'cm-label', text: '🔎 Auf Cardmarket prüfen:' }),
+        h('div', { class: 'cm-links' }, h('a', { class: 'btn go', href: cmSearch, target: '_blank', rel: 'noopener' }, langBadge(lang), ` Karte auf Cardmarket`)),
+      ),
+    ),
+    pr
+      ? h(
+          'div',
+          {},
+          h(
+            'div',
+            { class: 'stats' },
+            stat('Preis-Trend', eur(pr.trend), h('span', {}, '30 T ', trendTxt(pr.avg1, pr.avg30)), 'linear-gradient(90deg,#ffe066,#ffbf00)'),
+            stat('Günstigstes Angebot', eur(pr.low), '„ab“-Preis, ohne Versand', 'linear-gradient(90deg,#5fd37a,#179b54)'),
+            stat('Ø letzte 7 Tage', eur(pr.avg7), `gestern ${eur(pr.avg1)}`, 'linear-gradient(90deg,#3fa9f5,#1b5fd1)'),
+            stat('Ø letzte 30 Tage', eur(pr.avg30), `Ø gesamt ${eur(pr.avg)}`, 'linear-gradient(90deg,#c07cf2,#7b3fd6)'),
+          ),
+          hasHolo
+            ? section(
+                '✨ Holo / Reverse Holo',
+                'eigener Preis für die glänzende Variante',
+                h(
+                  'div',
+                  { class: 'stats' },
+                  stat('Trend', eur(pr['trend-holo'] || null), '', 'var(--holo)'),
+                  stat('ab', eur(pr['low-holo']), '', 'var(--holo)'),
+                  stat('Ø 7 Tage', eur(pr['avg7-holo']), '', 'var(--holo)'),
+                  stat('Ø 30 Tage', eur(pr['avg30-holo']), '', 'var(--holo)'),
+                ),
+              )
+            : '',
+          h('p', { class: 'datastand', text: `Cardmarket-Preise vom ${pr.updated ? new Date(pr.updated).toLocaleDateString('de-DE') : '–'} · alle Sprachen dieser Karte zusammen (${lang === 'jp' || lang === 'cn' ? 'asiatische Karten haben eigene Einträge' : 'DE/EN teilen sich einen Eintrag – Sprachpreis über den Link prüfen'})` }),
+        )
+      : h('div', { class: 'card empty', text: 'Für diese Karte liefert die Datenbank keinen Cardmarket-Preis – bitte über den Link oben direkt auf Cardmarket nachsehen.' }),
+  );
+}
+
+// ═══════════ Kamera-Scanner (Texterkennung läuft komplett auf dem Gerät) ═══════════
+let ocrWorker = null;
+async function getOcr(onStatus) {
+  if (ocrWorker) return ocrWorker;
+  if (!window.Tesseract) {
+    onStatus('Texterkennung wird geladen (einmalig ca. 4 MB) …');
+    await new Promise((resolve, reject) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+      sc.onload = resolve;
+      sc.onerror = () => reject(new Error('Texterkennung konnte nicht geladen werden'));
+      document.head.append(sc);
+    });
+  }
+  ocrWorker = await window.Tesseract.createWorker('eng');
+  await ocrWorker.setParameters({
+    tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/. ',
+    tessedit_pageseg_mode: '7', // eine Textzeile
+  });
+  return ocrWorker;
+}
+
+/** Bild vorbereiten: vergrößern, Graustufen, Kontrast strecken – hilft der Erkennung kleiner Ziffern */
+function prepareForOcr(source, sx, sy, sw, sh) {
+  const scale = Math.max(1, 1400 / sw);
+  const cv = document.createElement('canvas');
+  cv.width = Math.round(sw * scale);
+  cv.height = Math.round(sh * scale);
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(source, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
+  const img = ctx.getImageData(0, 0, cv.width, cv.height);
+  const d = img.data;
+  let lo = 255, hi = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    d[i] = d[i + 1] = d[i + 2] = g;
+    if (g < lo) lo = g;
+    if (g > hi) hi = g;
+  }
+  const range = Math.max(1, hi - lo);
+  for (let i = 0; i < d.length; i += 4) d[i] = d[i + 1] = d[i + 2] = ((d[i] - lo) / range) * 255;
+  ctx.putImageData(img, 0, 0);
+  return cv;
+}
+
+/** Erkennt aus dem Text die Zeile mit "Code Nummer/Anzahl" */
+function pickCardLine(text) {
+  const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
+  return lines.find((l) => /\d\s*\/\s*\d/.test(l)) ?? lines.join(' ');
+}
+
+function openScanner(onResult) {
+  const overlay = h('div', { class: 'scanner', role: 'dialog', 'aria-label': 'Karte scannen' });
+  const video = h('video', { autoplay: true, playsinline: true, muted: true });
+  const frame = h('div', { class: 'scanframe' }, h('span', { text: 'G  MEW  006/165' }));
+  const msg = h('div', { class: 'scanmsg', text: 'Nur die unterste Zeile links in den Rahmen halten – nah ran, gerade, ohne Spiegelung' });
+  const fileIn = h('input', { type: 'file', accept: 'image/*', capture: 'environment', hidden: true });
+  let stream = null;
+  const close = () => {
+    stream?.getTracks().forEach((t) => t.stop());
+    overlay.remove();
+  };
+  async function recognize(canvas) {
+    try {
+      msg.textContent = 'Lese Nummer …';
+      const worker = await getOcr((t) => (msg.textContent = t));
+      const { data } = await worker.recognize(canvas);
+      const line = pickCardLine(data.text || '');
+      const parsed = parseCardQuery(line);
+      if (parsed.name !== undefined) {
+        msg.textContent = 'Nummer nicht erkannt – näher ran, gerade halten, ohne Spiegelung. Nochmal versuchen.';
+        return;
+      }
+      close();
+      onResult(`${parsed.code ? parsed.code + ' ' : ''}${parsed.num}/${parsed.total}`);
+    } catch (e) {
+      msg.textContent = e.message || 'Erkennung fehlgeschlagen.';
+    }
+  }
+  function capture() {
+    const vw = video.videoWidth, vh = video.videoHeight;
+    if (!vw) return;
+    // Rahmen-Position (Bildschirm) in Video-Koordinaten umrechnen (Video füllt den Bildschirm wie object-fit: cover)
+    const vr = video.getBoundingClientRect(), fr = frame.getBoundingClientRect();
+    const scale = Math.max(vr.width / vw, vr.height / vh);
+    const offX = (vw * scale - vr.width) / 2, offY = (vh * scale - vr.height) / 2;
+    const sx = (fr.left - vr.left + offX) / scale, sy = (fr.top - vr.top + offY) / scale;
+    recognize(prepareForOcr(video, sx, sy, fr.width / scale, fr.height / scale));
+  }
+  fileIn.addEventListener('change', () => {
+    const f = fileIn.files?.[0];
+    if (!f) return;
+    const im = new Image();
+    im.onload = () => {
+      // Foto: untere Hälfte, linke zwei Drittel (dort steht die Nummer bei einer ganzen Karte)
+      const w = im.naturalWidth, hh = im.naturalHeight;
+      const isCorner = w / hh > 2; // schon zugeschnittene Ecke
+      // ganze Karte: nur die unterste Zeile mit Code + Nummer (ca. 93–98 % der Höhe, linke 42 %)
+      recognize(isCorner ? prepareForOcr(im, 0, 0, w, hh) : prepareForOcr(im, 0, hh * 0.93, w * 0.42, hh * 0.05));
+      URL.revokeObjectURL(im.src);
+    };
+    im.src = URL.createObjectURL(f);
+  });
+  overlay.append(
+    video,
+    h('div', { class: 'scanshade' }),
+    frame,
+    msg,
+    h(
+      'div',
+      { class: 'scanbar' },
+      h('button', { class: 'btn', text: 'Abbrechen', onclick: close }),
+      h('button', { class: 'shutter', 'aria-label': 'Aufnehmen', onclick: capture }),
+      h('button', { class: 'btn', text: 'Foto wählen', onclick: () => fileIn.click() }),
+    ),
+    fileIn,
+  );
+  document.body.append(overlay);
+  if (navigator.mediaDevices?.getUserMedia) {
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false })
+      .then((s) => {
+        stream = s;
+        video.srcObject = s;
+      })
+      .catch(() => (msg.textContent = 'Kein Kamerazugriff – erlaube die Kamera oder tippe auf „Foto wählen“.'));
+  } else msg.textContent = 'Kamera hier nicht verfügbar – tippe auf „Foto wählen“.';
+}
+
 // ═══════════ Routing & Start ═══════════
 // Scroll-Position je Liste merken (zurück aus der Detailansicht landet man an derselben Stelle)
 const scrollMemory = new Map();
@@ -765,9 +1219,17 @@ function route() {
   const hash = location.hash || '#/';
   currentHash = hash;
   const m = hash.match(/^#\/p\/(\d+)/);
-  const tab = m || hash.startsWith('#/displays') ? 'displays' : hash.startsWith('#/deals') ? 'deals' : hash.startsWith('#/markt') ? 'markt' : 'home';
+  const km = hash.match(/^#\/karte\/(de|en|jp|cn)\/(.+)$/);
+  const tab =
+    m || hash.startsWith('#/displays') ? 'displays'
+    : km || hash.startsWith('#/karten') ? 'karten'
+    : hash.startsWith('#/deals') ? 'deals'
+    : hash.startsWith('#/markt') ? 'markt'
+    : 'home';
   document.querySelectorAll('[data-tab]').forEach((a) => a.classList.toggle('active', a.dataset.tab === tab));
   if (m) renderDetail(Number(m[1]));
+  else if (km) renderCardDetail(km[1], decodeURIComponent(km[2]));
+  else if (hash.startsWith('#/karten')) renderCards();
   else if (hash.startsWith('#/displays')) renderDisplays();
   else if (hash.startsWith('#/deals')) renderDeals();
   else if (hash.startsWith('#/markt')) renderMarket();
@@ -775,7 +1237,7 @@ function route() {
   $app.classList.remove('view-in');
   void $app.offsetWidth; // Animation neu starten
   $app.classList.add('view-in');
-  const y = m ? 0 : scrollMemory.get(hash) ?? 0;
+  const y = m || km ? 0 : scrollMemory.get(hash) ?? 0;
   requestAnimationFrame(() => ($scroller.scrollTop = y));
 }
 

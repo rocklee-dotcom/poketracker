@@ -60,6 +60,10 @@ jobs:
       - name: Dashboard-Daten erzeugen
         run: node src/build-dashboard.mjs
 
+      - name: Set-Index für die Kartensuche (höchstens wöchentlich)
+        continue-on-error: true
+        run: node src/build-card-sets.mjs
+
       - name: Änderungen committen
         run: |
           git config user.name "github-actions[bot]"

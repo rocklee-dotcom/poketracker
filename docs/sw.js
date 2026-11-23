@@ -1,5 +1,5 @@
 // Service Worker: App-Hülle offline verfügbar, Daten immer frisch (Netz zuerst, sonst letzter Stand).
-const VERSION = 'pt-v5';
+const VERSION = 'pt-v6';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
