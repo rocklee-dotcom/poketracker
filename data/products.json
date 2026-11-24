@@ -1,7 +1,7 @@
 {
-  "priceDate": "2026-11-23",
-  "cardmarketCreatedAt": "2026-11-23T02:45:50+0100",
-  "updatedAt": "2026-11-23T14:43:19.642Z",
+  "priceDate": "2026-11-24",
+  "cardmarketCreatedAt": "2026-11-24T02:45:23+0100",
+  "updatedAt": "2026-11-24T12:01:22.372Z",
   "count": 1431,
   "products": [
     {
@@ -62,7 +62,7 @@
       "added": "2026-11-19",
       "trend": null,
       "avg": null,
-      "low": null
+      "low": 7.99
     },
     {
       "id": 924658,
@@ -77,7 +77,7 @@
       "added": "2026-11-19",
       "trend": null,
       "avg": null,
-      "low": null
+      "low": 6.89
     },
     {
       "id": 924659,
@@ -137,7 +137,7 @@
       "added": "2026-11-11",
       "trend": 4.49,
       "avg": 4.49,
-      "low": 1.75
+      "low": 3
     },
     {
       "id": 918804,
@@ -165,7 +165,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-10-23",
-      "trend": 88.61,
+      "trend": 86.69,
       "avg": 119.99,
       "low": 86.99
     },
@@ -195,7 +195,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-10-21",
-      "trend": 1.63,
+      "trend": 1.27,
       "avg": 6.29,
       "low": 0.99
     },
@@ -270,7 +270,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-10-21",
-      "trend": 34.17,
+      "trend": 33.6,
       "avg": 42.33,
       "low": 35
     },
@@ -285,7 +285,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-10-21",
-      "trend": 41.69,
+      "trend": 39.64,
       "avg": 38.99,
       "low": 34.5
     },
@@ -330,7 +330,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-10-21",
-      "trend": 35.64,
+      "trend": 34.77,
       "avg": 38.99,
       "low": 33.2
     },
@@ -420,7 +420,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-09-14",
-      "trend": 78.31,
+      "trend": 77.54,
       "avg": 85.49,
       "low": 67.99
     },
@@ -480,8 +480,8 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-08-20",
-      "trend": 78,
-      "avg": 119,
+      "trend": 78.21,
+      "avg": 90.25,
       "low": 79.98
     },
     {
@@ -495,7 +495,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-08-20",
-      "trend": 32.84,
+      "trend": 31.77,
       "avg": 41.42,
       "low": 27.5
     },
@@ -510,7 +510,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-08-20",
-      "trend": 169.08,
+      "trend": 166.52,
       "avg": 193.13,
       "low": 111.11
     },
@@ -540,7 +540,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-08-20",
-      "trend": 4.55,
+      "trend": 4.47,
       "avg": 6.91,
       "low": 3.89
     },
@@ -556,8 +556,8 @@
       "regionReason": "name-marker",
       "added": "2026-07-27",
       "trend": 5.11,
-      "avg": 5.99,
-      "low": 3.49
+      "avg": 3.99,
+      "low": 2.99
     },
     {
       "id": 898584,
@@ -585,7 +585,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-07-22",
-      "trend": 25.65,
+      "trend": 25.9,
       "avg": 24.55,
       "low": 23.99
     },
@@ -645,7 +645,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-07-02",
-      "trend": 2.04,
+      "trend": 2.23,
       "avg": 2.09,
       "low": 1.78
     },
@@ -660,7 +660,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-07-02",
-      "trend": 64.34,
+      "trend": 64,
       "avg": 70.57,
       "low": 51.5
     },
@@ -690,7 +690,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-07-01",
-      "trend": 62.45,
+      "trend": 60.78,
       "avg": 131.59,
       "low": 65
     },
@@ -735,7 +735,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-06-30",
-      "trend": 26.63,
+      "trend": 26.59,
       "avg": 26.44,
       "low": 21
     },
@@ -765,7 +765,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-06-30",
-      "trend": 64.35,
+      "trend": 64.57,
       "avg": 67.82,
       "low": 44.99
     },
@@ -810,7 +810,7 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2026-06-10",
-      "trend": 3.8,
+      "trend": 3.65,
       "avg": 5.25,
       "low": 1.95
     },
@@ -825,7 +825,7 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2026-06-08",
-      "trend": 112.75,
+      "trend": 110.33,
       "avg": 161.76,
       "low": 77.39
     },
@@ -1020,7 +1020,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-06-02",
-      "trend": 4.28,
+      "trend": 4.25,
       "avg": 4.84,
       "low": 3.88
     },
@@ -1035,7 +1035,7 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2026-06-02",
-      "trend": 5.1,
+      "trend": 5.13,
       "avg": 7.42,
       "low": 4.25
     },
@@ -1050,7 +1050,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-06-02",
-      "trend": 8.52,
+      "trend": 8.5,
       "avg": 10.45,
       "low": 6.97
     },
@@ -1065,7 +1065,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-05-28",
-      "trend": 5.63,
+      "trend": 5.41,
       "avg": 5.24,
       "low": 4.44
     },
@@ -1080,7 +1080,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-05-28",
-      "trend": 53.46,
+      "trend": 53.48,
       "avg": 58.09,
       "low": 48
     },
@@ -1275,7 +1275,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-04-30",
-      "trend": 1163.94,
+      "trend": 1134.81,
       "avg": 1195.13,
       "low": 900
     },
@@ -1290,7 +1290,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-04-30",
-      "trend": 36.7,
+      "trend": 36.32,
       "avg": 37.38,
       "low": 27
     },
@@ -1305,7 +1305,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-04-30",
-      "trend": 90.52,
+      "trend": 89.18,
       "avg": 97.73,
       "low": 75.98
     },
@@ -1320,7 +1320,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-04-30",
-      "trend": 170.86,
+      "trend": 169.25,
       "avg": 179.93,
       "low": 120
     },
@@ -1350,7 +1350,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-04-30",
-      "trend": 5.04,
+      "trend": 4.97,
       "avg": 5.11,
       "low": 3.9
     },
@@ -1380,7 +1380,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-04-17",
-      "trend": 53.86,
+      "trend": 54.66,
       "avg": 58.16,
       "low": 44.9
     },
@@ -1395,7 +1395,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-04-17",
-      "trend": 1.7,
+      "trend": 1.86,
       "avg": 1.73,
       "low": 0.02
     },
@@ -1410,8 +1410,8 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2026-04-10",
-      "trend": 21.78,
-      "avg": 22.6,
+      "trend": 20.52,
+      "avg": 20.98,
       "low": 18
     },
     {
@@ -1500,7 +1500,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-03-31",
-      "trend": 36.3,
+      "trend": 36.68,
       "avg": 36.94,
       "low": 29.8
     },
@@ -1590,7 +1590,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-03-12",
-      "trend": 35.82,
+      "trend": 35.59,
       "avg": 37.69,
       "low": 25
     },
@@ -1605,7 +1605,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-03-12",
-      "trend": 92.93,
+      "trend": 91.77,
       "avg": 89.47,
       "low": 76.99
     },
@@ -1620,7 +1620,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-03-12",
-      "trend": 6.15,
+      "trend": 6.01,
       "avg": 6.38,
       "low": 4
     },
@@ -1635,7 +1635,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-03-12",
-      "trend": 176.06,
+      "trend": 176.96,
       "avg": 183.4,
       "low": 135
     },
@@ -1650,7 +1650,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-03-12",
-      "trend": 4.94,
+      "trend": 4.99,
       "avg": 4.88,
       "low": 3.7
     },
@@ -1725,7 +1725,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-02-17",
-      "trend": 1.83,
+      "trend": 1.85,
       "avg": 1.65,
       "low": 1.25
     },
@@ -1740,9 +1740,9 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-02-17",
-      "trend": 1.35,
+      "trend": 1.37,
       "avg": 1.34,
-      "low": 0.98
+      "low": 0.99
     },
     {
       "id": 873181,
@@ -1770,8 +1770,8 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2026-02-17",
-      "trend": 49.62,
-      "avg": 50.41,
+      "trend": 50.13,
+      "avg": 51.34,
       "low": 40.45
     },
     {
@@ -1860,7 +1860,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-01-13",
-      "trend": 27.66,
+      "trend": 27.64,
       "avg": 27.02,
       "low": 24.9
     },
@@ -1875,7 +1875,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2026-01-13",
-      "trend": 1.66,
+      "trend": 1.62,
       "avg": 1.58,
       "low": 1.4
     },
@@ -1980,7 +1980,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-01-08",
-      "trend": 37.71,
+      "trend": 37.53,
       "avg": 38.55,
       "low": 28
     },
@@ -1995,7 +1995,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-01-08",
-      "trend": 90.35,
+      "trend": 89.63,
       "avg": 88.01,
       "low": 80
     },
@@ -2010,9 +2010,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-01-08",
-      "trend": 176.23,
+      "trend": 176.77,
       "avg": 176.25,
-      "low": 124.99
+      "low": 125
     },
     {
       "id": 865409,
@@ -2040,7 +2040,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2026-01-08",
-      "trend": 5.1,
+      "trend": 5.04,
       "avg": 5.23,
       "low": 3.5
     },
@@ -2056,7 +2056,7 @@
       "regionReason": "name-marker",
       "added": "2025-12-29",
       "trend": 3.32,
-      "avg": 3.31,
+      "avg": 2.82,
       "low": 1.2
     },
     {
@@ -2100,7 +2100,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-12-22",
-      "trend": 1.91,
+      "trend": 1.98,
       "avg": 1.64,
       "low": 1.25
     },
@@ -2250,7 +2250,7 @@
       "region": "other",
       "regionReason": "other-region-set",
       "added": "2025-12-03",
-      "trend": 7.19,
+      "trend": 7.69,
       "avg": 8,
       "low": 8
     },
@@ -2310,7 +2310,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-11-20",
-      "trend": 9.68,
+      "trend": 9.62,
       "avg": 12.18,
       "low": 6.9
     },
@@ -2325,7 +2325,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-11-20",
-      "trend": 67.39,
+      "trend": 65.96,
       "avg": 73.6,
       "low": 41
     },
@@ -2431,8 +2431,8 @@
       "regionReason": "fallback",
       "added": "2025-11-10",
       "trend": 1306.66,
-      "avg": 1514.98,
-      "low": 1650
+      "avg": 1524.95,
+      "low": 1649
     },
     {
       "id": 858380,
@@ -2445,9 +2445,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-11-10",
-      "trend": 77.38,
+      "trend": 77.31,
       "avg": 81.77,
-      "low": 69.5
+      "low": 69
     },
     {
       "id": 858381,
@@ -2475,7 +2475,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-10-28",
-      "trend": 24.13,
+      "trend": 24.12,
       "avg": 23.77,
       "low": 23.45
     },
@@ -2490,7 +2490,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-10-28",
-      "trend": 28.7,
+      "trend": 28.21,
       "avg": 33.75,
       "low": 33.99
     },
@@ -2672,7 +2672,7 @@
       "added": "2025-09-25",
       "trend": 30.42,
       "avg": 2.24,
-      "low": 1
+      "low": 0.9
     },
     {
       "id": 848374,
@@ -2715,7 +2715,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-09-04",
-      "trend": 6.23,
+      "trend": 6.32,
       "avg": 7.08,
       "low": 2.9
     },
@@ -2775,7 +2775,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-09-04",
-      "trend": 57.72,
+      "trend": 56.19,
       "avg": 56.61,
       "low": 35
     },
@@ -2790,7 +2790,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-09-04",
-      "trend": 104.76,
+      "trend": 103.38,
       "avg": 120.28,
       "low": 99.9
     },
@@ -2835,7 +2835,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-09-01",
-      "trend": 65.01,
+      "trend": 65.03,
       "avg": 66.79,
       "low": 55
     },
@@ -2850,7 +2850,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-09-01",
-      "trend": 15.59,
+      "trend": 14,
       "avg": 5.58,
       "low": 2.15
     },
@@ -2865,9 +2865,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-09-01",
-      "trend": 65.91,
-      "avg": 69.15,
-      "low": 51.2
+      "trend": 67.69,
+      "avg": 68.48,
+      "low": 45.9
     },
     {
       "id": 845911,
@@ -2880,9 +2880,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-09-01",
-      "trend": 1.9,
+      "trend": 1.91,
       "avg": 2.15,
-      "low": 1.49
+      "low": 1.65
     },
     {
       "id": 845726,
@@ -3017,7 +3017,7 @@
       "added": "2025-07-25",
       "trend": 6.31,
       "avg": 6.99,
-      "low": 4.78
+      "low": 4.75
     },
     {
       "id": 838382,
@@ -3077,7 +3077,7 @@
       "added": "2025-07-15",
       "trend": 2384.22,
       "avg": 2057.95,
-      "low": 2057.95
+      "low": 2050
     },
     {
       "id": 835600,
@@ -3105,7 +3105,7 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2025-07-14",
-      "trend": 4.92,
+      "trend": 4.94,
       "avg": 4.69,
       "low": 1.7
     },
@@ -3137,7 +3137,7 @@
       "added": "2025-07-11",
       "trend": 1555.19,
       "avg": 1399.67,
-      "low": 1169
+      "low": 1130
     },
     {
       "id": 834825,
@@ -3150,7 +3150,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-07-11",
-      "trend": 89.69,
+      "trend": 88.1,
       "avg": 99.3,
       "low": 84.99
     },
@@ -3165,7 +3165,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-07-11",
-      "trend": 58.23,
+      "trend": 56.93,
       "avg": 52.5,
       "low": 34.9
     },
@@ -3210,7 +3210,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-07-11",
-      "trend": 5.89,
+      "trend": 5.93,
       "avg": 6.58,
       "low": 4.19
     },
@@ -3225,9 +3225,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-07-11",
-      "trend": 185.63,
+      "trend": 183.5,
       "avg": 200.46,
-      "low": 150
+      "low": 145
     },
     {
       "id": 833207,
@@ -3285,9 +3285,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-06-30",
-      "trend": 54.84,
+      "trend": 55.02,
       "avg": 52.87,
-      "low": 45
+      "low": 44.95
     },
     {
       "id": 831328,
@@ -3300,7 +3300,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-06-30",
-      "trend": 53.67,
+      "trend": 54.83,
       "avg": 53.28,
       "low": 40.99
     },
@@ -3315,7 +3315,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-06-30",
-      "trend": 1.66,
+      "trend": 1.61,
       "avg": 1.88,
       "low": 1.29
     },
@@ -3330,7 +3330,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-06-30",
-      "trend": 1.68,
+      "trend": 1.63,
       "avg": 1.68,
       "low": 1.25
     },
@@ -3480,9 +3480,9 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-06-11",
-      "trend": 38.85,
+      "trend": 37.88,
       "avg": 46.09,
-      "low": 33.12
+      "low": 33.48
     },
     {
       "id": 829956,
@@ -3497,7 +3497,7 @@
       "added": "2025-06-11",
       "trend": 97.25,
       "avg": 100.94,
-      "low": 85
+      "low": 84.9
     },
     {
       "id": 829957,
@@ -3510,9 +3510,9 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-06-11",
-      "trend": 41.32,
+      "trend": 40.21,
       "avg": 58.98,
-      "low": 32.12
+      "low": 32.9
     },
     {
       "id": 829958,
@@ -3527,7 +3527,7 @@
       "added": "2025-06-11",
       "trend": 104.12,
       "avg": 100.39,
-      "low": 89.98
+      "low": 89.9
     },
     {
       "id": 828353,
@@ -3600,7 +3600,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-05-07",
-      "trend": 13.16,
+      "trend": 13.41,
       "avg": 12.07,
       "low": 6.9
     },
@@ -3630,7 +3630,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-05-07",
-      "trend": 78.98,
+      "trend": 79.59,
       "avg": 75.82,
       "low": 41.9
     },
@@ -3645,9 +3645,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-05-07",
-      "trend": 72.37,
+      "trend": 72.84,
       "avg": 77.01,
-      "low": 39
+      "low": 36
     },
     {
       "id": 823735,
@@ -3675,7 +3675,7 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2025-05-05",
-      "trend": 72.44,
+      "trend": 74.1,
       "avg": 74.09,
       "low": 56.5
     },
@@ -3690,9 +3690,9 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2025-05-05",
-      "trend": 77.34,
+      "trend": 76.22,
       "avg": 74.88,
-      "low": 55.48
+      "low": 55.49
     },
     {
       "id": 823794,
@@ -3735,7 +3735,7 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2025-05-05",
-      "trend": 4.34,
+      "trend": 4.13,
       "avg": 3.32,
       "low": 2.49
     },
@@ -3752,7 +3752,7 @@
       "added": "2025-05-05",
       "trend": 3.4,
       "avg": 3.47,
-      "low": 2.95
+      "low": 2.94
     },
     {
       "id": 823798,
@@ -3885,7 +3885,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-04-16",
-      "trend": 63.81,
+      "trend": 63.63,
       "avg": 65.97,
       "low": 56.7
     },
@@ -3960,9 +3960,9 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-03-27",
-      "trend": 42.59,
+      "trend": 42.12,
       "avg": 45.84,
-      "low": 34.89
+      "low": 32.9
     },
     {
       "id": 819064,
@@ -4020,7 +4020,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-03-24",
-      "trend": 5.6,
+      "trend": 5.32,
       "avg": 10.03,
       "low": 4
     },
@@ -4067,7 +4067,7 @@
       "added": "2025-03-24",
       "trend": 10.08,
       "avg": 9.69,
-      "low": 7
+      "low": 6
     },
     {
       "id": 818574,
@@ -4080,9 +4080,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-03-24",
-      "trend": 285.68,
+      "trend": 275.81,
       "avg": 285.88,
-      "low": 179.99
+      "low": 175
     },
     {
       "id": 818575,
@@ -4095,7 +4095,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-03-24",
-      "trend": 133.33,
+      "trend": 131.54,
       "avg": 127.04,
       "low": 112
     },
@@ -4127,7 +4127,7 @@
       "added": "2025-03-24",
       "trend": 336.85,
       "avg": 340,
-      "low": 200
+      "low": 190
     },
     {
       "id": 818578,
@@ -4155,7 +4155,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-03-21",
-      "trend": 2.01,
+      "trend": 1.97,
       "avg": 2.22,
       "low": 1.3
     },
@@ -4170,9 +4170,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-03-21",
-      "trend": 62.67,
+      "trend": 64.53,
       "avg": 68.06,
-      "low": 47.77
+      "low": 48
     },
     {
       "id": 818040,
@@ -4350,7 +4350,7 @@
       "region": "japanese",
       "regionReason": "name-marker",
       "added": "2025-01-23",
-      "trend": 1.87,
+      "trend": 1.81,
       "avg": 2.04,
       "low": 1.98
     },
@@ -4365,7 +4365,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-01-10",
-      "trend": 5.49,
+      "trend": 5.42,
       "avg": 5.68,
       "low": 3.6
     },
@@ -4427,7 +4427,7 @@
       "added": "2025-01-10",
       "trend": 187.23,
       "avg": 185.71,
-      "low": 133.98
+      "low": 133.99
     },
     {
       "id": 805580,
@@ -4442,7 +4442,7 @@
       "added": "2025-01-10",
       "trend": 272.12,
       "avg": 282.1,
-      "low": 239.99
+      "low": 229.99
     },
     {
       "id": 805581,
@@ -4500,7 +4500,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2025-01-10",
-      "trend": 45.3,
+      "trend": 45.02,
       "avg": 45.8,
       "low": 35
     },
@@ -4530,7 +4530,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-01-03",
-      "trend": 2.25,
+      "trend": 2.15,
       "avg": 2.22,
       "low": 1.34
     },
@@ -4545,9 +4545,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2025-01-03",
-      "trend": 48.8,
+      "trend": 48.47,
       "avg": 57.91,
-      "low": 44.75
+      "low": 45
     },
     {
       "id": 804830,
@@ -4577,7 +4577,7 @@
       "added": "2025-01-03",
       "trend": 4.25,
       "avg": 4.07,
-      "low": 2.9
+      "low": 0.5
     },
     {
       "id": 804847,
@@ -4620,7 +4620,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2025-01-03",
-      "trend": 41.21,
+      "trend": 40.41,
       "avg": 46.02,
       "low": 35
     },
@@ -4667,7 +4667,7 @@
       "added": "2025-01-03",
       "trend": 65.6,
       "avg": 64.77,
-      "low": 60
+      "low": 55
     },
     {
       "id": 804856,
@@ -5567,7 +5567,7 @@
       "added": "2024-11-14",
       "trend": 2037.94,
       "avg": 1799.95,
-      "low": 1799.95
+      "low": 2350
     },
     {
       "id": 800100,
@@ -5610,7 +5610,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-11-05",
-      "trend": 12.61,
+      "trend": 12.45,
       "avg": 12.84,
       "low": 7.99
     },
@@ -5625,9 +5625,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-11-05",
-      "trend": 87.28,
+      "trend": 85.37,
       "avg": 80.89,
-      "low": 41.41
+      "low": 41.4
     },
     {
       "id": 798925,
@@ -5657,7 +5657,7 @@
       "added": "2024-10-25",
       "trend": 1387.02,
       "avg": 1147.5,
-      "low": 860
+      "low": 890
     },
     {
       "id": 794902,
@@ -5702,7 +5702,7 @@
       "added": "2024-10-25",
       "trend": 83.96,
       "avg": 87.59,
-      "low": 64.99
+      "low": 63
     },
     {
       "id": 793692,
@@ -5775,7 +5775,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2024-09-23",
-      "trend": 2.87,
+      "trend": 2.91,
       "avg": 2.61,
       "low": 1.5
     },
@@ -5805,7 +5805,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-09-18",
-      "trend": 2.17,
+      "trend": 2.02,
       "avg": 2.1,
       "low": 0.75
     },
@@ -5985,7 +5985,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-08-23",
-      "trend": 6.99,
+      "trend": 7.03,
       "avg": 7.05,
       "low": 4
     },
@@ -6045,7 +6045,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-08-23",
-      "trend": 230.98,
+      "trend": 236.3,
       "avg": 252.77,
       "low": 144.95
     },
@@ -6077,7 +6077,7 @@
       "added": "2024-08-23",
       "trend": 146.11,
       "avg": 131.49,
-      "low": 124
+      "low": 120
     },
     {
       "id": 784952,
@@ -6332,7 +6332,7 @@
       "added": "2024-08-02",
       "trend": 19.36,
       "avg": 19,
-      "low": 12.99
+      "low": 14.95
     },
     {
       "id": 781853,
@@ -6827,7 +6827,7 @@
       "added": "2024-07-24",
       "trend": 77.2,
       "avg": 89.99,
-      "low": 74
+      "low": 100
     },
     {
       "id": 780149,
@@ -7080,7 +7080,7 @@
       "region": "chinese",
       "regionReason": "name-marker",
       "added": "2024-07-23",
-      "trend": 15.8,
+      "trend": 16.27,
       "avg": 13.76,
       "low": 10
     },
@@ -7170,7 +7170,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-06-28",
-      "trend": 7.89,
+      "trend": 7.96,
       "avg": 7.05,
       "low": 3.95
     },
@@ -7215,7 +7215,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-06-28",
-      "trend": 2.48,
+      "trend": 2.34,
       "avg": 2.99,
       "low": 0.8
     },
@@ -7320,7 +7320,7 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2024-06-24",
-      "trend": 2.5,
+      "trend": 2.58,
       "avg": 1.96,
       "low": 0.7
     },
@@ -7335,7 +7335,7 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2024-06-24",
-      "trend": 74.9,
+      "trend": 75.56,
       "avg": 68.31,
       "low": 50
     },
@@ -7502,7 +7502,7 @@
       "added": "2024-04-19",
       "trend": 3.06,
       "avg": 3.09,
-      "low": 2.94
+      "low": 2.9
     },
     {
       "id": 764772,
@@ -7815,7 +7815,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-03-16",
-      "trend": 6.56,
+      "trend": 6.67,
       "avg": 7.14,
       "low": 4
     },
@@ -7922,7 +7922,7 @@
       "added": "2024-03-13",
       "trend": 14.11,
       "avg": 13,
-      "low": 12.99
+      "low": 12
     },
     {
       "id": 757140,
@@ -8010,7 +8010,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2024-01-11",
-      "trend": 7.34,
+      "trend": 7.33,
       "avg": 6.66,
       "low": 3.9
     },
@@ -8087,7 +8087,7 @@
       "added": "2024-01-11",
       "trend": 114.32,
       "avg": 112.84,
-      "low": 110
+      "low": 109.99
     },
     {
       "id": 750405,
@@ -8190,7 +8190,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2023-12-28",
-      "trend": 1.87,
+      "trend": 1.83,
       "avg": 2.02,
       "low": 1.5
     },
@@ -8220,7 +8220,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2023-12-28",
-      "trend": 55.58,
+      "trend": 54.27,
       "avg": 51.39,
       "low": 42.99
     },
@@ -8310,8 +8310,8 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2023-09-12",
-      "trend": 2.21,
-      "avg": 2.34,
+      "trend": 2.23,
+      "avg": 1.99,
       "low": 1.49
     },
     {
@@ -8326,7 +8326,7 @@
       "regionReason": "fallback",
       "added": "2023-09-12",
       "trend": 2.3,
-      "avg": 2.43,
+      "avg": 2.23,
       "low": 1.25
     },
     {
@@ -8341,7 +8341,7 @@
       "regionReason": "fallback",
       "added": "2023-09-12",
       "trend": 66.77,
-      "avg": 65.63,
+      "avg": 67.6,
       "low": 50
     },
     {
@@ -8356,7 +8356,7 @@
       "regionReason": "fallback",
       "added": "2023-09-12",
       "trend": 60.96,
-      "avg": 56.56,
+      "avg": 59.94,
       "low": 48.45
     },
     {
@@ -8385,7 +8385,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-08-22",
-      "trend": 1.38,
+      "trend": 1.3,
       "avg": 1.33,
       "low": 0.8
     },
@@ -8460,8 +8460,8 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-08-21",
-      "trend": 5.22,
-      "avg": 5.77,
+      "trend": 5.09,
+      "avg": 5.68,
       "low": 3.85
     },
     {
@@ -8475,8 +8475,8 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-08-21",
-      "trend": 214.5,
-      "avg": 221.8,
+      "trend": 211.23,
+      "avg": 213.92,
       "low": 84.99
     },
     {
@@ -8506,8 +8506,8 @@
       "regionReason": "intl-only-format",
       "added": "2023-08-21",
       "trend": 7.3,
-      "avg": 7.09,
-      "low": 6.95
+      "avg": 7.17,
+      "low": 5.99
     },
     {
       "id": 726556,
@@ -8521,7 +8521,7 @@
       "regionReason": "fallback",
       "added": "2023-08-08",
       "trend": 78.47,
-      "avg": 66.1,
+      "avg": 81.78,
       "low": 49.95
     },
     {
@@ -8536,7 +8536,7 @@
       "regionReason": "fallback",
       "added": "2023-08-08",
       "trend": 3.02,
-      "avg": 2.5,
+      "avg": 3,
       "low": 1.3
     },
     {
@@ -8581,7 +8581,7 @@
       "regionReason": "name-marker",
       "added": "2023-08-02",
       "trend": 21.01,
-      "avg": 20.8,
+      "avg": 18.23,
       "low": 6.9
     },
     {
@@ -8596,7 +8596,7 @@
       "regionReason": "fallback",
       "added": "2023-08-01",
       "trend": 3.91,
-      "avg": 2.52,
+      "avg": 4.23,
       "low": 1.25
     },
     {
@@ -8655,7 +8655,7 @@
       "region": "international",
       "regionReason": "name-marker",
       "added": "2023-06-22",
-      "trend": 3.43,
+      "trend": 3.42,
       "avg": 2.86,
       "low": 1.5
     },
@@ -8715,7 +8715,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-06-21",
-      "trend": 24.22,
+      "trend": 24.42,
       "avg": 25.21,
       "low": 17.88
     },
@@ -8730,7 +8730,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-06-21",
-      "trend": 124.3,
+      "trend": 120.34,
       "avg": 134.12,
       "low": 79.95
     },
@@ -8910,7 +8910,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-05-26",
-      "trend": 7.31,
+      "trend": 7.27,
       "avg": 6.76,
       "low": 4.27
     },
@@ -8927,7 +8927,7 @@
       "added": "2023-04-23",
       "trend": 6.37,
       "avg": 6.66,
-      "low": 6
+      "low": 5.8
     },
     {
       "id": 705384,
@@ -9000,7 +9000,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-03-26",
-      "trend": 1.87,
+      "trend": 1.81,
       "avg": 1.75,
       "low": 0.8
     },
@@ -9062,7 +9062,7 @@
       "added": "2023-03-26",
       "trend": 146.84,
       "avg": 140.79,
-      "low": 149
+      "low": 148.99
     },
     {
       "id": 703155,
@@ -9075,7 +9075,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-03-24",
-      "trend": 8.01,
+      "trend": 7.9,
       "avg": 7.24,
       "low": 3.5
     },
@@ -9090,7 +9090,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-03-24",
-      "trend": 269.56,
+      "trend": 275.59,
       "avg": 271.91,
       "low": 155
     },
@@ -9120,7 +9120,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2023-03-21",
-      "trend": 2.6,
+      "trend": 2.69,
       "avg": 2.55,
       "low": 1.45
     },
@@ -9255,7 +9255,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2023-02-03",
-      "trend": 2.6,
+      "trend": 2.78,
       "avg": 1.81,
       "low": 1.13
     },
@@ -9360,7 +9360,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2023-01-16",
-      "trend": 199.55,
+      "trend": 201.59,
       "avg": 202.52,
       "low": 145
     },
@@ -9527,7 +9527,7 @@
       "added": "2023-01-13",
       "trend": 8.29,
       "avg": 8.99,
-      "low": 8.99
+      "low": 8
     },
     {
       "id": 691696,
@@ -9885,7 +9885,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-11-04",
-      "trend": 22.11,
+      "trend": 22.23,
       "avg": 23.74,
       "low": 14.99
     },
@@ -9915,7 +9915,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2022-10-28",
-      "trend": 11.4,
+      "trend": 11.38,
       "avg": 12.21,
       "low": 10
     },
@@ -10320,7 +10320,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-09-13",
-      "trend": 98.28,
+      "trend": 86.49,
       "avg": 63.91,
       "low": 39
     },
@@ -10622,7 +10622,7 @@
       "added": "2022-08-25",
       "trend": 187.09,
       "avg": 174.94,
-      "low": 88.99
+      "low": 84.99
     },
     {
       "id": 672335,
@@ -10650,7 +10650,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2022-08-05",
-      "trend": 3.78,
+      "trend": 3.62,
       "avg": 3.69,
       "low": 1.5
     },
@@ -10905,7 +10905,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-06-27",
-      "trend": 376.57,
+      "trend": 447.47,
       "avg": 839.96,
       "low": 1.7
     },
@@ -10965,7 +10965,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-06-24",
-      "trend": 11.41,
+      "trend": 10.87,
       "avg": 12.07,
       "low": 7.49
     },
@@ -11040,7 +11040,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-04-29",
-      "trend": 9.66,
+      "trend": 9.91,
       "avg": 10.35,
       "low": 7
     },
@@ -11280,7 +11280,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2022-03-09",
-      "trend": 8.09,
+      "trend": 8.18,
       "avg": 8.52,
       "low": 5.4
     },
@@ -11312,7 +11312,7 @@
       "added": "2022-03-09",
       "trend": 320.6,
       "avg": 310.95,
-      "low": 180
+      "low": 205
     },
     {
       "id": 611242,
@@ -12105,7 +12105,7 @@
       "region": "international",
       "regionReason": "intl-set-name",
       "added": "2021-09-08",
-      "trend": 14.23,
+      "trend": 15.39,
       "avg": 19.33,
       "low": 12
     },
@@ -12120,9 +12120,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2021-08-30",
-      "trend": 12.18,
-      "avg": 12,
-      "low": 9.85
+      "trend": 11.9,
+      "avg": 12.57,
+      "low": 9
     },
     {
       "id": 574592,
@@ -12136,7 +12136,7 @@
       "regionReason": "intl-only-format",
       "added": "2021-08-30",
       "trend": 767.94,
-      "avg": 743.68,
+      "avg": 763.82,
       "low": 490
     },
     {
@@ -12240,7 +12240,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2021-06-25",
-      "trend": 26.97,
+      "trend": 27.22,
       "avg": 28.31,
       "low": 22
     },
@@ -12315,7 +12315,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2021-06-10",
-      "trend": 29.26,
+      "trend": 28.29,
       "avg": 35.66,
       "low": 16.49
     },
@@ -13380,7 +13380,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2021-05-14",
-      "trend": 4.96,
+      "trend": 4.57,
       "avg": 5.45,
       "low": 3.5
     },
@@ -13967,7 +13967,7 @@
       "added": "2021-05-06",
       "trend": 7.15,
       "avg": 5.38,
-      "low": 4
+      "low": 5
     },
     {
       "id": 563312,
@@ -15870,7 +15870,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2021-04-01",
-      "trend": 386.81,
+      "trend": 402.43,
       "avg": 390.82,
       "low": 279
     },
@@ -16412,7 +16412,7 @@
       "added": "2021-03-18",
       "trend": 192.35,
       "avg": 300,
-      "low": 59
+      "low": 58.5
     },
     {
       "id": 552299,
@@ -16457,7 +16457,7 @@
       "added": "2021-03-18",
       "trend": 82.19,
       "avg": 147.5,
-      "low": 50
+      "low": 25
     },
     {
       "id": 552314,
@@ -17025,9 +17025,9 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2021-03-17",
-      "trend": 17.22,
+      "trend": 17.42,
       "avg": 18.26,
-      "low": 16.4
+      "low": 16.5
     },
     {
       "id": 551886,
@@ -17162,7 +17162,7 @@
       "added": "2021-03-17",
       "trend": 127.56,
       "avg": 199,
-      "low": 41
+      "low": 35
     },
     {
       "id": 551931,
@@ -17312,7 +17312,7 @@
       "added": "2021-03-16",
       "trend": 16.08,
       "avg": 14.8,
-      "low": 12.89
+      "low": 12.5
     },
     {
       "id": 550351,
@@ -17400,7 +17400,7 @@
       "region": "japanese",
       "regionReason": "fallback",
       "added": "2021-03-15",
-      "trend": 11.94,
+      "trend": 11.56,
       "avg": 10.14,
       "low": 7.5
     },
@@ -17507,7 +17507,7 @@
       "added": "2021-03-15",
       "trend": 13.87,
       "avg": 10,
-      "low": 9.99
+      "low": 8.99
     },
     {
       "id": 550416,
@@ -17627,7 +17627,7 @@
       "added": "2021-03-15",
       "trend": 14.82,
       "avg": 14.99,
-      "low": 12.75
+      "low": 10.75
     },
     {
       "id": 550456,
@@ -18030,7 +18030,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2020-12-15",
-      "trend": 8.96,
+      "trend": 9.03,
       "avg": 8.18,
       "low": 5.8
     },
@@ -18077,7 +18077,7 @@
       "added": "2020-11-25",
       "trend": 114.92,
       "avg": 102.87,
-      "low": 100
+      "low": 104
     },
     {
       "id": 522570,
@@ -18180,7 +18180,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2020-09-01",
-      "trend": 9.42,
+      "trend": 9.49,
       "avg": 8.79,
       "low": 6.5
     },
@@ -18525,7 +18525,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2020-05-20",
-      "trend": 10.73,
+      "trend": 11.35,
       "avg": 9.47,
       "low": 6.5
     },
@@ -18572,7 +18572,7 @@
       "added": "2020-04-07",
       "trend": 9.2,
       "avg": 9.24,
-      "low": 5.75
+      "low": 5.5
     },
     {
       "id": 439523,
@@ -18900,7 +18900,7 @@
       "region": "international",
       "regionReason": "intl-set-name",
       "added": "2019-02-28",
-      "trend": 27.15,
+      "trend": 28.66,
       "avg": 28.68,
       "low": 13.95
     },
@@ -18915,7 +18915,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2018-11-21",
-      "trend": 5738.46,
+      "trend": 4951.64,
       "avg": 1890,
       "low": 2090
     },
@@ -19110,7 +19110,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2017-08-25",
-      "trend": 16.67,
+      "trend": 16.73,
       "avg": 18.44,
       "low": 9
     },
@@ -19140,7 +19140,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2017-06-29",
-      "trend": 23.35,
+      "trend": 24.12,
       "avg": 26.66,
       "low": 12.49
     },
@@ -19232,7 +19232,7 @@
       "added": "2016-10-21",
       "trend": 4069.83,
       "avg": 4112.63,
-      "low": 2939
+      "low": 2999.95
     },
     {
       "id": 293335,
@@ -19245,7 +19245,7 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2016-10-21",
-      "trend": 74.82,
+      "trend": 73.83,
       "avg": 70.33,
       "low": 46
     },
@@ -19515,7 +19515,7 @@
       "region": "international",
       "regionReason": "intl-set-name",
       "added": "2015-05-04",
-      "trend": 73.65,
+      "trend": 73.84,
       "avg": 75,
       "low": 60
     },
@@ -19891,7 +19891,7 @@
       "regionReason": "intl-set-name",
       "added": "2007-01-01",
       "trend": 1473.32,
-      "avg": 2096.25,
+      "avg": 3200,
       "low": 499.95
     },
     {
@@ -19982,7 +19982,7 @@
       "added": "2007-01-01",
       "trend": 1478.55,
       "avg": 1027.98,
-      "low": 990
+      "low": 950
     },
     {
       "id": 271848,
@@ -20057,7 +20057,7 @@
       "added": "2007-01-01",
       "trend": 344.11,
       "avg": 422.54,
-      "low": 105
+      "low": 104.95
     },
     {
       "id": 271853,
@@ -20250,7 +20250,7 @@
       "region": "international",
       "regionReason": "intl-set-name",
       "added": "2007-01-01",
-      "trend": 447.13,
+      "trend": 463.33,
       "avg": 550,
       "low": 400
     },
@@ -20281,7 +20281,7 @@
       "regionReason": "intl-set-name",
       "added": "2007-01-01",
       "trend": 346.85,
-      "avg": 250,
+      "avg": 620.83,
       "low": 500
     },
     {
@@ -20535,9 +20535,9 @@
       "region": "international",
       "regionReason": "intl-only-format",
       "added": "2007-01-01",
-      "trend": 106.24,
+      "trend": 110.24,
       "avg": 93.41,
-      "low": 82
+      "low": 79.99
     },
     {
       "id": 271885,
@@ -21182,7 +21182,7 @@
       "added": "2007-01-01",
       "trend": 3820.32,
       "avg": 6500,
-      "low": 25000
+      "low": 22000
     },
     {
       "id": 271928,
@@ -21452,7 +21452,7 @@
       "added": "2007-01-01",
       "trend": 3605.62,
       "avg": null,
-      "low": 4950
+      "low": 5000
     },
     {
       "id": 271946,
