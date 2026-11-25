@@ -1,16 +1,16 @@
 {
- "date": "2026-11-24",
- "fetchedAt": "2026-11-24T12:02:31.809Z",
+ "date": "2026-11-25",
+ "fetchedAt": "2026-11-25T14:48:53.554Z",
  "shops": [
   {
    "id": "card-corner",
    "name": "Card-Corner",
    "ok": true,
    "errors": [],
-   "raw": 245,
-   "displays": 170,
-   "matched": 166,
-   "seconds": 38
+   "raw": 247,
+   "displays": 172,
+   "matched": 168,
+   "seconds": 27
   },
   {
    "id": "gate-to-the-games",
@@ -20,16 +20,16 @@
    "raw": 172,
    "displays": 119,
    "matched": 119,
-   "seconds": 16
+   "seconds": 19
   },
   {
    "id": "trader-online",
    "name": "Trader-Online",
    "ok": true,
    "errors": [],
-   "raw": 59,
-   "displays": 22,
-   "matched": 18,
+   "raw": 60,
+   "displays": 23,
+   "matched": 19,
    "seconds": 2
   },
   {
@@ -37,8 +37,8 @@
    "name": "Cardcosmos",
    "ok": true,
    "errors": [],
-   "raw": 195,
-   "displays": 138,
+   "raw": 194,
+   "displays": 137,
    "matched": 134,
    "seconds": 1
   },
@@ -190,20 +190,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Mega Brave Display (M1L)",
-   "url": "https://www.card-corner.de/Pokemon-Mega-Brave-Display-M1L",
-   "price": 61.99,
-   "shipping": 5.49,
-   "total": 67.48,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 831326,
-   "cmName": "Mega Brave Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon Gem Pack 2 Display (CBB2C)",
    "url": "https://www.card-corner.de/Pokemon-Gem-Pack-2-Display-CBB2C",
    "price": 79.99,
@@ -218,17 +204,31 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Aura Seeker (M7) Display (Japanisch)",
-   "url": "https://www.card-corner.de/Pokemon-Aura-Seeker-M7-Display-Japanisch",
-   "price": 79.99,
+   "title": "Pokemon Mega Brave Display (M1L)",
+   "url": "https://www.card-corner.de/Pokemon-Mega-Brave-Display-M1L",
+   "price": 61.99,
    "shipping": 5.49,
-   "total": 85.48,
-   "stock": "out",
+   "total": 67.48,
+   "stock": "in",
    "lang": "jp",
    "langSource": "titel",
    "boosters": null,
-   "cmId": 918805,
-   "cmName": "Aura Seeker Booster Box"
+   "cmId": 831326,
+   "cmName": "Mega Brave Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Delta Reign Display",
+   "url": "https://www.card-corner.de/Pokemon-Delta-Reign-Display",
+   "price": 199.99,
+   "shipping": 5.49,
+   "total": 205.48,
+   "stock": "in",
+   "lang": "en",
+   "langSource": "setname",
+   "boosters": null,
+   "cmId": 903956,
+   "cmName": "Delta Reign Booster Box"
   },
   {
    "shop": "card-corner",
@@ -246,17 +246,17 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Storm Emeralda (M6) Display",
-   "url": "https://www.card-corner.de/Pokemon-Storm-Emeralda-M6-Display",
-   "price": 74.99,
+   "title": "Pokemon Nihil Zero (M3) Display",
+   "url": "https://www.card-corner.de/Pokemon-Nihil-Zero-M3-Display",
+   "price": 64.99,
    "shipping": 5.49,
-   "total": 80.48,
+   "total": 70.48,
    "stock": "in",
    "lang": "jp",
    "langSource": "titel",
    "boosters": null,
-   "cmId": 895668,
-   "cmName": "Storm Emeralda Booster Box"
+   "cmId": 864283,
+   "cmName": "Nihil Zero Booster Box"
   },
   {
    "shop": "card-corner",
@@ -274,31 +274,31 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Nihil Zero (M3) Display",
-   "url": "https://www.card-corner.de/Pokemon-Nihil-Zero-M3-Display",
-   "price": 64.99,
+   "title": "Pokemon Aura Seeker (M7) Display (Japanisch)",
+   "url": "https://www.card-corner.de/Pokemon-Aura-Seeker-M7-Display-Japanisch",
+   "price": 79.99,
    "shipping": 5.49,
-   "total": 70.48,
-   "stock": "in",
+   "total": 85.48,
+   "stock": "out",
    "lang": "jp",
    "langSource": "titel",
    "boosters": null,
-   "cmId": 864283,
-   "cmName": "Nihil Zero Booster Box"
+   "cmId": 918805,
+   "cmName": "Aura Seeker Booster Box"
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon 30th Celebration (M6a) Display",
-   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-M6a-Display",
-   "price": 149.99,
+   "title": "Pokemon Storm Emeralda (M6) Display",
+   "url": "https://www.card-corner.de/Pokemon-Storm-Emeralda-M6-Display",
+   "price": 74.99,
    "shipping": 5.49,
-   "total": 155.48,
+   "total": 80.48,
    "stock": "in",
    "lang": "jp",
    "langSource": "titel",
    "boosters": null,
-   "cmId": 891464,
-   "cmName": "30th Celebration JP Booster Box"
+   "cmId": 895668,
+   "cmName": "Storm Emeralda Booster Box"
   },
   {
    "shop": "card-corner",
@@ -330,17 +330,17 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Delta Reign Display",
-   "url": "https://www.card-corner.de/Pokemon-Delta-Reign-Display",
-   "price": 209.99,
-   "shipping": 0,
-   "total": 209.99,
+   "title": "Pokemon 30th Celebration (M6a) Display",
+   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-M6a-Display",
+   "price": 149.99,
+   "shipping": 5.49,
+   "total": 155.48,
    "stock": "in",
-   "lang": "en",
-   "langSource": "setname",
+   "lang": "jp",
+   "langSource": "titel",
    "boosters": null,
-   "cmId": 903956,
-   "cmName": "Delta Reign Booster Box"
+   "cmId": 891464,
+   "cmName": "30th Celebration JP Booster Box"
   },
   {
    "shop": "card-corner",
@@ -386,20 +386,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon 30th Celebration Display (30th C) (Chinesisch)",
-   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-Display-30th-C-Chinesisch",
-   "price": 89.99,
-   "shipping": 5.49,
-   "total": 95.48,
-   "stock": "out",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 908934,
-   "cmName": "30th Celebration Simplified Chinese Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon Brilliant Stars Display - 36 Booster",
    "url": "https://www.card-corner.de/Pokemon-Brilliant-Stars-Display-36-Booster",
    "price": 539.99,
@@ -425,6 +411,20 @@
    "boosters": null,
    "cmId": 579346,
    "cmName": "25th Anniversary Collection Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon 30th Celebration Display (30th C) (Chinesisch)",
+   "url": "https://www.card-corner.de/Pokemon-30th-Celebration-Display-30th-C-Chinesisch",
+   "price": 89.99,
+   "shipping": 5.49,
+   "total": 95.48,
+   "stock": "out",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 908934,
+   "cmName": "30th Celebration Simplified Chinese Booster Box"
   },
   {
    "shop": "card-corner",
@@ -484,17 +484,17 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Obsidian Flames Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Obsidian-Flames-Display-36-Booster",
-   "price": 309.99,
-   "shipping": 0,
-   "total": 309.99,
+   "title": "Pokemon Reisegefährten Display",
+   "url": "https://www.card-corner.de/Pokemon-Reisegefaehrten-Display",
+   "price": 179.99,
+   "shipping": 5.49,
+   "total": 185.48,
    "stock": "in",
-   "lang": "en",
+   "lang": "de",
    "langSource": "setname",
-   "boosters": 36,
-   "cmId": 715465,
-   "cmName": "Obsidian Flames Booster Box"
+   "boosters": null,
+   "cmId": 805579,
+   "cmName": "Journey Together Booster Box"
   },
   {
    "shop": "card-corner",
@@ -540,17 +540,17 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Delta Herrschaft Display",
-   "url": "https://www.card-corner.de/Pokemon-Delta-Herrschaft-Display",
-   "price": 184.99,
-   "shipping": 5.49,
-   "total": 190.48,
+   "title": "Pokemon Destined Rivals Display",
+   "url": "https://www.card-corner.de/Pokemon-Destined-Rivals-Display",
+   "price": 339.99,
+   "shipping": 0,
+   "total": 339.99,
    "stock": "in",
-   "lang": "de",
+   "lang": "en",
    "langSource": "setname",
    "boosters": null,
-   "cmId": 903956,
-   "cmName": "Delta Reign Booster Box"
+   "cmId": 818574,
+   "cmName": "Destined Rivals Booster Box"
   },
   {
    "shop": "card-corner",
@@ -579,6 +579,20 @@
    "boosters": null,
    "cmId": 551776,
    "cmName": "Dragon Storm Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Dunkelnacht Display",
+   "url": "https://www.card-corner.de/Pokemon-Dunkelnacht-Display",
+   "price": 179.99,
+   "shipping": 5.49,
+   "total": 185.48,
+   "stock": "in",
+   "lang": "de",
+   "langSource": "setname",
+   "boosters": null,
+   "cmId": 885545,
+   "cmName": "Pitch Black Booster Box"
   },
   {
    "shop": "card-corner",
@@ -666,6 +680,20 @@
   },
   {
    "shop": "card-corner",
+   "title": "Pokemon Obsidian Flames Display - 36 Booster",
+   "url": "https://www.card-corner.de/Pokemon-Obsidian-Flames-Display-36-Booster",
+   "price": 309.99,
+   "shipping": 0,
+   "total": 309.99,
+   "stock": "in",
+   "lang": "en",
+   "langSource": "setname",
+   "boosters": 36,
+   "cmId": 715465,
+   "cmName": "Obsidian Flames Booster Box"
+  },
+  {
+   "shop": "card-corner",
    "title": "Pokemon Obsidianflammen Display - 36 Booster",
    "url": "https://www.card-corner.de/Pokemon-Obsidianflammen-Display-36-Booster",
    "price": 229.99,
@@ -733,20 +761,6 @@
    "boosters": 36,
    "cmId": 776325,
    "cmName": "Stellar Crown Booster Box"
-  },
-  {
-   "shop": "card-corner",
-   "title": "Pokemon Strahlende Sterne Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Strahlende-Sterne-Display-36-Booster",
-   "price": 339.99,
-   "shipping": 0,
-   "total": 339.99,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "setname",
-   "boosters": 36,
-   "cmId": 583512,
-   "cmName": "Brilliant Stars Booster Box"
   },
   {
    "shop": "card-corner",
@@ -818,34 +832,6 @@
    "boosters": 36,
    "cmId": 665526,
    "cmName": "Lost Origin Booster Box"
-  },
-  {
-   "shop": "card-corner",
-   "title": "Pokemon Welten im Wandel Display",
-   "url": "https://www.card-corner.de/Pokemon-Welten-im-Wandel-Display",
-   "price": 2499.99,
-   "shipping": 0,
-   "total": 2499.99,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "setname",
-   "boosters": null,
-   "cmId": 398439,
-   "cmName": "Cosmic Eclipse Booster Box"
-  },
-  {
-   "shop": "card-corner",
-   "title": "Pokemon Shiny Treasure EX Display (sv4a)",
-   "url": "https://www.card-corner.de/Pokemon-Shiny-Treasure-EX-Display-sv4a",
-   "price": 119.99,
-   "shipping": 5.49,
-   "total": 125.48,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 740461,
-   "cmName": "Shiny Treasure ex Booster Box"
   },
   {
    "shop": "card-corner",
@@ -1103,17 +1089,17 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Destined Rivals Display",
-   "url": "https://www.card-corner.de/Pokemon-Destined-Rivals-Display",
-   "price": 339.99,
-   "shipping": 0,
-   "total": 339.99,
+   "title": "Pokemon Delta Herrschaft Display",
+   "url": "https://www.card-corner.de/Pokemon-Delta-Herrschaft-Display",
+   "price": 184.99,
+   "shipping": 5.49,
+   "total": 190.48,
    "stock": "out",
-   "lang": "en",
+   "lang": "de",
    "langSource": "setname",
    "boosters": null,
-   "cmId": 818574,
-   "cmName": "Destined Rivals Booster Box"
+   "cmId": 903956,
+   "cmName": "Delta Reign Booster Box"
   },
   {
    "shop": "card-corner",
@@ -1142,20 +1128,6 @@
    "boosters": null,
    "cmId": 550356,
    "cmName": "Dream League Booster Box"
-  },
-  {
-   "shop": "card-corner",
-   "title": "Pokemon Dunkelnacht Display",
-   "url": "https://www.card-corner.de/Pokemon-Dunkelnacht-Display",
-   "price": 179.99,
-   "shipping": 5.49,
-   "total": 185.48,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "setname",
-   "boosters": null,
-   "cmId": 885545,
-   "cmName": "Pitch Black Booster Box"
   },
   {
    "shop": "card-corner",
@@ -1285,6 +1257,20 @@
   },
   {
    "shop": "card-corner",
+   "title": "Pokemon Flinke Fäuste 18er Display",
+   "url": "https://www.card-corner.de/Pokemon-Flinke-Faeuste-18er-Display",
+   "price": 0,
+   "shipping": null,
+   "total": null,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "setname",
+   "boosters": 18,
+   "cmId": 924660,
+   "cmName": "Flowing Fists Booster Box (18 Boosters)"
+  },
+  {
+   "shop": "card-corner",
    "title": "Pokemon Flinke Fäuste Display",
    "url": "https://www.card-corner.de/Pokemon-Flinke-Faeuste-Display",
    "price": 0,
@@ -1296,6 +1282,20 @@
    "boosters": null,
    "cmId": 924659,
    "cmName": "Flowing Fists Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Flowing Fists 18er Display",
+   "url": "https://www.card-corner.de/Pokemon-Flowing-Fists-18er-Display",
+   "price": 0,
+   "shipping": null,
+   "total": null,
+   "stock": "out",
+   "lang": "en",
+   "langSource": "setname",
+   "boosters": 18,
+   "cmId": 924660,
+   "cmName": "Flowing Fists Booster Box (18 Boosters)"
   },
   {
    "shop": "card-corner",
@@ -1580,7 +1580,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -1594,7 +1594,7 @@
   {
    "shop": "card-corner",
    "title": "Pokemon Karmesin & Purpur Display - 36 Booster",
-   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster",
+   "url": "https://www.card-corner.de/Pokemon-Karmesin-Purpur-Display-36-Booster_1",
    "price": 179.99,
    "shipping": 5.49,
    "total": 185.48,
@@ -1902,20 +1902,6 @@
   },
   {
    "shop": "card-corner",
-   "title": "Pokemon Reisegefährten Display",
-   "url": "https://www.card-corner.de/Pokemon-Reisegefaehrten-Display",
-   "price": 179.99,
-   "shipping": 5.49,
-   "total": 185.48,
-   "stock": "out",
-   "lang": "de",
-   "langSource": "setname",
-   "boosters": null,
-   "cmId": 805579,
-   "cmName": "Journey Together Booster Box"
-  },
-  {
-   "shop": "card-corner",
    "title": "Pokemon Remix Bout Display (sm11a)",
    "url": "https://www.card-corner.de/Pokemon-Remix-Bout-Display-sm11a",
    "price": 459.99,
@@ -1997,6 +1983,20 @@
    "boosters": null,
    "cmId": 522560,
    "cmName": "Shiny Star V Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Shiny Treasure EX Display (sv4a)",
+   "url": "https://www.card-corner.de/Pokemon-Shiny-Treasure-EX-Display-sv4a",
+   "price": 119.99,
+   "shipping": 5.49,
+   "total": 125.48,
+   "stock": "out",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 740461,
+   "cmName": "Shiny Treasure ex Booster Box"
   },
   {
    "shop": "card-corner",
@@ -2123,6 +2123,20 @@
    "boosters": 36,
    "cmId": 776325,
    "cmName": "Stellar Crown Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Strahlende Sterne Display - 36 Booster",
+   "url": "https://www.card-corner.de/Pokemon-Strahlende-Sterne-Display-36-Booster",
+   "price": 339.99,
+   "shipping": 0,
+   "total": 339.99,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "setname",
+   "boosters": 36,
+   "cmId": 583512,
+   "cmName": "Brilliant Stars Booster Box"
   },
   {
    "shop": "card-corner",
@@ -2417,6 +2431,20 @@
    "boosters": null,
    "cmId": 877295,
    "cmName": "Chaos Rising Booster Box"
+  },
+  {
+   "shop": "card-corner",
+   "title": "Pokemon Welten im Wandel Display",
+   "url": "https://www.card-corner.de/Pokemon-Welten-im-Wandel-Display",
+   "price": 2499.99,
+   "shipping": 0,
+   "total": 2499.99,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "setname",
+   "boosters": null,
+   "cmId": 398439,
+   "cmName": "Cosmic Eclipse Booster Box"
   },
   {
    "shop": "card-corner",
@@ -4172,6 +4200,20 @@
   },
   {
    "shop": "trader-online",
+   "title": "Gem Pack Vol. 7 - Booster-Display (18 Booster) - chinesisch",
+   "url": "https://trader-online.de/pokemon/displays-boxen/booster-displays/gem-pack-vol-7-booster-display-18-booster-chinesisch.html",
+   "price": 44.99,
+   "shipping": 6.99,
+   "total": 51.98,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": 18,
+   "cmId": 918517,
+   "cmName": "CBB7C: Gem Pack Vol. 7 Booster Box"
+  },
+  {
+   "shop": "trader-online",
    "title": "Gem Pack Vol. 4 - Booster-Display (18 Booster) - chinesisch",
    "url": "https://trader-online.de/pokemon/displays-boxen/booster-displays/gem-pack-vol-4-booster-display-18-booster-chinesisch.html",
    "price": 34.99,
@@ -4529,9 +4571,9 @@
    "shop": "cardcosmos",
    "title": "Pokémon - Terastal Gathering Booster Box - CHN",
    "url": "https://cardcosmos.de/products/pokemon-terastal-gathering-booster-box-chinesisch",
-   "price": 49.9,
+   "price": 59.9,
    "shipping": 4.99,
-   "total": 54.89,
+   "total": 64.89,
    "stock": "in",
    "lang": "cn",
    "langSource": "titel",
@@ -4569,6 +4611,20 @@
   },
   {
    "shop": "cardcosmos",
+   "title": "Pokémon - Chasing Glory CSV10C Slim Booster Display - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-chasing-glory-csv10c-slim-booster-display-chinesisch",
+   "price": 24.9,
+   "shipping": 4.99,
+   "total": 29.89,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 895486,
+   "cmName": "CSV10C: Chasing Glory Together Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
    "title": "Pokémon - Terastal Festival ex 10er Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-terastal-festival-ex-display-jpn",
    "price": 179.99,
@@ -4594,20 +4650,6 @@
    "boosters": 5,
    "cmId": 880331,
    "cmName": "CBB5C: Gem Pack Vol. 5 Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
-   "title": "Pokémon - Chasing Glory CSV10C Slim Booster Display - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-chasing-glory-csv10c-slim-booster-display-chinesisch",
-   "price": 24.9,
-   "shipping": 4.99,
-   "total": 29.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 895486,
-   "cmName": "CSV10C: Chasing Glory Together Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -4653,21 +4695,6 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - 30th Anniversary Celebration Booster Display - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-30th-anniversary-celebration-booster-display-chn-presale",
-   "price": 79.9,
-   "shipping": 4.99,
-   "total": 84.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": null,
-   "boosters": null,
-   "cmId": null,
-   "cmName": null,
-   "reason": "kein passendes Set"
-  },
-  {
-   "shop": "cardcosmos",
    "title": "Pokémon - Gem Pack Vol. 7 Booster Box - CHN",
    "url": "https://cardcosmos.de/products/pokemon-gem-pack-vol-7-booster-box-chinesich",
    "price": 44.9,
@@ -4696,20 +4723,6 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - Gem Pack Vol. 3 Booster Box - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-gem-pack-vol-3-booster-box-chinesich-sammler-edition",
-   "price": 69.9,
-   "shipping": 4.99,
-   "total": 74.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": 3,
-   "cmId": 845908,
-   "cmName": "CBB3C: Gem Pack Vol. 3 Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
    "title": "Pokémon - Dark Crystal Blaze Slim Booster Box - CHN",
    "url": "https://cardcosmos.de/products/pokemon-dark-crystal-blaze-slim-booster-box-chinesisch",
    "price": 26.9,
@@ -4721,6 +4734,20 @@
    "boosters": null,
    "cmId": 840065,
    "cmName": "CSV5C: Dark Crystal Blaze Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
+   "title": "Pokémon - Gem Pack Vol. 3 Booster Box - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-gem-pack-vol-3-booster-box-chinesich-sammler-edition",
+   "price": 69.9,
+   "shipping": 4.99,
+   "total": 74.89,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": 3,
+   "cmId": 845908,
+   "cmName": "CBB3C: Gem Pack Vol. 3 Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -4780,6 +4807,20 @@
   },
   {
    "shop": "cardcosmos",
+   "title": "Pokémon - Blade Awakening Slim Booster Box - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-blade-awakening-slim-booster-box-chinesisch",
+   "price": 22.9,
+   "shipping": 4.99,
+   "total": 27.89,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 862202,
+   "cmName": "CSV7C: Blade Awakening Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
    "title": "Pokémon - Paradise Dragona 30er Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-paradise-dragona-30er-display-jpn",
    "price": 134.9,
@@ -4808,20 +4849,6 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - Blade Awakening Slim Booster Box - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-blade-awakening-slim-booster-box-chinesisch",
-   "price": 22.9,
-   "shipping": 4.99,
-   "total": 27.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 862202,
-   "cmName": "CSV7C: Blade Awakening Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
    "title": "Pokémon - Mega-Entwicklung Fatale Flammen Booster Box - DE",
    "url": "https://cardcosmos.de/products/pokemon-fatale-flammen-booster-box-deutsch",
    "price": 319.9,
@@ -4833,20 +4860,6 @@
    "boosters": null,
    "cmId": 846746,
    "cmName": "Phantasmal Flames Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
-   "title": "Pokémon - Cyber Judge 30er Display - JPN",
-   "url": "https://cardcosmos.de/products/pokemon-cyber-judge-30er-display-japanisch",
-   "price": 99.99,
-   "shipping": 4.99,
-   "total": 104.98,
-   "stock": "in",
-   "lang": "jp",
-   "langSource": "titel",
-   "boosters": 30,
-   "cmId": 749456,
-   "cmName": "Cyber Judge Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -4864,6 +4877,34 @@
   },
   {
    "shop": "cardcosmos",
+   "title": "Pokémon - Gem Pack Vol. 2 Booster Box - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-gem-pack-vol-2-booster-box-chinesisch-sammler-edition",
+   "price": 69.9,
+   "shipping": 4.99,
+   "total": 74.89,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": 2,
+   "cmId": 821700,
+   "cmName": "CBB2C: Gem Pack Vol. 2 Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
+   "title": "Pokémon - Cyber Judge 30er Display - JPN",
+   "url": "https://cardcosmos.de/products/pokemon-cyber-judge-30er-display-japanisch",
+   "price": 99.99,
+   "shipping": 4.99,
+   "total": 104.98,
+   "stock": "in",
+   "lang": "jp",
+   "langSource": "titel",
+   "boosters": 30,
+   "cmId": 749456,
+   "cmName": "Cyber Judge Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
    "title": "Pokémon - Crimson Haze 30er Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-crimson-haze-30er-display-japanisch",
    "price": 114.99,
@@ -4878,17 +4919,31 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - Gem Pack Vol. 2 Booster Box - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-gem-pack-vol-2-booster-box-chinesisch-sammler-edition",
-   "price": 69.9,
+   "title": "Pokémon - Black Bolt CSV10.5C Slim Booster Display - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-black-bolt-csv10-5c-slim-booster-display-chinesisch",
+   "price": 34.9,
    "shipping": 4.99,
-   "total": 74.89,
+   "total": 39.89,
    "stock": "in",
    "lang": "cn",
    "langSource": "titel",
-   "boosters": 2,
-   "cmId": 821700,
-   "cmName": "CBB2C: Gem Pack Vol. 2 Booster Box"
+   "boosters": null,
+   "cmId": 918518,
+   "cmName": "CSV10.5C: Black Bolt S-Ch Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
+   "title": "Pokémon - White Flare CSV10.6C Slim Booster Display - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-white-flare-csv10-6c-slim-booster-display-chinesisch",
+   "price": 34.9,
+   "shipping": 4.99,
+   "total": 39.89,
+   "stock": "in",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 918521,
+   "cmName": "CSV10.6C: White Flare S-Ch Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -4949,34 +5004,6 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - White Flare CSV10.6C Slim Booster Display - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-white-flare-csv10-6c-slim-booster-display-chinesisch",
-   "price": 34.9,
-   "shipping": 4.99,
-   "total": 39.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 918521,
-   "cmName": "CSV10.6C: White Flare S-Ch Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
-   "title": "Pokémon - Black Bolt CSV10.5C Slim Booster Display - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-black-bolt-csv10-5c-slim-booster-display-chinesisch",
-   "price": 34.9,
-   "shipping": 4.99,
-   "total": 39.89,
-   "stock": "in",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 918518,
-   "cmName": "CSV10.5C: Black Bolt S-Ch Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
    "title": "Pokémon - Scarlet ex 30er Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-scarlet-ex-30er-display-japanisch",
    "price": 94.99,
@@ -4988,20 +5015,6 @@
    "boosters": 30,
    "cmId": 689087,
    "cmName": "Scarlet ex Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
-   "title": "Pokémon - Karmesin & Purpur: Ewige Rivalen 18er Booster Display - DE",
-   "url": "https://cardcosmos.de/products/pokemon-karmesin-purpur-ewige-rivalen-18er-booster-display-de",
-   "price": 139.9,
-   "shipping": 4.99,
-   "total": 144.89,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": 18,
-   "cmId": 818575,
-   "cmName": "Destined Rivals Booster Box (18 Boosters)"
   },
   {
    "shop": "cardcosmos",
@@ -5019,20 +5032,6 @@
   },
   {
    "shop": "cardcosmos",
-   "title": "Pokémon - Ewige Rivalen Booster Display - DE",
-   "url": "https://cardcosmos.de/products/pokemon-ewige-rivalen-booster-display-deutsch",
-   "price": 319.9,
-   "shipping": 4.99,
-   "total": 324.89,
-   "stock": "in",
-   "lang": "de",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 818574,
-   "cmName": "Destined Rivals Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
    "title": "Pokémon - Mega Evolution Pitch Black Booster Box - EN",
    "url": "https://cardcosmos.de/products/pokemon-mega-evolution-pitch-black-booster-box-englisch",
    "price": 209.9,
@@ -5044,6 +5043,20 @@
    "boosters": null,
    "cmId": 885545,
    "cmName": "Pitch Black Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
+   "title": "Pokémon - Ewige Rivalen Booster Display - DE",
+   "url": "https://cardcosmos.de/products/pokemon-ewige-rivalen-booster-display-deutsch",
+   "price": 319.9,
+   "shipping": 4.99,
+   "total": 324.89,
+   "stock": "in",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 818574,
+   "cmName": "Destined Rivals Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -5313,6 +5326,20 @@
   },
   {
    "shop": "cardcosmos",
+   "title": "Pokémon - Primordial Arts Torrent CS3bC Jumbo Display - CHN",
+   "url": "https://cardcosmos.de/products/pokemon-primordial-arts-torrent-cs3bc-jumbo-display-chinesisch",
+   "price": 29.9,
+   "shipping": 4.99,
+   "total": 34.89,
+   "stock": "out",
+   "lang": "cn",
+   "langSource": "titel",
+   "boosters": null,
+   "cmId": 780123,
+   "cmName": "CS3bC: Primordial Arts - Torrent Jumbo Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
    "title": "Pokémon - Stellar Miracle 30er Display - JPN",
    "url": "https://cardcosmos.de/products/pokemon-stellar-miracle-30er-display-japanisch",
    "price": 94.9,
@@ -5338,20 +5365,6 @@
    "boosters": 30,
    "cmId": 804827,
    "cmName": "Battle Partners Booster Box"
-  },
-  {
-   "shop": "cardcosmos",
-   "title": "Pokémon - Primordial Arts Torrent CS3bC Jumbo Display - CHN",
-   "url": "https://cardcosmos.de/products/pokemon-primordial-arts-torrent-cs3bc-jumbo-display-chinesisch",
-   "price": 29.9,
-   "shipping": 4.99,
-   "total": 34.89,
-   "stock": "out",
-   "lang": "cn",
-   "langSource": "titel",
-   "boosters": null,
-   "cmId": 780123,
-   "cmName": "CS3bC: Primordial Arts - Torrent Jumbo Booster Box"
   },
   {
    "shop": "cardcosmos",
@@ -5605,6 +5618,20 @@
    "boosters": null,
    "cmId": 865408,
    "cmName": "Perfect Order Booster Box"
+  },
+  {
+   "shop": "cardcosmos",
+   "title": "Pokémon - Karmesin & Purpur: Ewige Rivalen 18er Booster Display - DE",
+   "url": "https://cardcosmos.de/products/pokemon-karmesin-purpur-ewige-rivalen-18er-booster-display-de",
+   "price": 139.9,
+   "shipping": 4.99,
+   "total": 144.89,
+   "stock": "out",
+   "lang": "de",
+   "langSource": "titel",
+   "boosters": 18,
+   "cmId": 818575,
+   "cmName": "Destined Rivals Booster Box (18 Boosters)"
   },
   {
    "shop": "cardcosmos",
