@@ -1,8 +1,8 @@
 {
   "priceDate": "2026-11-26",
   "cardmarketCreatedAt": "2026-11-26T09:08:54+0100",
-  "updatedAt": "2026-11-26T14:11:36.366Z",
-  "count": 1462,
+  "updatedAt": "2026-11-27T14:09:19.936Z",
+  "count": 1463,
   "products": [
     {
       "id": 926194,
@@ -438,6 +438,21 @@
       "trend": null,
       "avg": null,
       "low": null
+    },
+    {
+      "id": 926355,
+      "name": "30th Celebration JP Gym Promo Booster",
+      "category": "booster",
+      "type": "promo-pack",
+      "set": "30th Celebration JP Gym Promo",
+      "setDe": null,
+      "expansionId": 6602,
+      "region": "japanese",
+      "regionReason": "name-marker",
+      "added": "2026-11-25",
+      "trend": null,
+      "avg": null,
+      "low": 12.95
     },
     {
       "id": 925805,
